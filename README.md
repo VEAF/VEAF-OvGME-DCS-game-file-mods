@@ -1,6 +1,6 @@
-# DCS VEAF user mods
+# VEAF DCS game mods
 
-Dedicated topic on VEAF forum : https://community.veaf.org/topic/303/ovgme-veaf-user-file-mods
+Dedicated topic on VEAF forum : https://community.veaf.org/topic/304/ovgme-veaf-dcs-game-file-mods
 
 ## How to use this script
 
