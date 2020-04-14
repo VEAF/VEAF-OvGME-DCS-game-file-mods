@@ -10,8 +10,8 @@ join(res.keyCommands,{
 -- Toogle Switches ----------------
 ---------------------------------------------
 
-{down = control_commands.ApPitchAlt_EXT,	up = control_commands.ApPitchAlt_EXT,	cockpit_device_id = devices.CONTROL_INTERFACE,	value_down =  1.0,	value_up = 0.0,	name = _('Autopilot PITCH Switch - ALT HOLD/OFF'),	category = {_('Special For Joystick'), _('Instrument Panel'), _('FLCS')}},
-{down = control_commands.ApPitchAlt_EXT,	up = control_commands.ApPitchAlt_EXT,	cockpit_device_id = devices.CONTROL_INTERFACE,	value_down = -1.0,	value_up = 0.0,	name = _('Autopilot PITCH Switch - ATT HOLD/OFF'),	category = {_('Special For Joystick'), _('Instrument Panel'), _('FLCS')}},
+{down = control_commands.ApPitchAlt_EXT, up = control_commands.ApPitchAlt_EXT, cockpit_device_id = devices.CONTROL_INTERFACE, value_down =  1.0, value_up = -1.0,    name = _('Autopilot PITCH Switch ALT HOLD/OFF'), category = {_('Instrument Panel'), _('FLCS')}},
+{down = control_commands.ApPitchAtt_EXT, up = control_commands.ApPitchAlt_EXT, cockpit_device_id = devices.CONTROL_INTERFACE, value_down = -1.0,    value_up = -1.0, name = _('Autopilot PITCH Switch ATT HOLD/OFF'), category = {_('Instrument Panel'), _('FLCS')}},
 
 ---------------------------------------------
 -- Cheat ------------------------------------
