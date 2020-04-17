@@ -3,7 +3,7 @@ Changes to the MFDs of the F/A-18C to make them more readable in exports.
 Modification des MFDs du F/A-18C pour les rendre plus lisibles dans les exports.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.45915 --
+-- Tested with DCS World 2.5.6.47224 --
 ---------------------------------------
 
 Not my work.

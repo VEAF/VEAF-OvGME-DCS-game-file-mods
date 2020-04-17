@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.4 (04/01/2020) for DCS World 2.5.6.45915 (03/31/2020)
+-- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -306,17 +306,6 @@ txt_m_ftime_r.formats         = {"%1.f"}
 txt_m_ftime_r.stringdefs      = font_size_default                                 -- {0.006,0.006}
 txt_m_ftime_r.controllers     = {{"aam_S530_TOF_D"}}
 AddHUDElement(txt_m_ftime_r)
-
--- 530D Salvo fire
-local txt_salvo_fire          = CreateElement "ceStringPoly"
-txt_salvo_fire.name           = "txt_salvo_fire"
-txt_salvo_fire.material       = indication_font
-txt_salvo_fire.init_pos       = {0.0, -89}                                        -- {0.0, -99.5, 0.0}
-txt_salvo_fire.alignment      = "CenterCenter"
-txt_salvo_fire.stringdefs     = font_size_default                                 -- {0.007,0.007}
-txt_salvo_fire.value          = "S"
-txt_salvo_fire.controllers	= {{"vis_530D_salvo"}}
-AddHUDElement(txt_salvo_fire)
 
 -- Gun Ammo
 local txt_g_ammo_L            = CreateElement "ceStringPoly"

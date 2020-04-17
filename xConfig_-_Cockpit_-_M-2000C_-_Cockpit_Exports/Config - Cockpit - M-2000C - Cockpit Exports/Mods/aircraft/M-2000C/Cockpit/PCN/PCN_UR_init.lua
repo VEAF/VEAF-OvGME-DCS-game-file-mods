@@ -21,6 +21,7 @@ pages = {
 init_pageID			= PAGE_0
 
 collimator_default_distance_factor = {0.6,0,0}
+
 brightness_sensitive_materials = { "pcn_gauge_font", "pcn_gauge_rfont", }
 opacity_sensitive_materials = { "pcn_gauge_font", "pcn_gauge_rfont", }
 

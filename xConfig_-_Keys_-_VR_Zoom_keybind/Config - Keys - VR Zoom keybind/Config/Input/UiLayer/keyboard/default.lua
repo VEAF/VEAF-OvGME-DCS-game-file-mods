@@ -1,6 +1,7 @@
 local ui		= _('UI')
 local vr		= _('VR')
 local general	= _('General')
+local view 		= _('View')
 
 return {
 keyCommands = {
@@ -10,7 +11,8 @@ keyCommands = {
 {combos = {{key = 'Y'	, reformers = {'LCtrl', 'LShift'}	}}	, down = iCommandChatShowHide	, name = _('Chat show/hide')											, category = general},
 {combos = {{key = 'R'	, reformers = {'LShift'}			}}	, down = iCommandMissionRestart	, name = _('Restart Mission')											, category = general},
 {combos = {{key = '\''	, reformers = {'RAlt'}				}}	, down = iCommandBdaShowHide	, name = _('BDA show/hide')												, category = general},
-{combos = {{key = '\`'  , reformers = {'LCtrl','LAlt'}		}}	, pressed = iCommandBdaShowCursor, up = iCommandBdaShowCursorStop, name = _('BDA show cursor')			, category = general},
+-- BDA panel not moved.  remove command
+--{combos = {{key = '\`'  , reformers = {'LCtrl','LAlt'}		}}	, pressed = iCommandBdaShowCursor, up = iCommandBdaShowCursorStop, name = _('BDA show cursor')			, category = general},
 {combos = {{key = 'Tab', reformers = {'LCtrl', 'LShift'} }}, down = iCommandVoiceChat, name = _('Show VoiceChat window'), category = general},
 {down = iCommand_UILayer_MouseLeftButton	, up = iCommand_UILayer_MouseLeftButton		, value_down = 1.0	, value_up = 0.0	, name = _('as left mouse button')		, category = ui},
 {down = iCommand_UILayer_MouseRightButton	, up = iCommand_UILayer_MouseRightButton	, value_down = 1.0	, value_up = 0.0	, name = _('as right mouse button')		, category = ui},
@@ -24,5 +26,12 @@ keyCommands = {
 {down = iHeadTrackerSpyglassZoomToggle, value_down = 1.0, name = _('VR Spyglass Zoom IN')	, category = vr},
 {down = iHeadTrackerSpyglassZoomToggle, value_down = 0.0, name = _('VR Spyglass Zoom OUT')	, category = vr},
 {down = iHeadTrackerPosReset																									, name = _('recenter VR Headset')		, category = vr},
+
+-- View 
+{combos = {{key = 'C', reformers = {'LShift'}}}, down = iCommandViewCameraToClipboard, name = _('Unload camera position to clipboard'), category = view},
+{combos = {{key = 'V', reformers = {'LShift'}}}, down = iCommandViewClipboardToCamera, name = _('Load camera position from clipboard'), category = view},
+
+{combos = {{key = 'F9', reformers = {'RCtrl'}}}, down = iCommandViewCatapult, name = _('Aircraft carrier catapult camera'), category = view},
+{combos = {{key = 'F9', reformers = {'RAlt'}}}, down = iCommandViewCatapultCrew, name = _('Aircraft carrier catapult crew camera'), category = view},
 },
 }

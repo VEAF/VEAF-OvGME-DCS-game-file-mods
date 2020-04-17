@@ -16,7 +16,7 @@ Editez le fichier ViewportHandling.lua pour définir la position exacte du kneeb
     local kneePosX = 2400 -- décalage horizontal à partir du point le plus à gauche de tous les écrans
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.45915 --
+-- Tested with DCS World 2.5.6.47224 --
 ---------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.

@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.4 (04/01/2020) for DCS World 2.5.6.45915 (03/31/2020)
+-- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -370,3 +370,116 @@ rdr_TDC_alt_l.controllers           = {{"rdr_TDC_alt_l"}}
 rdr_TDC_alt_l.parent_element        = vtb_rdr_TDC.name
 rdr_TDC_alt_l.additive_alpha        = true
 Add_VTB_Element(rdr_TDC_alt_l)
+
+-- DO Track
+local	vtb_rdr_trk_DO						      = create_vtb_stt_textured_box(811, 99, 897, 181)      -- ( 825, 103, 891, 179)
+		vtb_rdr_trk_DO.name					      = "vtb_rdr_trk_DO"
+		vtb_rdr_trk_DO.init_pos				    = {0.0, -0.7, 0.0}
+		vtb_rdr_trk_DO.controllers			  = {{"rdr_track_DO_pos"}}
+		vtb_rdr_trk_DO.additive_alpha		  = true
+Add_VTB_Element(vtb_rdr_trk_DO)
+
+local	vtb_trk_DO_vvector					    = CreateElement "ceSimpleLineObject"
+		vtb_trk_DO_vvector.name				    = "vtb_trk_DO_vvector"
+		vtb_trk_DO_vvector.material   	  = vtb_line_material_DO
+		vtb_trk_DO_vvector.width       	  = 0.004                                    -- 0.005
+		vtb_trk_DO_vvector.init_pos			  = {0, -0.7, 0}
+		vtb_trk_DO_vvector.controllers    = {{"rdr_track_DO_th"}}
+Add_VTB_Element(vtb_trk_DO_vvector)
+
+local	vtb_trk_DO_vv_arrow 				      = create_vtb_stt_textured_box(781, 3, 814, 35)  -- ( 789, 13, 809, 31)
+		vtb_trk_DO_vv_arrow.name			      = "vtb_trk_DO_vv_arrow"
+		vtb_trk_DO_vv_arrow.init_pos		    = {0,-0.01,0}                                   -- {0,0,0}
+		vtb_trk_DO_vv_arrow.parent_element	= vtb_trk_DO_vvector.name
+		vtb_trk_DO_vv_arrow.controllers  	  = {{"rdr_track_DO_ah"}}
+		vtb_trk_DO_vv_arrow.additive_alpha	= true
+Add_VTB_Element(vtb_trk_DO_vv_arrow)
+
+local	vtb_trk_DO_b_angle					    = CreateElement "ceStringPoly"
+		vtb_trk_DO_b_angle.name				    = "vtb_trk_DO_b_angle"
+		vtb_trk_DO_b_angle.material			  = vtb_stt_indication_font
+		vtb_trk_DO_b_angle.init_pos			  = {0.0, -0.75, 0.0}
+		vtb_trk_DO_b_angle.alignment		  = "CenterCenter"
+		vtb_trk_DO_b_angle.formats			  = {"%01.f"}
+		vtb_trk_DO_b_angle.stringdefs		  = {0.004,0.004}
+		vtb_trk_DO_b_angle.controllers		= {{"rdr_track_DO_b_angle"}, {"rdr_track_DO_pos"}}
+		vtb_trk_DO_b_angle.additive_alpha	= true
+Add_VTB_Element(vtb_trk_DO_b_angle)
+
+local	vtb_trk_DO_sweep					      = create_vtb_stt_textured_box(993, 6, 1003, 745, nil, 745)     -- ( 997, 8, 1003, 745, nil, 745)
+		vtb_trk_DO_sweep.name				      = "vtb_trk_DO_sweep"
+		vtb_trk_DO_sweep.init_pos			    = {0.0,-0.7, 0.0}
+		vtb_trk_DO_sweep.controllers		  = {{"vtb_sweep_DO", 1.0}}
+		vtb_trk_DO_sweep.additive_alpha	  = true
+Add_VTB_Element(vtb_trk_DO_sweep)
+
+-- DO Track Data
+local	vtb_r_txt_DO_abc				        = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_abc.name			        = "vtb_r_txt_DO_abc"
+		vtb_r_txt_DO_abc.material		      = vtb_stt_indication_font
+		vtb_r_txt_DO_abc.init_pos		      = {0.55, 0.83, 0.0}                              -- {0.6, 0.8, 0.0}
+		vtb_r_txt_DO_abc.alignment		    = "RightCenter"
+		vtb_r_txt_DO_abc.formats		      = {"%1.f"}
+		vtb_r_txt_DO_abc.stringdefs		    = {0.004,0.004}
+		vtb_r_txt_DO_abc.controllers 	    = {{"vis_ddo"}, {"txt_DO_abc"}}
+Add_VTB_Element(vtb_r_txt_DO_abc)
+
+local	vtb_r_txt_DO_vrc_l				      = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_vrc_l.name			      = "vtb_r_txt_DO_vrc_l"
+		vtb_r_txt_DO_vrc_l.material		    = vtb_stt_indication_font
+		vtb_r_txt_DO_vrc_l.init_pos		    = {0.16, 0.825, 0.0}                             -- {0.26, 0.8, 0.0}
+		vtb_r_txt_DO_vrc_l.alignment	    = "LeftCenter"
+		vtb_r_txt_DO_vrc_l.value		      = "VR"
+		vtb_r_txt_DO_vrc_l.stringdefs	    = {0.003,0.003}
+		vtb_r_txt_DO_vrc_l.controllers	  = {{"vis_ddo"}}
+Add_VTB_Element(vtb_r_txt_DO_vrc_l)
+
+local	vtb_r_txt_DO_vrc				        = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_vrc.name			        = "vtb_r_txt_DO_vrc"
+		vtb_r_txt_DO_vrc.material		      = vtb_stt_indication_font
+		vtb_r_txt_DO_vrc.init_pos		      = {0.15, 0.83, 0.0}                              -- {0.25, 0.8, 0.0}
+		vtb_r_txt_DO_vrc.alignment		    = "RightCenter"
+		vtb_r_txt_DO_vrc.formats		      = {"%1.f"}
+		vtb_r_txt_DO_vrc.stringdefs		    = {0.004,0.004}
+		vtb_r_txt_DO_vrc.controllers 	    = {{"vis_ddo"}, {"txt_DO_vrc"}}
+Add_VTB_Element(vtb_r_txt_DO_vrc)
+
+local	vtb_r_txt_DO_rbc				        = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_rbc.name			        = "vtb_r_txt_DO_vrc"
+		vtb_r_txt_DO_rbc.material		      = vtb_stt_indication_font
+		vtb_r_txt_DO_rbc.init_pos		      = {-0.32, 0.83, 0.0}                             -- {-0.3, 0.8, 0.0}
+		vtb_r_txt_DO_rbc.alignment		    = "LeftCenter"
+		vtb_r_txt_DO_rbc.formats		      = {"%03.f"}
+		vtb_r_txt_DO_rbc.stringdefs		    = {0.004,0.004}
+		vtb_r_txt_DO_rbc.controllers 	    = {{"vis_ddo"}, {"txt_DO_rbc"}}
+Add_VTB_Element(vtb_r_txt_DO_rbc)
+
+local	vtb_r_txt_DO_rbc_l				      = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_rbc_l.name			      = "vtb_r_txt_DO_rbc_l"
+		vtb_r_txt_DO_rbc_l.material		    = vtb_stt_indication_font
+		vtb_r_txt_DO_rbc_l.init_pos		    = {-0.38, 0.825, 0.0}                           -- {-0.35, 0.8, 0.0}
+		vtb_r_txt_DO_rbc_l.alignment	    = "LeftCenter"
+		vtb_r_txt_DO_rbc_l.value		      = "RB"
+		vtb_r_txt_DO_rbc_l.stringdefs	    = {0.003,0.003}
+		vtb_r_txt_DO_rbc_l.controllers 	  = {{"vis_ddo"}}
+Add_VTB_Element(vtb_r_txt_DO_rbc_l)
+
+local	vtb_r_txt_DO_mnc				        = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_mnc.name			        = "vtb_r_txt_DO_mnc"
+		vtb_r_txt_DO_mnc.material		      = vtb_stt_indication_font
+		vtb_r_txt_DO_mnc.init_pos		      = {-0.68, 0.83, 0.0}                              -- {-0.6, 0.8, 0.0}
+		vtb_r_txt_DO_mnc.alignment		    = "LeftCenter"
+		vtb_r_txt_DO_mnc.formats		      = {"%1.1f"}
+		vtb_r_txt_DO_mnc.stringdefs		    = {0.004,0.004}
+		vtb_r_txt_DO_mnc.controllers 	    = {{"vis_ddo"}, {"txt_DO_mnc"}}
+Add_VTB_Element(vtb_r_txt_DO_mnc)
+
+local	vtb_r_txt_DO_RAZ				        = CreateElement "ceStringPoly"
+		vtb_r_txt_DO_RAZ.name			        = "vtb_r_txt_DO_RAZ"
+		vtb_r_txt_DO_RAZ.material		      = vtb_stt_indication_font
+		vtb_r_txt_DO_RAZ.init_pos		      = {-1.0, -0.85, 0.0}                              -- {-0.9, -0.75, 0.0}
+		vtb_r_txt_DO_RAZ.alignment		    = "LeftCenter"
+		vtb_r_txt_DO_RAZ.value			      = "RAZ"
+		vtb_r_txt_DO_RAZ.stringdefs		    = {0.004,0.004}
+		vtb_r_txt_DO_RAZ.controllers 	    = {{"vis_ddo"}}
+Add_VTB_Element(vtb_r_txt_DO_RAZ)

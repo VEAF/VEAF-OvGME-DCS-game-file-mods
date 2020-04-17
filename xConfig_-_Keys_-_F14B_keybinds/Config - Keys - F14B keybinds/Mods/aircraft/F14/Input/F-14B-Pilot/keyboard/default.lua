@@ -466,6 +466,19 @@ join_override(res.keyCommands,{
 { cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_VSL_Low, value_down=1.0,	name=_('Radar - VSL Low'),	 category=_('Jester AI')},
 { cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_TogglePDorPStt, value_down=1.0,	name=_('Radar - Toggle PD-STT or P-STT'),	 category=_('Jester AI')},
 { cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_BreakLock, value_down=1.0,	name=_('Radar - Break Lock'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Range_Auto, value_down=1.0,	name=_('Radar - Range Auto'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Range_25 , value_down=1.0,	name=_('Radar - Range 25'),	     category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Range_50 , value_down=1.0,	name=_('Radar - Range 50'),	     category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Range_100, value_down=1.0,	name=_('Radar - Range 100'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Range_200, value_down=1.0,	name=_('Radar - Range 200'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Range_400, value_down=1.0,	name=_('Radar - Range 400'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Lock_Ahead, value_down=1.0,	name=_('Radar - STT Lock Ahead'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Lock_Ahead_Enemy, value_down=1.0,	name=_('Radar - STT Lock Enemy Ahead'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Lock_Ahead_Friendly, value_down=1.0,	name=_('Radar - STT Lock Friendly Ahead'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Ground_Stabilize, value_down=1.0,	name=_('Radar - Ground Stabilize'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Aircraft_Stabilize, value_down=1.0,	name=_('Radar - Aircraft Stabilize'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Radar_TWS, value_down=1.0,	name=_('Radar - TWS Mode'),	 category=_('Jester AI')},
+{ cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Radar_RWS, value_down=1.0,	name=_('Radar - RWS Mode'),	 category=_('Jester AI')},
 
 
 

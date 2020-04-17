@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.4 (04/01/2020) for DCS World 2.5.6.45915 (03/31/2020)
+-- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -588,12 +588,19 @@ Magic_Lock_OOB.parent_element	= VTH_center.name
 Magic_Lock_OOB.controllers		= {{"vis_magic_l", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
 AddHUDElement(Magic_Lock_OOB)
 
-local Magic_Slave             = create_vth_textured_box(35, 823, 155, 929)        -- (36, 822, 156, 928)
+local Magic_Slave             = create_vth_textured_box(43, 833, 147, 929)        -- (36, 822, 156, 928)
 Magic_Slave.name              = "Magic_Slave"
-Magic_Slave.init_pos          = {0, 5.0, 0}                                       -- {0, 0.5, 0}
+Magic_Slave.init_pos          = {0, 0, 0}
 Magic_Slave.parent_element    = VTH_center.name
 Magic_Slave.controllers       = {{"vis_magic_r", 0.6}}
 AddHUDElement(Magic_Slave)
+
+local	Magic_Slave_OOB					= create_vth_textured_box(171, 833, 275, 929)       -- (162, 822, 252, 928)
+Magic_Slave_OOB.name			    = "Magic_Slave_OOB"
+Magic_Slave_OOB.init_pos		  = {0, 0, 0}
+Magic_Slave_OOB.parent_element	= VTH_center.name
+Magic_Slave_OOB.controllers		= {{"vis_magic_r", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
+AddHUDElement(Magic_Slave_OOB)
 
 -- MAV
 local	Magic_MAV					      = create_vth_textured_box(418, 944, 460, 982)       -- (627, 70, 670, 105)

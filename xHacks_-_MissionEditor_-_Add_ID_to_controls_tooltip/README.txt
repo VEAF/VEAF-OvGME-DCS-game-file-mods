@@ -5,7 +5,7 @@ Ajoute l'identifiant des contrôles aux infobulles du dialogue d'édition des co
 Très pratique pour savoir quoi mettre dans le trigger COCKPIT PERFORM CLICKABLE ACTION
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.45915 --
+-- Tested with DCS World 2.5.6.47224 --
 ---------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.

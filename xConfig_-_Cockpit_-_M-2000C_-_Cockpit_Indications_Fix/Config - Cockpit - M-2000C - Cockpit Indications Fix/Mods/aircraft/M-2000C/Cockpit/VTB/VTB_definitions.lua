@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.4 (04/01/2020) for DCS World 2.5.6.45915 (03/31/2020)
+-- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."elements_defs.lua")
 
@@ -34,6 +34,7 @@ vtb_Grid_0_material 	= "vtb_Grid_0_material"
 vtb_Grid_1_material 	= "vtb_Grid_1_material"
 vtb_Grid_2_material 	= "vtb_Grid_2_material"
 vtb_line_material		  = "vtb_line_material"
+vtb_line_material_DO	= "vtb_line_material_DO"
 
 -- Symbols
 vtb_ind_material    	= "vtb_ind_material"
@@ -43,8 +44,6 @@ vtb_rdr_ind_material	= "vtb_rdr_ind_material"
 
 -- Page 2
 vtb_pg2_material    	= "vtb_pg2_material"
-
---------------------------------
 
 ----------- Fonts --------------
 vtb_indication_font 	= "vtb_indication_font"

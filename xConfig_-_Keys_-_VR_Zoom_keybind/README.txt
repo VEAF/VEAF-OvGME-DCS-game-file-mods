@@ -5,7 +5,7 @@ Commandes de zoom VR qui peuvent être associées à des boutons ou des touches.
 Offre des commandes continues (qui réinitialisent le zoom quand on lache le bouton) pour le VR Zoom et le VR Spyglass.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.45915 --
+-- Tested with DCS World 2.5.6.47224 --
 ---------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.

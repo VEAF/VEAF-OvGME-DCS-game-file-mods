@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.4 (04/01/2020) for DCS World 2.5.6.45915 (03/31/2020)
+-- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -417,9 +417,7 @@ for i = 0, 9 do
 
 end
 
-
--- STT Mode
--- Track
+-- STT Track Symbols
 vtb_rdr_trk_STT                         = create_vtb_textured_box(722, 183, 808, 265)  -- ( 734, 187, 800, 263)
 vtb_rdr_trk_STT.name                    = "vtb_rdr_trk_STT"
 vtb_rdr_trk_STT.init_pos                = {0.0, -0.7, 0.0}
@@ -451,7 +449,7 @@ vtb_trk_stt_vv_arrow.controllers        = {{"rdr_track_stt_ah", 0.01}}
 vtb_trk_stt_vv_arrow.additive_alpha     = true
 Add_VTB_Element(vtb_trk_stt_vv_arrow)
 
--- STT Text Data
+-- STT Track Text
 vtb_rdr_trk_STT_mach                    = CreateElement "ceStringPoly"
 vtb_rdr_trk_STT_mach.name               = "vtb_rdr_trk_STT_mach"
 vtb_rdr_trk_STT_mach.material           = vtb_indication_font
@@ -508,13 +506,14 @@ vtb_rdr_trk_STT_nctr.controllers        = {{"rdr_track_stt_nctr"}}
 vtb_rdr_trk_STT_nctr.additive_alpha     = true
 Add_VTB_Element(vtb_rdr_trk_STT_nctr)
 
--- Jamming
+-- STT Track Jamming
 vtb_rdr_trk_STT_jam_bt                  = create_vtb_textured_box(1004, 6, 1014, 748, nil, 748) -- ( 1010, 8, 1014, 745, nil, 745)
 vtb_rdr_trk_STT_jam_bt.name             = "vtb_rdr_trk_STT_jam_bt"
 vtb_rdr_trk_STT_jam_bt.init_pos         = {0.0,-0.7, 0.0}
 vtb_rdr_trk_STT_jam_bt.controllers      = {{"rdr_track_stt_jam_bt", 1.0}}
 vtb_rdr_trk_STT_jam_bt.additive_alpha   = true
 Add_VTB_Element(vtb_rdr_trk_STT_jam_bt)
+
 
 -- Locked Track Data
 vtb_r_txt_trk_abc                 = CreateElement "ceStringPoly"
@@ -577,12 +576,17 @@ vtb_r_txt_trk_mnc.stringdefs      = {0.004,0.004}
 vtb_r_txt_trk_mnc.controllers     = {{"vis_dcible"}, {"txt_mnc"}}
 Add_VTB_Element(vtb_r_txt_trk_mnc)
 
--- Boresights
-
--- POL Mode
+-- Flight Director
 vtb_rdr_pol_bore                  = create_vtb_textured_box(502, 100, 718, 316)
 vtb_rdr_pol_bore.name             = "vtb_rdr_pol_bore"
 vtb_rdr_pol_bore.init_pos         = {0.0, 0.0, 0.0}
 vtb_rdr_pol_bore.controllers      = {{"vis_pol_bore"}}
 vtb_rdr_pol_bore.additive_alpha   = true
 Add_VTB_Element(vtb_rdr_pol_bore)
+
+vtb_rdr_pol_director				      = create_vtb_textured_box(821, 7, 849, 33)      -- (825, 8, 850, 33)
+vtb_rdr_pol_director.name			    = "vtb_rdr_pol_director"
+vtb_rdr_pol_director.init_pos		  = {0.0, 0.0, 0.0}
+vtb_rdr_pol_director.controllers	= {{"vis_pol_drct"}}
+vtb_rdr_pol_director.additive_alpha	= true
+Add_VTB_Element(vtb_rdr_pol_director)

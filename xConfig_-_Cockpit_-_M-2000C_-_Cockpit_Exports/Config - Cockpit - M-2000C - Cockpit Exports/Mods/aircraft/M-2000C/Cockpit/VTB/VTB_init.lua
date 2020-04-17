@@ -46,6 +46,7 @@ brightness_sensitive_materials = {
 	"vtb_stt_material",
 	"vtb_wrn_material",
 	"vtb_line_material",
+	"vtb_line_material_DO",
 	"vtb_pg2_material",
 	"vtb_indication_font",
 	"vtb_stt_indication_font",

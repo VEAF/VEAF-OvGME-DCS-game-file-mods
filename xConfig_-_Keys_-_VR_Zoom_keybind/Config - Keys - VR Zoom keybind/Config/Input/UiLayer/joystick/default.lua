@@ -24,7 +24,8 @@ keyCommands =
 	{category = general	, down = iCommandAllChat																										, name = _('Chat read/write All')},
 	{category = general	, down = iCommandChatShowHide																									, name = _('Chat show/hide')},
 	{category = general	, down = iCommandBdaShowHide																									, name = _('BDA show/hide')},
-	{category = general	, down = iCommandBdaShowCursor				, up = iCommandBdaShowCursorStop			, value_down = 1.0	, value_up = 0.0	, name = _('BDA show cursor')},
+-- BDA panel not moved.  remove command
+--	{category = general	, pressed = iCommandBdaShowCursor				, up = iCommandBdaShowCursorStop			, value_down = 1.0	, value_up = 0.0	, name = _('BDA show cursor')},
 	{category = ui	, down = iCommandPushToTalkEnableVoice				, up = iCommandPushToTalkDisableVoice, name = _('VoiceChat push-to-talk mic. mode: On/Off voice transfer')},
 },
 

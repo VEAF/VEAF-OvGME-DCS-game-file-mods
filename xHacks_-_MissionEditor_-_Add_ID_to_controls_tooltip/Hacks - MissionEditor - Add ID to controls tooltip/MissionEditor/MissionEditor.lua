@@ -72,7 +72,8 @@ function loadTypeOfSale()
         GAMEFLY     = "GAMEFLY",
         GAMEFLY_UK  = "GAMEFLY_UK",
         KOCHMEDIA   = "KOCHMEDIA",
-		DCSPRO		= "DCSPRO",
+        DCSPRO      = "DCSPRO",
+        PREVIEW     = "PREVIEW",
     }
     local result = {type = "ED", enableModulesManager = true, enableTrainingLinks = true}
     local typesSales
@@ -83,29 +84,33 @@ function loadTypeOfSale()
         typesSales = file:read('*line')
         file:close()
     end
-   
+
     if typesSales ~= nil and ValidTypes[typesSales] ~= nil then
         result.type = typesSales
     else
         result.type = "ED"        
     end
-    
+
     if result.type ~= "ED" then
         result.enableModulesManager = false
     end 
-    
+
     if result.type ~= "ED" 
         and result.type ~= "GAMEFLY" 
         and result.type ~= "GAMEFLY_UK"
         and result.type ~= "KOCHMEDIA" then
         result.enableTrainingLinks = false
     end 
-	
-	if result.type == "DCSPRO" then
-		result.noNews = true
-		result.noOffline = true
-	end
- 
+
+    if result.type == "DCSPRO" then
+        result.noNews = true
+        result.noOffline = true
+    end
+
+    if result.type == "PREVIEW" then
+        result.noOffline = true
+    end
+
     return result
 end
 
@@ -268,6 +273,7 @@ local function createUsersDirs()
     lfs.mkdir(userFiles.userCampaignPath..'\\MultiLang')
 	lfs.mkdir(userFiles.userTrackPath)
 	lfs.mkdir(userFiles.userMgPath)
+	lfs.mkdir(userFiles.userOptionsPresetsPath)
 end
 
 function createProgressBar()

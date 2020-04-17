@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.4 (04/01/2020) for DCS World 2.5.6.45915 (03/31/2020)
+-- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."Fonts/symbols_locale.lua")
 dofile(LockOn_Options.common_script_path.."Fonts/fonts_cmn.lua")
@@ -80,6 +80,7 @@ textures["vtb_rdr_ind_material"]  = {LockOn_Options.script_path.."Resources/Indi
 textures["vtb_stt_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["VTB_STT_COLOR"]}
 textures["vtb_wrn_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["VTB_WRN_COLOR"]}
 textures["vtb_line_material"]     = {nil, materials["VTB_IND_COLOR_ATT"]} -- {nil, materials["VTB_IND_COLOR"]}
+textures["vtb_line_material_DO"]	= {nil, materials["VTB_STT_COLOR"]}
 
 -- Page 2
 textures["vtb_pg2_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Page_2.tga", materials["VTB_IND_COLOR"]}
