@@ -5,7 +5,7 @@ Commandes de zoom instantané qui peuvent être associées à des boutons ou des
 Inclut 4 niveaux de zoom (20%, 40%, 60%, 80%) et pour chaque une commande persistente et une autre qui réinitialise le zoom quand on lache le bouton.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.47224 --
+-- Tested with DCS World 2.5.6.49314 --
 ---------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.

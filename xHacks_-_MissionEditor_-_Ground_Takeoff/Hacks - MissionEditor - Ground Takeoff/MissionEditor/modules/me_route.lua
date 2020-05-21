@@ -89,6 +89,10 @@ function isTakeOff(type)
 			type.type == actions.takeoffRunway.type
 end
 
+function isTakeOffRunway(type)
+    return type.type == actions.takeoffRunway.type
+end
+
 function isLandingReFuAr(type)
     return  type.type == actions.LandingReFuAr.type 
 end
@@ -473,13 +477,13 @@ end
 
 -------------------------------------------------------------------------------
 -- move waypoint to closest airdrome
-function attractToAirfield(wpt, group)
-    module_mission.unlinkWaypoint(wpt)
+function attractToAirfield(wpt, group)   
+	module_mission.unlinkWaypoint(wpt)
 	local speed = 0;
 	local roadnet, x, y, apt, groupForLanding, unitForLanding
 	local res
 	
-	if (isTakeOffParking(wpt.type)) then        
+	if (isTakeOffParking(wpt.type)) then  
 		res, apt = mod_parking.setAirGroupOnAirport(group, wpt.x, wpt.y) 
 		if res == false then	
 			return false
@@ -1747,9 +1751,10 @@ function updateDepth(a_wpt)
 	end
 end
 
-function isSubmarineInGroup()
-	for k,v in base.pairs(vdata.group.units) do
-		local unitDef = DB.unit_by_type[v.type]					
+function isSubmarineInGroup(a_group)
+	for k,v in base.pairs(a_group.units) do
+		local unitDef = DB.unit_by_type[v.type]		
+		
 		if unitDef.attribute[3] == base.wsType_Submarine then						
 			return true
 		end
@@ -1759,7 +1764,7 @@ end
 				
 -------------------------------------------------------------------------------
 --
-function update(a_noUpdateActionsList)
+function update()
 	pAlt:setVisible(true)
 	pDepth:setVisible(false)
 			
@@ -1791,7 +1796,7 @@ function update(a_noUpdateActionsList)
 			
 			s_depth:setEnabled(false)
 			if base.isPlannerMission() ~= true then
-				if isSubmarineInGroup() then
+				if isSubmarineInGroup(vdata.group) then
 					s_depth:setEnabled(true)
 				else
 					vdata.wpt.depth = 0
@@ -1826,20 +1831,7 @@ function update(a_noUpdateActionsList)
 		if -1 == maxAlt then
 			maxAlt = 10000
 		end
-
-		if a_noUpdateActionsList ~= true then
-			if ((base.isPlannerMission() == false) 
-				or ((vdata.group.units) and (vdata.group.units[1])
-					and (vdata.group.units[1].skill == crutches.getPlayerSkill())))	then
-					
-				if window:isVisible() == true then
-					actionsListBox:update(true)
-				else
-					panel_triggered_actions.updateActionsListBox()
-				end	
-			end
-		end
-	 
+ 
 		updateWaypointTypeCombo();
 	   
 		c_type:switchWidth(vdata.group.type)
@@ -2091,9 +2083,14 @@ function open(wptIndex, task)
 		or ((vdata.group.units) and (vdata.group.units[1])
 			and (vdata.group.units[1].skill == crutches.getPlayerSkill())))	then
 		if task then
-			if actionsListBox:selectItemByTaskAndOpenPanel(task) == false then
-                panel_triggered_actions.selectItemByTaskAndOpenPanel(task)
-            end
+			if (base.isPlannerMission() == false) then
+				if actionsListBox:selectItemByTaskAndOpenPanel(task) == false then
+					panel_triggered_actions.selectItemByTaskAndOpenPanel(task)
+					panel_triggered_actions.updateActionsListBox()
+				else
+					actionsListBox:update(true)
+				end
+			end
 		end
 	end
 end

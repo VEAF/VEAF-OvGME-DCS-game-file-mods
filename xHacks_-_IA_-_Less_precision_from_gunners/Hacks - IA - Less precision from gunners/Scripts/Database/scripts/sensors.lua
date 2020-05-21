@@ -136,6 +136,7 @@ if(_testing_) then
     WSN_8 = WSN_0;
 	WSN_9 = WSN_0;
 	WSN_10 = WSN_0;
+	WSN_11 = WSN_0;
 end
 
 GT_t.WSN_t = {WSN_1, WSN_2, WSN_3, WSN_4, WSN_5, WSN_6, WSN_7, WSN_8, WSN_9, WSN_10, WSN_11};
