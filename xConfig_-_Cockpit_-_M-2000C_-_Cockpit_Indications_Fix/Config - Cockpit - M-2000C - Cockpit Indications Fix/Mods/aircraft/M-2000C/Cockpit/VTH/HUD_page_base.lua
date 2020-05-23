@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
+-- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -529,14 +529,14 @@ local rdr_tgtbox                  = create_vth_textured_box(886, 76, 968, 158)  
 rdr_tgtbox.name                   = "rdr_tgtbox"
 rdr_tgtbox.init_pos               = {0, 0, 0}
 rdr_tgtbox.parent_element         = VTH_center.name
-rdr_tgtbox.controllers            = {{"vis_radar_tgt"}, {"radar_tgt_box", 0.87}}
+rdr_tgtbox.controllers            = {{"radar_tgt_box", 0.87}}
 AddHUDElement(rdr_tgtbox)
 
 local rdr_tgtbox_oob              = create_vth_textured_box(886, 162, 968, 244)   -- ( 887, 163, 967, 243)
 rdr_tgtbox_oob.name               = "rdr_tgtbox_oob"
 rdr_tgtbox_oob.init_pos           = {0, 0, 0}
 rdr_tgtbox_oob.parent_element     = VTH_center.name
-rdr_tgtbox_oob.controllers        = {{"vis_radar_tgt"}, {"radar_tgt_box", 0.87}, {"bound_by_circle", RFOV_radius * GetScale()}} 
+rdr_tgtbox_oob.controllers        = {{"radar_tgt_box", 0.87}, {"bound_by_circle", RFOV_radius * GetScale()}}
 AddHUDElement(rdr_tgtbox_oob)
 
 local rdr_tgt_iff_status          = CreateElement "ceStringPoly"

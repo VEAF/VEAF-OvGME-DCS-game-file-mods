@@ -3,10 +3,11 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
+-- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
+dofile(my_path.."VTB_MDO_Menu.lua")
 
 local DBG_RED = MakeMaterial(nil, {255,0,0,50})
 
@@ -81,7 +82,7 @@ Add_VTB_Element(ac_vv_arrow)
 local vtb_roll_ind              = create_vtb_textured_box(71, 3, 391, 17)          -- (7, 9, 459, 13)
 vtb_roll_ind.name               = "vtb_roll_ind"
 vtb_roll_ind.init_pos           = {0,0,0}
-vtb_roll_ind.controllers        = {{"vtb_roll", 0.5},{"vtb_pitch", -0.05}}
+vtb_roll_ind.controllers        = {{"vtb_ac_attitude", 0.5, -0.05}}
 vtb_roll_ind.additive_alpha     = true
 Add_VTB_Element(vtb_roll_ind)
 
@@ -162,7 +163,7 @@ vtb_txt_ralt.init_pos           = {0.65, -0.965, 0.0}                           
 vtb_txt_ralt.alignment          = "RightCenter"
 vtb_txt_ralt.formats            = {"%01.f"}
 vtb_txt_ralt.stringdefs         = {0.004,0.004}                                -- {0.004,0.004}
-vtb_txt_ralt.controllers        = {{"vis_ralt"}, {"txt_ralt",0}}
+vtb_txt_ralt.controllers        = {{"txt_ralt"}}
 Add_VTB_Element(vtb_txt_ralt)
 
 local vtb_txt_ralt_i            = CreateElement "ceStringPoly"
@@ -379,6 +380,14 @@ local	vtb_rdr_trk_DO						      = create_vtb_stt_textured_box(811, 99, 897, 181)
 		vtb_rdr_trk_DO.additive_alpha		  = true
 Add_VTB_Element(vtb_rdr_trk_DO)
 
+local	vtb_rdr_trk_MDO						      = create_vtb_stt_textured_box(792, 54, 829, 90)      -- (785, 54, 835, 90)
+		vtb_rdr_trk_MDO.name				      = "vtb_rdr_trk_MDO"
+		vtb_rdr_trk_MDO.init_pos			    = {0.0, 0.0, 0.0}
+		vtb_rdr_trk_MDO.parent_element		= vtb_rdr_trk_DO.name
+		vtb_rdr_trk_MDO.controllers			  = {{"rdr_track_MDO_pos"}}
+		vtb_rdr_trk_MDO.additive_alpha		= true
+Add_VTB_Element(vtb_rdr_trk_MDO)
+
 local	vtb_trk_DO_vvector					    = CreateElement "ceSimpleLineObject"
 		vtb_trk_DO_vvector.name				    = "vtb_trk_DO_vvector"
 		vtb_trk_DO_vvector.material   	  = vtb_line_material_DO
@@ -481,5 +490,5 @@ local	vtb_r_txt_DO_RAZ				        = CreateElement "ceStringPoly"
 		vtb_r_txt_DO_RAZ.alignment		    = "LeftCenter"
 		vtb_r_txt_DO_RAZ.value			      = "RAZ"
 		vtb_r_txt_DO_RAZ.stringdefs		    = {0.004,0.004}
-		vtb_r_txt_DO_RAZ.controllers 	    = {{"vis_ddo"}}
+		vtb_r_txt_DO_RAZ.controllers 	    = {{"vis_ddo_RAZ"}}
 Add_VTB_Element(vtb_r_txt_DO_RAZ)

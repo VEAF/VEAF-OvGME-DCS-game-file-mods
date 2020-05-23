@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
+-- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -236,17 +236,15 @@ local Ret_CCRP_Sight              = create_vth_textured_box(711, 61, 792, 118)  
 Ret_CCRP_Sight.name               = "Ret_CCRP_Sight"
 Ret_CCRP_Sight.init_pos           = {0, 0.0, 0}
 Ret_CCRP_Sight.parent_element     = FOV_center2.name
-Ret_CCRP_Sight.controllers        = {{"ag_ccrp_sight"}}
+Ret_CCRP_Sight.controllers        = {{"ag_ccrp_sight", 1.5}}
 AddHUDElement(Ret_CCRP_Sight)
 
---[[
 local CCRP_reticule               =  create_vth_textured_box(525, 57, 582, 113)   -- ( 526, 59, 581, 113)
 CCRP_reticule.name                = "CCRP_reticule"
 CCRP_reticule.init_pos            = {0, 0, 0}
 CCRP_reticule.parent_element      = FOV_center2.name
 CCRP_reticule.controllers         = {{"ag_ccrp_TDC"}}
 AddHUDElement(CCRP_reticule)
---]]
 
 local Ret_CCRP_Sight_Az           = create_vth_textured_box(90, 212, 249, 218)    -- ( 92, 213, 248, 216)
 Ret_CCRP_Sight_Az.name            = "Ret_CCRP_Sight_Az"

@@ -1,4 +1,4 @@
-@echo off
+rem @echo off
 setlocal enabledelayedexpansion
 set MODSNAME=VEAF DCS game mods
 set FOLDER=VEAF_DCS_game_mods

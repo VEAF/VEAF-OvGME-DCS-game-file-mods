@@ -7,7 +7,7 @@ Commandes supplémentaires prêtes à être associées à des interrupteurs à 2
 Pour le F-16C Viper.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.47224 --
+-- Tested with DCS World 2.5.6.49314 --
 ---------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.
