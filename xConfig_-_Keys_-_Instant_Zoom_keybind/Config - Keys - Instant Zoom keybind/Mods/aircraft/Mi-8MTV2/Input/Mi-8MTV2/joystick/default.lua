@@ -14,14 +14,14 @@ ignore_features(res.keyCommands,{
 join(res.keyCommands,{
 
 -- COCKPIT VIEW FOV / ZOOM PRESETS
-{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.2, name = _('Instant 20% zoom until release'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, value_down = -0.2, name = _('Instant 20% zoom'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.4, name = _('Instant 40% zoom until release'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, value_down = -0.4, name = _('Instant 40% zoom'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.6, name = _('Instant 60% zoom until release'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, value_down = -0.6, name = _('Instant 60% zoom'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.8, name = _('Instant 80% zoom until release'), category =  _('View Cockpit absolute FOV')},
-{down = iCommandViewZoomAbs, value_down = -0.8, name = _('Instant 80% zoom'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.15, name = _('Instant 0.15 zoom until release'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, value_down = -0.15, name = _('Instant 0.15 zoom'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.4, name = _('Instant 0.4 zoom until release'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, value_down = -0.4, name = _('Instant 0.4 zoom'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -0.75, name = _('Instant 0.75 zoom until release'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, value_down = -0.75, name = _('Instant 0.75 zoom'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, up = iCommandViewAngleDefault, value_down = -1.0, name = _('Instant 1.0 zoom until release'), category =  _('View Cockpit absolute FOV')},
+{down = iCommandViewZoomAbs, value_down = -1.0, name = _('Instant 1.0 zoom'), category =  _('View Cockpit absolute FOV')},
 	
 ------------------------------------------------
 -- Cheat ---------------------------------------
