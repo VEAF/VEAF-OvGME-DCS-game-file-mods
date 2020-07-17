@@ -3,7 +3,7 @@ Allows to put an aircraft as "start from ground" (same as helicopters) in the mi
 Permet de placer un avion en "démarrage au sol" (comme les hélicoptères) dans l'éditeur de mission.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.49314 --
+-- Tested with DCS World 2.5.6.52196      --
 ---------------------------------------
 
 Not my work.

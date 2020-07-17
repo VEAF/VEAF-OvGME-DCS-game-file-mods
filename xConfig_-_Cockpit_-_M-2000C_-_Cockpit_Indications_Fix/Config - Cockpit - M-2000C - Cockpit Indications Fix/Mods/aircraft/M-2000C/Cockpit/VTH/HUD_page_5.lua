@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -140,10 +140,10 @@ txt_GMeter_L.stringdefs       = font_size_default                               
 txt_GMeter_L.value            = "G"
 AddHUDElement(txt_GMeter_L)
 
-local aoa_symbol              = create_vth_textured_box(932, 291, 961, 315)       -- ( 967, 293, 997, 320)
+local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)       -- ( 967, 293, 997, 320)
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
-aoa_symbol.init_pos           = {-118.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
+aoa_symbol.init_pos           = {-115.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
 aoa_symbol.controllers	      = {{"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
@@ -205,20 +205,20 @@ AA_CCM_Text_SMode.controllers       = {{"aa_cam_text_smode"}}
 AddHUDElement(AA_CCM_Text_SMode)
 
 -- WEAPONS CUES
-local txt_dom_magic             = CreateElement "ceStringPoly"
-txt_dom_magic.name              = "txt_dom_magic"
-txt_dom_magic.material          = indication_font_light                             -- indication_font
-txt_dom_magic.init_pos          = {0.0, -5.0, 0.0}                                -- {0.0, -50.0, 0.0}
-txt_dom_magic.alignment         = "CenterCenter"
-txt_dom_magic.stringdefs        = font_size_large                                 -- {0.009,0.009}
-txt_dom_magic.value             = "DOM"
-txt_dom_magic.controllers       = {{"vis_gun_dom"}}
+local txt_dom_magic                 = CreateElement "ceStringPoly"
+txt_dom_magic.name                  = "txt_dom_magic"
+txt_dom_magic.material              = indication_font_light                           -- indication_font
+txt_dom_magic.init_pos              = {0.0, -52.0, 0.0}                               -- {0.0, -50.0, 0.0}
+txt_dom_magic.alignment             = "CenterCenter"
+txt_dom_magic.stringdefs            = font_size_large                                 -- {0.009,0.009}
+txt_dom_magic.value                 = "DOM"
+txt_dom_magic.controllers           = {{"vis_gun_dom"}}
 AddHUDElement(txt_dom_magic)
 
 -- Missiles
-local AAM_NEZ_Ring              = create_vth_textured_box(210, 660, 328, 779)     -- ( 192, 643, 346, 797)
-AAM_NEZ_Ring.name               = "AAM_NEZ_Ring"
-AAM_NEZ_Ring.init_pos           = {0, -5, 0}                                      -- {0, 0, 0}
-AAM_NEZ_Ring.controllers        = {{"vis_aam_nez"}}
+local AAM_NEZ_Ring                  = create_vth_textured_box(198, 649, 339, 790)     -- ( 192, 643, 346, 797)
+AAM_NEZ_Ring.name                   = "AAM_NEZ_Ring"
+AAM_NEZ_Ring.init_pos               = {0, -4, 0}                                      -- {0, 0, 0}
+AAM_NEZ_Ring.controllers            = {{"vis_aam_nez"}}
 AddHUDElement(AAM_NEZ_Ring)
 

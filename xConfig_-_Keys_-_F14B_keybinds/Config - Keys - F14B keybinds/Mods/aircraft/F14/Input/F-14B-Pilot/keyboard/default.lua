@@ -157,8 +157,9 @@ join_override(res.keyCommands,{
 {down = device_commands.FUELSYSTEM_Fuel_Qty_Sel,     up = device_commands.FUELSYSTEM_Fuel_Qty_Sel, value_down = -1, value_up = 0, cockpit_device_id=devices.FUELSYSTEM, name = _('QTY select External, else Feed'), category = _('Fuelsystem Control Panel')},
 
 {down = device_commands.MASTER_Reset,     up = device_commands.MASTER_Reset, value_down = 1, value_up = 0, cockpit_device_id=devices.CADC, name = _('MASTER RESET'), category = _('Flight Control')},
-{combos = {{key = 'Q',reformers={'LCtrl'}}}, down = device_commands.GEAR_Strut,     up = device_commands.GEAR_Strut, value_down = 1, value_up = 0, cockpit_device_id=devices.GEARHOOK, name = _('Nose strut extend'), category = _('Flight Control')},
-{combos = {{key = 'A',reformers={'LCtrl'}}}, down = device_commands.GEAR_Strut,     up = device_commands.GEAR_Strut, value_down = -1, value_up = 0, cockpit_device_id=devices.GEARHOOK, name = _('Nose strut kneel'), category = _('Flight Control')},
+{combos = {{key = 'Q',reformers={'LCtrl'}}}, down = device_commands.GEAR_Strut, value_down = 1, cockpit_device_id=devices.GEARHOOK, name = _('Nose strut extend'), category = _('Flight Control')},
+{combos = {{key = 'A',reformers={'LCtrl'}}}, down = device_commands.GEAR_Strut, value_down = -1, cockpit_device_id=devices.GEARHOOK, name = _('Nose strut kneel'), category = _('Flight Control')},
+{down = device_commands.GEAR_Strut, value_down = 0, cockpit_device_id=devices.GEARHOOK, name = _('Nose strut off'), category = _('Flight Control')},
 
 {down = device_commands.PilotOxygenOn, 		cockpit_device_id = devices.COCKPITMECHANICS, value_down = 0, name = _('Pilot Oxygen OFF'), category = { _('Left sidewall')}},
 {down = device_commands.PilotOxygenOn, 		cockpit_device_id = devices.COCKPITMECHANICS, value_down = 1, name = _('Pilot Oxygen ON'), category = { _('Left sidewall')}},
@@ -479,6 +480,7 @@ join_override(res.keyCommands,{
 { cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Aircraft_Stabilize, value_down=1.0,	name=_('Radar - Aircraft Stabilize'),	 category=_('Jester AI')},
 { cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Radar_TWS, value_down=1.0,	name=_('Radar - TWS Mode'),	 category=_('Jester AI')},
 { cockpit_device_id=devices.JESTERAI, down=device_commands.JESTER_Radar_RWS, value_down=1.0,	name=_('Radar - RWS Mode'),	 category=_('Jester AI')},
+
 
 
 

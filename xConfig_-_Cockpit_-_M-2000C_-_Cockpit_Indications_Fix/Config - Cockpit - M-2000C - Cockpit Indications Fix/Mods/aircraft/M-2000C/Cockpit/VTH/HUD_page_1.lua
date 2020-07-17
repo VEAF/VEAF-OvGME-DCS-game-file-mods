@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -234,10 +234,10 @@ txt_GMeter_L.stringdefs       = font_size_default                               
 txt_GMeter_L.value            = "G"
 AddHUDElement(txt_GMeter_L)
 
-local aoa_symbol              = create_vth_textured_box(932, 291, 961, 315)       -- ( 967, 293, 997, 320)
+local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)       -- ( 967, 293, 997, 320)
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
-aoa_symbol.init_pos           = {-118.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
+aoa_symbol.init_pos           = {-115.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
 aoa_symbol.controllers	      = {{"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
@@ -264,7 +264,7 @@ txt_wgauche.value             = "G"
 txt_wgauche.controllers       = {{"vis_arm_g"}}
 AddHUDElement(txt_wgauche)
 
-local gauche_sel              = create_vth_textured_box(952, 502, 999, 549)       -- ( 940, 340, 1005, 405)
+local gauche_sel              = create_vth_textured_box(952, 502, 1001, 549)       -- ( 940, 340, 1005, 405)
 gauche_sel.name               = "gauche_sel"
 gauche_sel.init_pos           = {-40, -89}                                        -- {-50,-98.5,0}
 gauche_sel.controllers        = {{"vis_gauche"}}
@@ -273,7 +273,7 @@ AddHUDElement(gauche_sel)
 local txt_m_ftime_l           = CreateElement "ceStringPoly"
 txt_m_ftime_l.name            = "txt_m_ftime_l"
 txt_m_ftime_l.material        = indication_font
-txt_m_ftime_l.init_pos        = {-40, -76}                                        -- {-50.0, -80.5}
+txt_m_ftime_l.init_pos        = {-40, -75}                                        -- {-50.0, -80.5}
 txt_m_ftime_l.alignment       = "CenterCenter"
 txt_m_ftime_l.formats         = {"%1.f"}
 txt_m_ftime_l.stringdefs      = font_size_default                                 -- {0.006,0.006}
@@ -284,14 +284,14 @@ AddHUDElement(txt_m_ftime_l)
 local txt_wdestro             = CreateElement "ceStringPoly"
 txt_wdestro.name              = "txt_wdestro"
 txt_wdestro.material          = indication_font
-txt_wdestro.init_pos          = {40.5, -89}                                       -- {50.0, -99.5, 0.0}
+txt_wdestro.init_pos          = {40, -89}                                       -- {50.0, -99.5, 0.0}
 txt_wdestro.alignment         = "CenterCenter"
 txt_wdestro.stringdefs        = font_size_default                                 -- {0.007,0.007}
 txt_wdestro.value             = "D"
 txt_wdestro.controllers       = {{"vis_arm_d"}}
 AddHUDElement(txt_wdestro)
 
-local destro_sel              = create_vth_textured_box(952, 502, 999, 549)       -- ( 940, 340, 1005, 405)
+local destro_sel              = create_vth_textured_box(952, 502, 1001, 549)       -- ( 940, 340, 1005, 405)
 destro_sel.name               = "destro_sel"
 destro_sel.init_pos           = {40.0, -89}                                       -- {50, -98.5,0}
 destro_sel.controllers        = {{"vis_destro"}}
@@ -300,7 +300,7 @@ AddHUDElement(destro_sel)
 local txt_m_ftime_r           = CreateElement "ceStringPoly"
 txt_m_ftime_r.name            = "txt_m_ftime_r"
 txt_m_ftime_r.material        = indication_font
-txt_m_ftime_r.init_pos        = {40.0, -76}                                       -- {50.0, -80.5}
+txt_m_ftime_r.init_pos        = {40.0, -75}                                       -- {50.0, -80.5}
 txt_m_ftime_r.alignment       = "CenterCenter"
 txt_m_ftime_r.formats         = {"%1.f"}
 txt_m_ftime_r.stringdefs      = font_size_default                                 -- {0.006,0.006}
@@ -350,7 +350,9 @@ AddHUDElement(Ret_AA_CCM_HScan)
 local AA_CCM_Text_SMode             = CreateElement "ceStringPoly"
 AA_CCM_Text_SMode.name              = "AA_CCM_Text_SMode"
 AA_CCM_Text_SMode.material          = indication_font
-AA_CCM_Text_SMode.init_pos          = {101.0, 33.0}                               -- {90.0, 12.0, 0}
+--AA_CCM_Text_SMode.init_pos          = {114.0, 33.0}                               -- {90.0, 12.0, 0}
+--AA_CCM_Text_SMode.init_pos          = {127.0, 21.0}                               -- {90.0, 12.0, 0}
+AA_CCM_Text_SMode.init_pos          = {114.0, 73.0}                               -- {90.0, 12.0, 0}
 AA_CCM_Text_SMode.alignment         = "RightTop"                                  -- "LeftCenter"
 AA_CCM_Text_SMode.formats           = {"%s"}
 AA_CCM_Text_SMode.stringdefs        = font_size_default                           -- {0.006,0.006}
@@ -361,7 +363,7 @@ AddHUDElement(AA_CCM_Text_SMode)
 local txt_dom_magic             = CreateElement "ceStringPoly"
 txt_dom_magic.name              = "txt_dom_magic"
 txt_dom_magic.material          = indication_font_light                           -- indication_font
-txt_dom_magic.init_pos          = {0.0, -5.0, 0.0}                                -- {0.0, -50.0, 0.0}
+txt_dom_magic.init_pos          = {0.0, -52.0, 0.0}                                -- {0.0, -50.0, 0.0}
 txt_dom_magic.alignment         = "CenterCenter"
 txt_dom_magic.stringdefs        = font_size_large                                 -- {0.009,0.009}
 txt_dom_magic.value             = "DOM"
@@ -371,7 +373,7 @@ AddHUDElement(txt_dom_magic)
 local txt_shoot_cue             = CreateElement "ceStringPoly"
 txt_shoot_cue.name              = "txt_shoot_cue"
 txt_shoot_cue.material          = indication_font_light                           -- indication_font
-txt_shoot_cue.init_pos          = {0.0, -5.0, 0.0}                                -- {0.0, -50.0, 0.0}
+txt_shoot_cue.init_pos          = {0.0, -52.0, 0.0}                                -- {0.0, -50.0, 0.0}
 txt_shoot_cue.alignment         = "CenterCenter"
 txt_shoot_cue.stringdefs        = font_size_large                                 -- {0.009,0.009}
 txt_shoot_cue.formats           = {"%s"}
@@ -385,7 +387,7 @@ AAM_No_Shoot_Cue.controllers    = {{"vis_aam_nscue"}}
 AddHUDElement(AAM_No_Shoot_Cue)
 
 -- RETICLES
-local Ret_Gun_Cross             = create_vth_textured_box(970, 23, 1006, 59)      -- ( 970, 20, 1010, 60)
+local Ret_Gun_Cross             = create_vth_textured_box(970, 23, 1007, 60)      -- ( 970, 20, 1010, 60)
 Ret_Gun_Cross.name              = "Ret_Gun_Cross"
 Ret_Gun_Cross.init_pos          = {0, 0, 0}
 Ret_Gun_Cross.parent_element    = FOV_center.name
@@ -396,7 +398,7 @@ AddHUDElement(Ret_Gun_Cross)
 local feds_line_snake               = CreateElement "ceSimpleLineObject"
 feds_line_snake.name                = "feds_line_snake"
 feds_line_snake.material            = vth_line_material
-feds_line_snake.width               = 0.7                                         -- 0.8
+feds_line_snake.width               = 0.8                                         -- 0.8
 feds_line_snake.parent_element      = FOV_center.name
 feds_line_snake.controllers         = {{"aa_gs_snake_vis"}, {"aa_gs_snake"}}
 AddHUDElement(feds_line_snake)
@@ -404,7 +406,7 @@ AddHUDElement(feds_line_snake)
 local GS_Aperture_1a                = CreateElement "ceSimpleLineObject"
 GS_Aperture_1a.name                 = "GS_Aperture_1a"
 GS_Aperture_1a.material             = vth_line_material
-GS_Aperture_1a.width                = 0.7                                         -- 0.8
+GS_Aperture_1a.width                = 0.8                                         -- 0.8
 GS_Aperture_1a.init_pos             = {0, 0, 0}
 GS_Aperture_1a.parent_element       = FOV_center.name
 GS_Aperture_1a.controllers          = {{"aa_gs_snake_vis"}, {"aa_gs_snake_p1"}}
@@ -413,7 +415,7 @@ AddHUDElement(GS_Aperture_1a)
 local GS_Aperture_1b                = CreateElement "ceSimpleLineObject"
 GS_Aperture_1b.name                 = "GS_Aperture_1b"
 GS_Aperture_1b.material             = vth_line_material
-GS_Aperture_1b.width                = 0.7                                         -- 0.8
+GS_Aperture_1b.width                = 0.8                                        -- 0.8
 GS_Aperture_1b.init_pos             = {0, 0, 0}
 GS_Aperture_1b.parent_element       = FOV_center.name
 GS_Aperture_1b.controllers          = {{"aa_gs_snake_vis"}, {"aa_gs_snake_p2"}}
@@ -429,17 +431,17 @@ AddHUDElement(GS_Gun_Radar_Cross)
 local GS_Radar_Cross_Range          = CreateElement "ceSimpleLineObject"
 GS_Radar_Cross_Range.name           = "GS_Radar_Cross_Range"
 GS_Radar_Cross_Range.material       = vth_line_material
-GS_Radar_Cross_Range.width          = 0.7                                         -- 0.8
+GS_Radar_Cross_Range.width          = 0.8                                       -- 0.8
 GS_Radar_Cross_Range.init_pos       = {0, 0, 0}
 GS_Radar_Cross_Range.parent_element = GS_Gun_Radar_Cross.name
 GS_Radar_Cross_Range.controllers    = {{"aa_gs_snake_vis"}, {"aa_gs_range"}}
 AddHUDElement(GS_Radar_Cross_Range)
 
 -- Missiles
-local AAM_NEZ_Ring            = create_vth_textured_box(210, 660, 328, 779)       -- ( 192, 643, 346, 797)
-AAM_NEZ_Ring.name             = "AAM_NEZ_Ring"
-AAM_NEZ_Ring.init_pos         = {0, -5, 0}                                        -- {0, 0, 0}
-AAM_NEZ_Ring.controllers      = {{"vis_aam_nez"}}
+local AAM_NEZ_Ring                  = create_vth_textured_box(198, 649, 339, 790)       -- ( 192, 643, 346, 797)
+AAM_NEZ_Ring.name                   = "AAM_NEZ_Ring"
+AAM_NEZ_Ring.init_pos               = {0, -4, 0}                                        -- {0, 0, 0}
+AAM_NEZ_Ring.controllers            = {{"vis_aam_nez"}}
 AddHUDElement(AAM_NEZ_Ring)
 
 

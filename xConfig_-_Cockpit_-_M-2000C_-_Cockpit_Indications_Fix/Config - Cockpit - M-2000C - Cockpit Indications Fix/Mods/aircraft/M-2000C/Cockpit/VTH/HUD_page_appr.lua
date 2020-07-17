@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -37,10 +37,10 @@ txt_mach.stringdefs           = font_size_default                               
 txt_mach.controllers          = {{"txt_mach"}}
 AddHUDElement(txt_mach)
 
-local aoa_symbol              = create_vth_textured_box(932, 291, 961, 315)       -- ( 967, 293, 997, 320)
+local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)       -- ( 967, 293, 997, 320)
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
-aoa_symbol.init_pos           = {-118.0, -26.0}                                   -- {-112.0 ,6.0, 0.0}
+aoa_symbol.init_pos           = {-115.0, -26.0}                                   -- {-112.0 ,6.0, 0.0}
 aoa_symbol.controllers        = {{"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
@@ -128,14 +128,14 @@ txt_hautgr_L.controllers      = {{"vis_hautg"}}
 AddHUDElement(txt_hautgr_L)
 
 -- FPM
-local  vth_fpm                    = create_vth_textured_box(358, 18, 468, 66)     -- ( 360, 20, 467, 65)
+local  vth_fpm                    = create_vth_textured_box(358, 18, 469, 66)     -- ( 360, 20, 467, 65)
 vth_fpm.name                      = "vth_fpm"
 vth_fpm.init_pos                  = {0,1.5,0}
 vth_fpm.parent_element            = VTH_center.name
 vth_fpm.controllers               = {{"hud_fpm"}, {"hud_svz", 0.6}, {"hud_svy", 0.6}}
 AddHUDElement(vth_fpm)
 
-local Accel_Z                     = create_vth_textured_box(478, 21, 794, 51)     -- ( 480, 20,795, 50)
+local Accel_Z                     = create_vth_textured_box(478, 21, 795, 51)     -- ( 480, 20,795, 50)
 Accel_Z.name                      = "Accel_Z"
 Accel_Z.init_pos                  = {0,0,0}
 Accel_Z.parent_element            = vth_fpm.name
@@ -171,7 +171,7 @@ JxAccel_txt.controllers       = {{"vis_wdown"}, {"txt_xaccel",0}}
 AddHUDElement(JxAccel_txt)
 
 -- AOA
-local vth_aoa               = create_vth_textured_box(240, 142, 500, 200)         -- ( 240, 142, 501, 202)
+local vth_aoa               = create_vth_textured_box(238, 140, 503, 203)         -- ( 240, 142, 501, 202)
 vth_aoa.name                = "vth_aoa"
 vth_aoa.init_pos            = {0,0,0}
 vth_aoa.parent_element      = vth_fpm.name
@@ -203,14 +203,14 @@ AddHUDElement(fpm_radalt_N)
 
 
 -- OUTER/MIDDLE/INNER MARKER
-local txt_omi_marker        = CreateElement "ceStringPoly"
-txt_omi_marker.name         = "txt_omi_marker"
-txt_omi_marker.material     = indication_font
-txt_omi_marker.init_pos     = {0.0,54.0}
-txt_omi_marker.alignment    = "CenterCenter"
-txt_omi_marker.value        = "M"
-txt_omi_marker.stringdefs   = {0.01, 0.01}
-txt_omi_marker.controllers  = {{"appr_ils_marker"}}
+local txt_omi_marker            = CreateElement "ceStringPoly"
+txt_omi_marker.name             = "txt_omi_marker"
+txt_omi_marker.material         = indication_font
+txt_omi_marker.init_pos         = {0.0,62.0}                                        -- {0.0,54.0}
+txt_omi_marker.alignment        = "CenterCenter"
+txt_omi_marker.value            = "M"
+txt_omi_marker.stringdefs       = {0.010, 0.010}
+txt_omi_marker.controllers      = {{"appr_ils_marker"}}
 AddHUDElement(txt_omi_marker)
 
 -- ILS
@@ -220,57 +220,57 @@ ILS_center.init_pos           = vth_base_init_pos
 ILS_center.controllers        = {{"hud_roll" ,1.0}, {"hud_elev_horiz", -0.1}}
 AddHUDElement(ILS_center)
 
-local ils_rw_marker           = create_vth_textured_box(210, 75, 218, 107)
+local ils_rw_marker           = create_vth_textured_box(210, 75, 219, 107)
 ils_rw_marker.name            = "ils_rw_marker"
 ils_rw_marker.init_pos        = {0,3.0,0}
 ils_rw_marker.parent_element  = ILS_center.name
 AddHUDElement(ils_rw_marker)
 
-local ils_rw_hdg              = create_vth_textured_box(5, 340, 11, 1017, nil, 1017) -- (6, 147, 10, 995, nil, 995)
+local ils_rw_hdg              = create_vth_textured_box(5, 340, 10, 1017, nil, 1017) -- (6, 147, 10, 995, nil, 995)
 ils_rw_hdg.name               = "ils_rw_hdg"
 ils_rw_hdg.init_pos           = {0,0,0}
 ils_rw_hdg.parent_element     = ILS_center.name
 ils_rw_hdg.controllers        = {{"appr_rwy"}}
 AddHUDElement(ils_rw_hdg)
 
-local ils_loc_wnd             = create_vth_textured_box(350, 285, 393, 330)       -- (291, 291, 338, 330)
+local ils_loc_wnd             = create_vth_textured_box(349, 284, 395, 331)       -- (291, 291, 338, 330)
 ils_loc_wnd.name              = "ils_loc_wnd"
 ils_loc_wnd.init_pos          = {0,0,0}
 ils_loc_wnd.parent_element    = ILS_center.name
 ils_loc_wnd.controllers       = {{"appr_loc_window", 0.6}}
 AddHUDElement(ils_loc_wnd)
 
-local ils_gsi_wnd             = create_vth_textured_box(298, 285, 341, 330)       -- (291, 286, 338, 330)
+local ils_gsi_wnd             = create_vth_textured_box(297, 284, 343, 331)       -- (291, 286, 338, 330)
 ils_gsi_wnd.name              = "ils_gsi_wnd"
 ils_gsi_wnd.init_pos          = {-1.5,-1.5,0}
 ils_gsi_wnd.parent_element    = vth_fpm.name
 ils_gsi_wnd.controllers       = {{"appr_ils_window", 0.6}}
 AddHUDElement(ils_gsi_wnd)
 
-local ils_gsi_tlow            = create_vth_textured_box(805, 20, 833, 52)         -- (807, 22, 832, 51)
+local ils_gsi_tlow            = create_vth_textured_box(803, 19, 836, 54)         -- (807, 22, 832, 51)
 ils_gsi_tlow.name             = "ils_gsi_tlow"
-ils_gsi_tlow.init_pos         = {0.0,-13.0,0}                                     -- {1.0,-13.0,0}
+ils_gsi_tlow.init_pos         = {0.0,-14.0,0}                                     -- {1.0,-13.0,0}
 ils_gsi_tlow.parent_element   = ils_gsi_wnd.name
 ils_gsi_tlow.controllers      = {{"appr_ils_tlow"}}
 AddHUDElement(ils_gsi_tlow)
 
-local ils_gsi_thigh           = create_vth_textured_box(805, 86, 833, 118)        -- (807, 89, 832, 118)
+local ils_gsi_thigh           = create_vth_textured_box(803, 85, 836, 120)        -- (807, 89, 832, 118)
 ils_gsi_thigh.name            = "ils_gsi_thigh"
-ils_gsi_thigh.init_pos        = {0.0,13.0,0}                                      -- {1.0,13.0,0}
+ils_gsi_thigh.init_pos        = {0.0,14.0,0}                                      -- {1.0,13.0,0}
 ils_gsi_thigh.parent_element  = ils_gsi_wnd.name
 ils_gsi_thigh.controllers     = {{"appr_ils_thigh"}}
 AddHUDElement(ils_gsi_thigh)
 
-local ils_gsi_tleft           = create_vth_textured_box(802, 56, 834, 84)         -- (804, 58, 833, 83)
+local ils_gsi_tleft           = create_vth_textured_box(803, 54, 836, 86)         -- (804, 58, 833, 83)
 ils_gsi_tleft.name            = "ils_gsi_tleft"
-ils_gsi_tleft.init_pos        = {-13.0,0.0,0}
+ils_gsi_tleft.init_pos        = {-14.0,0.0,0}
 ils_gsi_tleft.parent_element  = ils_gsi_wnd.name
 ils_gsi_tleft.controllers     = {{"appr_ils_tleft"}}
 AddHUDElement(ils_gsi_tleft)
 
-local ils_gsi_tright          = create_vth_textured_box(844, 56, 876, 84)         -- (841, 58, 875, 83)
+local ils_gsi_tright          = create_vth_textured_box(843, 54, 876, 86)         -- (841, 58, 875, 83)
 ils_gsi_tright.name           = "ils_gsi_tright"
-ils_gsi_tright.init_pos       = {13.0,0.0,0}
+ils_gsi_tright.init_pos       = {14.0,0.0,0}
 ils_gsi_tright.parent_element = ils_gsi_wnd.name
 ils_gsi_tright.controllers    = {{"appr_ils_tright"}}
 AddHUDElement(ils_gsi_tright)
@@ -296,7 +296,7 @@ wp_dist10NM.stringdefs        = font_size_default                               
 wp_dist10NM.controllers       = {{"wp_dist10NM",0}}
 AddHUDElement(wp_dist10NM)
 
-local wp_trackerror_to          = create_vth_textured_box(881, 17, 917, 61, nil, 59) -- ( 883, 19, 916, 60, nil, 60)
+local wp_trackerror_to          = create_vth_textured_box(881, 17, 918, 61, nil, 59) -- ( 883, 19, 916, 60, nil, 60)
 wp_trackerror_to.name           = "wp_trackerror_to"
 wp_trackerror_to.init_pos       = {0,0,0}
 wp_trackerror_to.parent_element = vth_fpm.name
@@ -309,13 +309,13 @@ local synthetic_runway          = CreateElement "ceSimpleLineObject"
 synthetic_runway.name           = "synthetic_runway"
 synthetic_runway.material       = vth_line_material                               -- MakeMaterial(nil,{20,255,20,225})
 synthetic_runway.init_pos       = {0,0,0}
-synthetic_runway.width          = 0.7
+synthetic_runway.width          = 0.8                                            -- 0.8
 synthetic_runway.parent_element = VTH_center.name
 synthetic_runway.controllers    = {{"appr_synth_rwy"}}
 AddHUDElement(synthetic_runway)
 
 -- Weight On Wheels Elements
-local takeoff_pitch             = create_vth_textured_box(20, 80, 192, 110)       -- ( 20, 80, 190, 110)
+local takeoff_pitch             = create_vth_textured_box(20, 80, 193, 110)       -- ( 20, 80, 190, 110)
 takeoff_pitch.name              = "takeoff_caret"
 takeoff_pitch.init_pos          = {0, -130, 0}                                    -- {0, -130, 0}
 takeoff_pitch.controllers       = {{"vis_wdown"}}

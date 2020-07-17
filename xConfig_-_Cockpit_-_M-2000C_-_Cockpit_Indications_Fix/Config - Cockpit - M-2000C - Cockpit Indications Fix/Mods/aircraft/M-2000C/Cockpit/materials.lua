@@ -3,10 +3,83 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.5 (04/17/2020) for DCS World 2.5.6.47224 (04/16/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."Fonts/symbols_locale.lua")
 dofile(LockOn_Options.common_script_path.."Fonts/fonts_cmn.lua")
+
+-- Font description creation function added for  M-2000C Cockpit Indications Fix
+function create_font_description(TEX_PATH, TEX_RES, GLYPH_W, GLYPH_H, CUST_DOT_W)
+
+  local DOT_W
+
+  if(CUST_DOT_W ~= nil) 
+  then
+    DOT_W = CUST_DOT_W
+  else 
+    DOT_W = GLYPH_W
+  end
+  
+  local font_desc  = {
+    texture     = LockOn_Options.script_path.."Resources/IndicationTextures/"..TEX_PATH, 
+    size        = {7, 7},
+    resolution  = {TEX_RES, TEX_RES},
+    default     = {GLYPH_W, GLYPH_H},
+    chars	    = {
+       [1]   = {32, GLYPH_W, GLYPH_H}, -- [space]
+       [2]   = {42, GLYPH_W, GLYPH_H}, -- *
+       [3]   = {43, GLYPH_W, GLYPH_H}, -- +
+       [4]   = {45, GLYPH_W, GLYPH_H}, -- -
+       [5]   = {46, DOT_W,   GLYPH_H}, -- .
+       [6]   = {47, GLYPH_W, GLYPH_H}, -- /
+       [7]   = {48, GLYPH_W, GLYPH_H}, -- 0
+       [8]   = {49, GLYPH_W, GLYPH_H}, -- 1
+       [9]   = {50, GLYPH_W, GLYPH_H}, -- 2
+       [10]  = {51, GLYPH_W, GLYPH_H}, -- 3
+       [11]  = {52, GLYPH_W, GLYPH_H}, -- 4
+       [12]  = {53, GLYPH_W, GLYPH_H}, -- 5
+       [13]  = {54, GLYPH_W, GLYPH_H}, -- 6
+       [14]  = {55, GLYPH_W, GLYPH_H}, -- 7
+       [15]  = {56, GLYPH_W, GLYPH_H}, -- 8
+       [16]  = {57, GLYPH_W, GLYPH_H}, -- 9
+       [17]  = {58, GLYPH_W, GLYPH_H}, -- :
+       [18]  = {65, GLYPH_W, GLYPH_H}, -- A
+       [19]  = {66, GLYPH_W, GLYPH_H}, -- B
+       [20]  = {67, GLYPH_W, GLYPH_H}, -- C
+       [21]  = {68, GLYPH_W, GLYPH_H}, -- D
+       [22]  = {69, GLYPH_W, GLYPH_H}, -- E
+       [23]  = {70, GLYPH_W, GLYPH_H}, -- F
+       [24]  = {71, GLYPH_W, GLYPH_H}, -- G
+       [25]  = {72, GLYPH_W, GLYPH_H}, -- H
+       [26]  = {73, GLYPH_W, GLYPH_H}, -- I
+       [27]  = {74, GLYPH_W, GLYPH_H}, -- J
+       [28]  = {75, GLYPH_W, GLYPH_H}, -- K
+       [29]  = {76, GLYPH_W, GLYPH_H}, -- L
+       [30]  = {77, GLYPH_W, GLYPH_H}, -- M
+       [31]  = {78, GLYPH_W, GLYPH_H}, -- N
+       [32]  = {79, GLYPH_W, GLYPH_H}, -- O
+       [33]  = {80, GLYPH_W, GLYPH_H}, -- P
+       [34]  = {81, GLYPH_W, GLYPH_H}, -- Q
+       [35]  = {82, GLYPH_W, GLYPH_H}, -- R
+       [36]  = {83, GLYPH_W, GLYPH_H}, -- S
+       [37]  = {84, GLYPH_W, GLYPH_H}, -- T
+       [38]  = {85, GLYPH_W, GLYPH_H}, -- U
+       [39]  = {86, GLYPH_W, GLYPH_H}, -- V
+       [40]  = {87, GLYPH_W, GLYPH_H}, -- W
+       [41]  = {88, GLYPH_W, GLYPH_H}, -- X
+       [42]  = {89, GLYPH_W, GLYPH_H}, -- Y
+       [43]  = {90, GLYPH_W, GLYPH_H}, -- Z
+       [44]  = {91, GLYPH_W, GLYPH_H}, -- [
+       [45]  = {93, GLYPH_W, GLYPH_H}, -- ]
+       [46]  = {62, GLYPH_W, GLYPH_H}, -- >
+       [47]  = {111, GLYPH_W, GLYPH_H}, -- o
+       [48]  = {94 , GLYPH_W, GLYPH_H}  -- ^
+    }
+  }
+  
+  return font_desc
+  
+end
 
 -------MATERIALS-------
 
@@ -33,60 +106,64 @@ materials["YELLOW"]                     = {255, 255, 0, 255}
 materials["BLUE"]                       = {255, 0, 0, 255}
 materials["RED"]                        = {255, 0, 0, 255}
 
-materials["VTH_GREEN"]                  = {0, 255, 68, 255}                       -- {20, 255, 20, 225}
-materials["GREENBOX_GREEN"]			        = {0, 255, 68, 255}                       -- {20, 255, 20, 225}
-materials["LCD_RED"]			              = {255, 0, 0, 255}
+materials["VTH_GREEN"]                  = {0, 255, 30, 220}                       -- {20, 255, 20, 225}
+-- Specific opacity for HUD's dynamic non-textures line elements
+materials["VTH_GREEN_ATT"]              = {0, 255, 30, 160} -- attenuated alpha   -- Added
 
--- Specific color for HUD's dynamic vectorial elements
---
--- Dynamical vector elements do not pass through filtering like textures, it 
--- results on a pure color/alpha component without alteration, so we need to 
--- slightly attenuate alpha channnel to keep them harmonized with all others 
--- elements
-materials["VTH_GREEN_ATT"]              = {0, 255, 68, 225} -- attenuated         -- Added
+materials["GREENBOX_GREEN"]			        = {0, 255, 70, 220}                       -- {20, 255, 20, 225}
+materials["LCD_GREEN"]			            = {0, 255, 32, 220}                       -- Added
+materials["LCD_RED"]			              = {255,  0, 0, 255}
 
-materials["VTB_IND_COLOR"]		          = {96,  255,  50, 255}                    -- { 60, 250, 60, 255}
-materials["VTB_IND_COLOR_ATT"]		      = {96,  255,  50, 200} -- attenuated      -- Added
-materials["VTB_STT_COLOR"]		          = {255, 255,  50, 255}                    -- {218, 180, 32, 255}
-materials["VTB_WRN_COLOR"]		          = {255, 80,   0,  255}                    -- {255,   0,  0, 255}
+
+
+materials["VTB_IND_COLOR"]		          = {64,  255,  30, 220}                      -- { 60, 250, 60, 255}
+materials["VTB_IND_COLOR_ATT"]		      = {64,  255,  30, 128} -- attenuated alpha  -- Added
+materials["VTB_STT_COLOR"]		          = {255, 255,  30, 220}                      -- {218, 180, 32, 255}
+materials["VTB_STT_COLOR_ATT"]		      = {255, 255,  30, 128} -- attenuated alpha  -- Added
+materials["VTB_WRN_COLOR"]		          = {255, 50,   30, 220}                      -- {255,   0,  0, 255}
 
 -- Added dedicated color for RWR material and font
-materials["RWR_GREEN"]                  = {122,255,4,255}                         -- Added
+materials["RWR_GREEN"]                  = {128, 255,  20, 255}                      -- Added
 
 -------TEXTURES-------
+-- All textures files format  modified for M-2000C Cockpit Indications Fix. The file
+-- format is now DDS instead of TGA. The DDS format offer a better mipmaping alpha
+-- computation, the result is that downsampled sprites are way less blury than with
+-- the dynamicaly generated mipmapping.
 textures = {}
 
 textures["ARCADE"]            = {"arcade.tga", materials["INDICATION_COMMON_RED"]}
 textures["ARCADE_PUPRLE"]     = {"arcade.tga", materials["PURPLE"]}
 textures["ARCADE_WHITE"]      = {"arcade.tga", materials["SIMPLE_WHITE"]}
 
+
 ---- VTH ----
-textures["vth_ind_material"]  = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_hud_M2KC.tga",  materials["VTH_GREEN"]}
-textures["vth_hdg_material"]  = {LockOn_Options.script_path.."Resources/IndicationTextures/headingtape_hud_M2KC.tga", materials["VTH_GREEN"]}
+textures["vth_ind_material"]  = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_hud_M2KC.dds",  materials["VTH_GREEN"]}
+textures["vth_hdg_material"]  = {LockOn_Options.script_path.."Resources/IndicationTextures/headingtape_hud_M2KC.dds", materials["VTH_GREEN"]}
 textures["vth_line_material"]	= {nil, materials["VTH_GREEN_ATT"]} -- {nil, materials["VTH_GREEN"]}
 
 ---- VTB ----
 -- Heading Ruler
-textures["vtb_hdg_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/headingtape_vtb_M2KC.tga", materials["VTB_IND_COLOR"]} 
+textures["vtb_hdg_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/headingtape_vtb_M2KC.dds", materials["VTB_IND_COLOR"]} 
 
 -- Grids
-textures["vtb_Grid_0_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_0.tga", materials["VTB_IND_COLOR"]}
-textures["vtb_Grid_1_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_1.tga", materials["VTB_IND_COLOR"]}
-textures["vtb_Grid_2_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_2.tga", materials["VTB_IND_COLOR"]}
+textures["vtb_Grid_0_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_0.dds", materials["VTB_IND_COLOR"]}
+textures["vtb_Grid_1_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_1.dds", materials["VTB_IND_COLOR"]}
+textures["vtb_Grid_2_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_2.dds", materials["VTB_IND_COLOR"]}
 
 -- Symbols
-textures["vtb_ind_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["VTB_IND_COLOR"]}
-textures["vtb_rdr_ind_material"]  = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["VTB_IND_COLOR"]}
-textures["vtb_stt_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["VTB_STT_COLOR"]}
-textures["vtb_wrn_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["VTB_WRN_COLOR"]}
+textures["vtb_ind_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.dds", materials["VTB_IND_COLOR"]}
+textures["vtb_rdr_ind_material"]  = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.dds", materials["VTB_IND_COLOR"]}
+textures["vtb_stt_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.dds", materials["VTB_STT_COLOR"]}
+textures["vtb_wrn_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.dds", materials["VTB_WRN_COLOR"]}
 textures["vtb_line_material"]     = {nil, materials["VTB_IND_COLOR_ATT"]} -- {nil, materials["VTB_IND_COLOR"]}
-textures["vtb_line_material_DO"]	= {nil, materials["VTB_STT_COLOR"]}
+textures["vtb_line_material_DO"]	= {nil, materials["VTB_STT_COLOR_ATT"]}
 
 -- Page 2
-textures["vtb_pg2_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Page_2.tga", materials["VTB_IND_COLOR"]}
+textures["vtb_pg2_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Page_2.dds", materials["VTB_IND_COLOR"]}
 
 ---- SERVAL ----
-textures["rwr_ind_material"]				=  {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.tga", materials["RWR_GREEN"]} -- materials["GREENBOX_GREEN"]}
+textures["rwr_ind_material"]			=  {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.dds", materials["RWR_GREEN"]} -- materials["GREENBOX_GREEN"]}
 
 -------FONTS----------
 fontdescription = {}
@@ -97,433 +174,38 @@ fontdescription["font_general_loc"]   = fontdescription_cmn["font_general_loc"]
 -- is way sufficient since you never can zoom enough to use the full resolution 
 -- texture, the render engine always use a smaller mipmap. Also, smaller 
 -- textures save graphical memory and GPU bandwidth.
-
-symbol_pixels_x =  44                                                             -- * 2 : adatped for 512x512 texture
-symbol_pixels_y =  72                                                             -- * 2 : adatped for 512x512 texture
-
--- The following font definition was added for M-2000C Cockpit Indications Fix,
+fontdescription["VTH_font"]         = create_font_description("font_HUD_M2KC.dds", 512, 44, 72, 25)
+-- The following font definition is added for M-2000C Cockpit Indications Fix,
 -- this is a secondary fontmap, thinner (light weight) than the standard one to
 -- be used for large HUD text
-fontdescription["VTH_font_light"]  = {
-	texture     = LockOn_Options.script_path.."Resources/IndicationTextures/font_HUD_light_M2KC.tga", 
-	size        = {7, 7},
-	resolution  = {512, 512},                                                       -- {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
-		 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-		 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-		 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-		 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-		 [5]   = {46,              25, symbol_pixels_y}, -- .                         -- {46, symbol_pixels_x, symbol_pixels_y}, -- .
-		 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-		 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-		 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-		 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-		 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-		 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-		 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-		 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-		 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-		 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-		 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-		 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-		 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-		 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-		 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-		 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-		 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-		 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-		 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-		 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-		 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-		 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-		 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-		 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-		 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-		 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-		 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-		 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-		 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-		 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-		 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-		 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-		 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-		 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-		 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-		 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-		 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-		 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-		 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-		 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-		 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-		 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-		 [48]  = {94 , symbol_pixels_x, symbol_pixels_y}  -- ^
-	}
-}
+fontdescription["VTH_font_big"]     = create_font_description("font_HUD_big_M2KC.dds", 512, 44, 72, 25)
 
-fontdescription["VTH_font"]  = {
-	texture     = LockOn_Options.script_path.."Resources/IndicationTextures/font_HUD_M2KC.tga",
-	size        = {7, 7},
-	resolution  = {512, 512},                                                       -- {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
-		 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-		 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-		 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-		 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-		 [5]   = {46,              25, symbol_pixels_y}, -- .                         -- {46, symbol_pixels_x, symbol_pixels_y}, -- .
-		 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-		 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-		 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-		 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-		 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-		 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-		 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-		 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-		 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-		 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-		 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-		 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-		 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-		 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-		 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-		 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-		 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-		 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-		 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-		 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-		 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-		 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-		 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-		 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-		 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-		 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-		 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-		 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-		 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-		 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-		 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-		 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-		 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-		 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-		 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-		 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-		 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-		 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-		 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-		 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-		 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-		 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-		 [48]  = {94 , symbol_pixels_x, symbol_pixels_y}  -- ^
-	}
-}
+-- RWR font definition modified for M-2000C Cockpit Indications Fix, now a dedicated 
+-- 256x256 texture is used as fontmap.
+fontdescription["RWR_font"]         = create_font_description("font_RWR_M2KC.dds", 256, 22, 38, nil)
 
--- font definition modified for M-2000C Cockpit Indications Fix, now a dedicated 
--- 256x256 texture is used as fontmap. Notice that 1024x1024 fontmap texture 
--- is an overkill since RWR texts are very small and always mipmaped. 256x256 
--- texture will save some graphical memory and bandwidth.
-symbol_pixels_x       = 27                                                       -- 44 * 2 : Adjusted for 256 tex & to increase space between letters
-symbol_pixels_y       = 38                                                       -- 72 * 2 : Adjusted for 256 tex
-fontdescription["RWR_font"]  = {
-  texture     = "Mods/aircraft/M-2000C/Cockpit/Resources/IndicationTextures/font_RWR_M2KC.tga",  -- font_HUD_M2KC.tga
-	size        = {7, 7},
-	resolution  = {256, 256},                                                       -- {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
+fontdescription["VTB_font"]         = create_font_description("font_VTB_M2KC.dds", 256, 24, 38, 13)
 
-		 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-		 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-		 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-		 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-		 [5]   = {46, symbol_pixels_x, symbol_pixels_y}, -- .
-		 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-		 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-		 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-		 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-		 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-		 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-		 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-		 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-		 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-		 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-		 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-		 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-		 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-		 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-		 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-		 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-		 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-		 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-		 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-		 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-		 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-		 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-		 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-		 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-		 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-		 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-		 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-		 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-		 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-		 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-		 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-		 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-		 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-		 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-		 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-		 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-		 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-		 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-		 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-		 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-		 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-		 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-		 [48]  = {94 , symbol_pixels_x, symbol_pixels_y}} -- ^
-}
+-- font definition modified for M-2000C Cockpit Indications Fix, now only 512x512. 
+fontdescription["PCA_font"]         = create_font_description("font_PCA_M2KC.dds", 512, 58, 72, nil) -- 1024, 116, 144
 
-symbol_pixels_x = 24                                                              -- 44.0 * 2 : adapted for 256x256 texture
-symbol_pixels_y = 38                                                              -- 72.0 * 2 : adapted for 256x256 texture
-fontdescription["VTB_font"]  = {
-	texture     = LockOn_Options.script_path.."Resources/IndicationTextures/font_VTB_M2KC.tga",
-	size        = {7, 7},
-	resolution  = {256, 256},                                                       -- {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
+-- Modified LDC font for M-2000C Cockpit Indications Fix with larger
+-- digit spacing
+fontdescription["LCD_font"]         = create_font_description("font_LCD_M2KC.dds", 512, 56, 72, nil) -- 1024, 88, 144
 
-		 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-		 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-		 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-		 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-		 [5]   = {46,              13, symbol_pixels_y}, -- .                         -- [5]   = {46, symbol_pixels_x, symbol_pixels_y}, -- .
-		 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-		 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-		 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-		 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-		 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-		 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-		 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-		 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-		 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-		 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-		 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-		 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-		 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-		 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-		 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-		 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-		 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-		 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-		 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-		 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-		 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-		 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-		 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-		 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-		 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-		 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-		 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-		 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-		 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-		 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-		 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-		 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-		 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-		 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-		 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-		 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-		 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-		 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-		 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-		 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-		 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-		 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-		 [48]  = {94 ,  symbol_pixels_x, symbol_pixels_y}} -- ^
-}
+fontdescription["RADIO_font"]       = create_font_description("font_GreenBoxRadio_M2KC.dds", 512, 62, 72, nil)  -- 1024, 88, 144
 
-symbol_pixels_x =  58 * 2                                                         -- 44 * 2 -- pi
-symbol_pixels_y =  72 * 2
-
-fontdescription["PCA_font"]  = {
-	texture     = LockOn_Options.script_path.."Resources/IndicationTextures/font_PCA_M2KC.tga",
-	size        = {7, 7},
-	resolution  = {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
-
-		 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-		 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-		 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-		 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-		 [5]   = {46, symbol_pixels_x, symbol_pixels_y}, -- .
-		 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-		 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-		 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-		 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-		 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-		 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-		 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-		 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-		 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-		 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-		 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-		 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-		 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-		 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-		 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-		 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-		 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-		 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-		 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-		 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-		 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-		 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-		 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-		 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-		 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-		 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-		 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-		 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-		 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-		 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-		 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-		 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-		 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-		 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-		 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-		 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-		 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-		 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-		 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-		 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-		 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-		 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-		 [48]  = {94 ,  symbol_pixels_x, symbol_pixels_y}} -- ^
-}
-
-symbol_pixels_x =  44 * 2
-symbol_pixels_y =  72 * 2
-
-fontdescription["LCD_font"]  = {
-	texture     = LockOn_Options.script_path.."Resources/IndicationTextures/font_LCD_M2KC.tga",
-	size        = {7, 7},
-	resolution  = {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
-	 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-	 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-	 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-	 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-	 [5]   = {46, symbol_pixels_x, symbol_pixels_y}, -- .
-	 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-	 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-	 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-	 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-	 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-	 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-	 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-	 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-	 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-	 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-	 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-	 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-	 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-	 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-	 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-	 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-	 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-	 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-	 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-	 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-	 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-	 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-	 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-	 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-	 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-	 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-	 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-	 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-	 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-	 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-	 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-	 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-	 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-	 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-	 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-	 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-	 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-	 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-	 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-	 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-	 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-	 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-	 [48]  = {94 , symbol_pixels_x, symbol_pixels_y} -- ^
-	}
-}
-
-fontdescription["RADIO_font"]  = {
-	texture     = LockOn_Options.script_path.."Resources/IndicationTextures/font_GreenBoxRadio_M2KC.tga",
-	size        = {7, 7},
-	resolution  = {1024, 1024},
-	default     = {symbol_pixels_x, symbol_pixels_y},
-	chars	    = {
-		 [1]   = {32, symbol_pixels_x, symbol_pixels_y}, -- [space]
-		 [2]   = {42, symbol_pixels_x, symbol_pixels_y}, -- *
-		 [3]   = {43, symbol_pixels_x, symbol_pixels_y}, -- +
-		 [4]   = {45, symbol_pixels_x, symbol_pixels_y}, -- -
-		 [5]   = {46, symbol_pixels_x, symbol_pixels_y}, -- .
-		 [6]   = {47, symbol_pixels_x, symbol_pixels_y}, -- /
-		 [7]   = {48, symbol_pixels_x, symbol_pixels_y}, -- 0
-		 [8]   = {49, symbol_pixels_x, symbol_pixels_y}, -- 1
-		 [9]   = {50, symbol_pixels_x, symbol_pixels_y}, -- 2
-		 [10]  = {51, symbol_pixels_x, symbol_pixels_y}, -- 3
-		 [11]  = {52, symbol_pixels_x, symbol_pixels_y}, -- 4
-		 [12]  = {53, symbol_pixels_x, symbol_pixels_y}, -- 5
-		 [13]  = {54, symbol_pixels_x, symbol_pixels_y}, -- 6
-		 [14]  = {55, symbol_pixels_x, symbol_pixels_y}, -- 7
-		 [15]  = {56, symbol_pixels_x, symbol_pixels_y}, -- 8
-		 [16]  = {57, symbol_pixels_x, symbol_pixels_y}, -- 9
-		 [17]  = {58, symbol_pixels_x, symbol_pixels_y}, -- :
-		 [18]  = {65, symbol_pixels_x, symbol_pixels_y}, -- A
-		 [19]  = {66, symbol_pixels_x, symbol_pixels_y}, -- B
-		 [20]  = {67, symbol_pixels_x, symbol_pixels_y}, -- C
-		 [21]  = {68, symbol_pixels_x, symbol_pixels_y}, -- D
-		 [22]  = {69, symbol_pixels_x, symbol_pixels_y}, -- E
-		 [23]  = {70, symbol_pixels_x, symbol_pixels_y}, -- F
-		 [24]  = {71, symbol_pixels_x, symbol_pixels_y}, -- G
-		 [25]  = {72, symbol_pixels_x, symbol_pixels_y}, -- H
-		 [26]  = {73, symbol_pixels_x, symbol_pixels_y}, -- I
-		 [27]  = {74, symbol_pixels_x, symbol_pixels_y}, -- J
-		 [28]  = {75, symbol_pixels_x, symbol_pixels_y}, -- K
-		 [29]  = {76, symbol_pixels_x, symbol_pixels_y}, -- L
-		 [30]  = {77, symbol_pixels_x, symbol_pixels_y}, -- M
-		 [31]  = {78, symbol_pixels_x, symbol_pixels_y}, -- N
-		 [32]  = {79, symbol_pixels_x, symbol_pixels_y}, -- O
-		 [33]  = {80, symbol_pixels_x, symbol_pixels_y}, -- P
-		 [34]  = {81, symbol_pixels_x, symbol_pixels_y}, -- Q
-		 [35]  = {82, symbol_pixels_x, symbol_pixels_y}, -- R
-		 [36]  = {83, symbol_pixels_x, symbol_pixels_y}, -- S
-		 [37]  = {84, symbol_pixels_x, symbol_pixels_y}, -- T
-		 [38]  = {85, symbol_pixels_x, symbol_pixels_y}, -- U
-		 [39]  = {86, symbol_pixels_x, symbol_pixels_y}, -- V
-		 [40]  = {87, symbol_pixels_x, symbol_pixels_y}, -- W
-		 [41]  = {88, symbol_pixels_x, symbol_pixels_y}, -- X
-		 [42]  = {89, symbol_pixels_x, symbol_pixels_y}, -- Y
-		 [43]  = {90, symbol_pixels_x, symbol_pixels_y}, -- Z
-		 [44]  = {91, symbol_pixels_x, symbol_pixels_y}, -- [
-		 [45]  = {93, symbol_pixels_x, symbol_pixels_y}, -- ]
-		 [46]  = {62, symbol_pixels_x, symbol_pixels_y}, -- >
-		 [47]  = {111, symbol_pixels_x, symbol_pixels_y}, -- o
-		 [48]  = {94 , symbol_pixels_x, symbol_pixels_y}  -- ^
-	}
-}
-
+-- PCN font definition added for M-2000C Cockpit Indications Fix, now a dedicated 
+-- font definition for the PCN with proper digit spacing
+fontdescription["PCN_font"]         = create_font_description("font_LCD_M2KC.dds", 512, 44, 72, nil) -- 1024, 88, 144
+  
 fonts = {}
 fonts["font_general_keys"]				= {fontdescription["font_general_loc"], 10, {255,75,75,255}}
 fonts["font_hints_kneeboard"]			= {fontdescription["font_general_loc"], 10, {100,0,100,255}}
 
 -- VTH
-fonts["vth_indication_font_light"]  = {fontdescription["VTH_font_light"], 10, materials["VTH_GREEN"]} -- ADDED
-fonts["vth_indication_font"]        = {fontdescription["VTH_font"],       10, materials["VTH_GREEN"]}
+fonts["vth_indication_font_big"]  = {fontdescription["VTH_font_big"],   10, materials["VTH_GREEN"]} -- ADDED
+fonts["vth_indication_font"]        = {fontdescription["VTH_font"],     10, materials["VTH_GREEN"]}
 
 -- VTB
 fonts["vtb_indication_font"]			= {fontdescription["VTB_font"], 10, materials["VTB_IND_COLOR"]}
@@ -531,15 +213,20 @@ fonts["vtb_stt_indication_font"]		= {fontdescription["VTB_font"], 10, materials[
 
 -- PCA/PPA
 fonts["pca_gauge_font"]				= {fontdescription["PCA_font"], 10, materials["GREENBOX_GREEN"]}
-fonts["PPA_gauge_font"]				= {fontdescription["LCD_font"], 10, materials["GREENBOX_GREEN"]}
+fonts["PPA_gauge_font"]				= {fontdescription["LCD_font"], 10, materials["LCD_GREEN"]}
 
 -- PCN
-fonts["pcn_gauge_font"]				= {fontdescription["LCD_font"], 10, materials["GREENBOX_GREEN"]}
-fonts["pcn_gauge_rfont"]			= {fontdescription["LCD_font"], 10, materials["LCD_RED"]}
+fonts["pcn_gauge_font"]				= {fontdescription["PCN_font"], 10, materials["LCD_GREEN"]} -- changed from LCD_font to PCN_font
+fonts["pcn_gauge_rfont"]			= {fontdescription["PCN_font"], 10, materials["LCD_RED"]}   -- changed from LCD_font to PCN_font
 
 -- SERVAL
 fonts["rwr_indication_font"]		= {fontdescription["RWR_font"], 10, materials["RWR_GREEN"]} -- {fontdescription["VTH_font"], 10, materials["GREENBOX_GREEN"]}
 
 -- RADIO
-fonts["COM_gauge_font"]				= {fontdescription["LCD_font"], 10, materials["GREENBOX_GREEN"]}
+fonts["COM_gauge_font"]				  = {fontdescription["LCD_font"], 10, materials["LCD_GREEN"]}
 fonts["COM_greenbox_font"]			= {fontdescription["RADIO_font"], 10, materials["GREENBOX_GREEN"]}
+
+-- FUEL Gauge font definition added in this file for M-2000C Cockpit Indications Fix
+
+-- FUEL
+fonts["fuel_gauge_font"]				= {fontdescription["LCD_font"], 10, materials["LCD_GREEN"]}

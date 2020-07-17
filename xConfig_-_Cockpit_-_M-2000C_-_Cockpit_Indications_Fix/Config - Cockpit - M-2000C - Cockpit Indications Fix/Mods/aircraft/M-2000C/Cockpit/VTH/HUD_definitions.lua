@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."elements_defs.lua")
 
@@ -32,15 +32,17 @@ vth_line_material	  = "vth_line_material"
 
 -- VTH Font
 indication_font       = "vth_indication_font"       -- Normal font for default text 
-indication_font_light = "vth_indication_font_light" -- Light font for large text  -- Added
+indication_font_light = "vth_indication_font_big" -- Light font for large text  -- Added
 
 -- Notice that changing collimator distance factor need huge font size 
 -- adjustement, size for original colimator distance should be 0.0063 and 0.009
-font_size_default     = {0.006,0.006}                                           -- {0.005,0.005}
-font_size_large       = {0.009,0.009}                                             -- Added
+font_size_default     = {0.0062,0.0062}                                         -- {0.005,0.005}
+font_size_large       = {0.009,0.009}                                           -- Added
+-- Here is font sizing for HUD Test/Standby page
+font_size_stb_small   = {0.008,0.008}                                           -- Added
+font_size_stb_large   = {0.011,0.011}                                           -- Added
 
-
--- Texture Functions
+-- Texture Functions        
 local texture_size_x = 1024
 local texture_size_y = 1024
 

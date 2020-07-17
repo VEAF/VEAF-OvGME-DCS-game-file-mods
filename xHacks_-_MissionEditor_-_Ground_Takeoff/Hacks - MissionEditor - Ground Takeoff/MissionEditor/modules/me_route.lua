@@ -787,7 +787,7 @@ local function createComboType()
                 end
                 
                 vdata.group.uncontrolled = false
-				if  vdata.group.route.points[1].type == actions.takeoffParking then					
+				if  vdata.group.route.points[1].type.type == actions.takeoffParking.type then					
                     mod_me_aircraft.uncontrolledCheckBox:setState(false)						
 				end
 				mod_me_aircraft.updateVisibleUncontrolled()

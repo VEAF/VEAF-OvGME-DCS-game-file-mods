@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -124,7 +124,7 @@ vtb_ant_bar.material                = vtb_indication_font
 vtb_ant_bar.init_pos                = {-0.79, 0.0, 0.0}                            -- {-0.75, 0.0, 0.0}
 vtb_ant_bar.alignment               = "LeftCenter"
 vtb_ant_bar.formats                 = {"%1.f"}
-vtb_ant_bar.stringdefs              = {0.004,0.004}
+vtb_ant_bar.stringdefs              = vtb_font_size_default                        -- {0.004,0.004}
 vtb_ant_bar.controllers             = {{"txt_radar_bar", 0}, {"rdr_ant_elev", 0.87}}
 Add_VTB_Element(vtb_ant_bar)
 
@@ -223,7 +223,7 @@ vtb_r_txt_rng.material        = vtb_indication_font
 vtb_r_txt_rng.init_pos        = {0.07, 0.67, 0.0}                                  -- {0.0, 0.6, 0.0}
 vtb_r_txt_rng.alignment       = "CenterCenter"
 vtb_r_txt_rng.formats         = {"%d"}
-vtb_r_txt_rng.stringdefs      = {0.0035,0.0035}                                   -- {0.004,0.004}
+vtb_r_txt_rng.stringdefs      = vtb_font_size_small                                -- {0.004,0.004}
 vtb_r_txt_rng.controllers     = {{"txt_radar_rng"}}
 Add_VTB_Element(vtb_r_txt_rng)
 
@@ -233,7 +233,7 @@ vtb_r_txt_aamod.material      = vtb_indication_font
 vtb_r_txt_aamod.init_pos      = {0.64, 0.7, 0.0}                                  --  {0.65, 0.67, 0.0}
 vtb_r_txt_aamod.alignment     = "CenterCenter"
 vtb_r_txt_aamod.formats       = {"%s"}
-vtb_r_txt_aamod.stringdefs    = {0.004,0.004}                                     -- {0.005,0.005}
+vtb_r_txt_aamod.stringdefs    = vtb_font_size_default                             -- {0.005,0.005}
 vtb_r_txt_aamod.controllers   = {{"txt_radar_aamod"}}
 Add_VTB_Element(vtb_r_txt_aamod)
 
@@ -243,7 +243,7 @@ vtb_r_txt_jammed.material     = vtb_indication_font
 vtb_r_txt_jammed.init_pos     = {-0.64, 0.7, 0.0}                                 -- {-0.65, 0.67, 0.0}
 vtb_r_txt_jammed.alignment    = "CenterCenter"
 vtb_r_txt_jammed.formats      = {"%s"}
-vtb_r_txt_jammed.stringdefs   = {0.004,0.004}                                     -- {0.005,0.005}
+vtb_r_txt_jammed.stringdefs   = vtb_font_size_default                             -- {0.005,0.005}
 vtb_r_txt_jammed.controllers  = {{"txt_radar_jammed"}}
 Add_VTB_Element(vtb_r_txt_jammed)
 
@@ -251,14 +251,14 @@ Add_VTB_Element(vtb_r_txt_jammed)
 for i = 0, 9 do
 
   -- LPRF
-  local vtb_rdr_trk_bfr                 = create_rdr_textured_box(8, 455, 72, 519)  -- ( 744, 275, 788, 319)
+  local vtb_rdr_trk_bfr                 = create_rdr_textured_box(167, 341, 210, 384)  -- ( 744, 275, 788, 319)
   vtb_rdr_trk_bfr.name                  = "vtb_rdr_trk_bfr_" .. i
   vtb_rdr_trk_bfr.init_pos              = {0.0, -0.7, 0.0}
   vtb_rdr_trk_bfr.controllers           = {{"rdr_track_bfr",i}, {"rdr_track", i}}
   vtb_rdr_trk_bfr.additive_alpha        = true
   Add_VTB_Element(vtb_rdr_trk_bfr)
 
-  local vtb_rdr_trk_bfr_friend          = create_rdr_textured_box(816, 1, 856, 41)  -- ( 687, 4, 712, 38)
+  local vtb_rdr_trk_bfr_friend          = create_rdr_textured_box(822, 7, 849, 34)  -- ( 687, 4, 712, 38)
   vtb_rdr_trk_bfr_friend.name           = "vtb_rdr_trk_bfr_friend_" .. i  .. "_friend"
   vtb_rdr_trk_bfr_friend.init_pos       = {0.0, 0.0, 0.0}
   vtb_rdr_trk_bfr_friend.parent_element = "vtb_rdr_trk_bfr_" .. i
@@ -339,7 +339,7 @@ for i = 0, 9 do
   vtb_trklck.additive_alpha         = true
   Add_VTB_Element(vtb_trklck)
 
-  local vtb_trklck_frnd             = create_rdr_textured_box(811, 267, 897, 349)  -- (815, 270, 896, 345)
+  local vtb_trklck_frnd             = create_rdr_textured_box(811, 266, 897, 348)  -- (815, 270, 896, 345)
   vtb_trklck_frnd.name              = "vtb_trk_" .. i .. "_lck_frnd"
   vtb_trklck_frnd.init_pos          = {0.0, 0.0, 0.0}
   vtb_trklck_frnd.parent_element    = "vtb_track_" .. i
@@ -350,14 +350,14 @@ for i = 0, 9 do
   local vtb_trkvvector              = CreateElement "ceSimpleLineObject"
   vtb_trkvvector.name               = "vtb_trk_" .. i .. "_vvector"
   vtb_trkvvector.material           = vtb_line_material
-  vtb_trkvvector.width              = 0.004                                       -- 0.005
+  vtb_trkvvector.width              = 0.005                                       -- 0.005
   vtb_trkvvector.init_pos	          = {0, -0.7, 0}
   vtb_trkvvector.controllers        = {{"rdr_track_th", i}}
   Add_VTB_Element(vtb_trkvvector)
 
-  local vtb_trkvv_arrow             = create_rdr_textured_box(781, 3, 814, 35)    -- ( 789, 13, 809, 31)
+  local vtb_trkvv_arrow             = create_rdr_textured_box(781, 3, 814, 36)    -- ( 789, 13, 809, 31)
   vtb_trkvv_arrow.name              = "vtb_trk_" .. i .. "_vv_arrow"
-  vtb_trkvv_arrow.init_pos          = {0.0 ,-0.01, 0.0}                           -- {0.0 ,0.0, 0.0}
+  vtb_trkvv_arrow.init_pos          = {0,0,0}                                     -- {0.0 ,0.0, 0.0}
   vtb_trkvv_arrow.parent_element    = "vtb_trk_" .. i .. "_vvector"
   vtb_trkvv_arrow.controllers       = {{"rdr_track_ah",i}}
   vtb_trkvv_arrow.additive_alpha    = true
@@ -369,7 +369,7 @@ for i = 0, 9 do
   vtb_rdr_trkmach.init_pos          = {0.08, -0.07, 0.0}                         -- {0.04, -0.06, 0.0}
   vtb_rdr_trkmach.formats           = {"%01.1f"}
   vtb_rdr_trkmach.parent_element    = "vtb_track_" .. i
-  vtb_rdr_trkmach.stringdefs        = {0.004,0.004}                               -- {0.003,0.003}
+  vtb_rdr_trkmach.stringdefs        = vtb_font_size_small                        -- {0.003,0.003}
   vtb_rdr_trkmach.controllers       = {{"rdr_track_mach",i}}
   vtb_rdr_trkmach.additive_alpha    = true
   Add_VTB_Element(vtb_rdr_trkmach)
@@ -380,7 +380,7 @@ for i = 0, 9 do
   vtb_rdr_trkrng0.init_pos          = {-0.13, -0.65, 0.0}                         -- {-0.15, -0.7, 0.0}
   vtb_rdr_trkrng0.alignment         = "RightCenter"
   vtb_rdr_trkrng0.formats           = {"%01.f"}
-  vtb_rdr_trkrng0.stringdefs        = {0.0045,0.0045}                             -- {0.005,0.005}
+  vtb_rdr_trkrng0.stringdefs        = vtb_font_size_big                           -- {0.005,0.005}
   vtb_rdr_trkrng0.controllers       = {{"rdr_track_rng0",i}, {"rdr_track", i}}
   vtb_rdr_trkrng0.additive_alpha    = true
   Add_VTB_Element(vtb_rdr_trkrng0)
@@ -391,7 +391,7 @@ for i = 0, 9 do
   vtb_rdr_trkrng1.init_pos          = {-0.13, -0.65, 0.0}                         -- {-0.15, -0.7, 0.0}
   vtb_rdr_trkrng1.alignment         = "RightCenter"
   vtb_rdr_trkrng1.formats           = {"%01.1f"}
-  vtb_rdr_trkrng1.stringdefs        = {0.0045,0.0045}                             -- {0.005,0.005}
+  vtb_rdr_trkrng1.stringdefs        = vtb_font_size_big                           -- {0.005,0.005}
   vtb_rdr_trkrng1.controllers       = {{"rdr_track_rng1",i}, {"rdr_track", i}}
   vtb_rdr_trkrng1.additive_alpha    = true
   Add_VTB_Element(vtb_rdr_trkrng1)
@@ -402,7 +402,7 @@ for i = 0, 9 do
   vtb_rdr_trkb_angle.init_pos       = {0.0, -0.75, 0.0}
   vtb_rdr_trkb_angle.alignment      = "CenterCenter"
   vtb_rdr_trkb_angle.formats        = {"%01.f"}
-  vtb_rdr_trkb_angle.stringdefs     = {0.004,0.004}
+  vtb_rdr_trkb_angle.stringdefs     = vtb_font_size_default                        -- {0.004,0.004}
   vtb_rdr_trkb_angle.controllers    = {{"rdr_track_b_angle",i}, {"rdr_track", i}}
   vtb_rdr_trkb_angle.additive_alpha = true
   Add_VTB_Element(vtb_rdr_trkb_angle)
@@ -425,7 +425,7 @@ vtb_rdr_trk_STT.controllers             = {{"vis_track_stt"}, {"rdr_track_stt_po
 vtb_rdr_trk_STT.additive_alpha          = true
 Add_VTB_Element(vtb_rdr_trk_STT)
 
-vtb_rdr_trk_STT_friend                  = create_vtb_textured_box(811, 267, 897, 349)  -- (815, 270, 896, 345)
+vtb_rdr_trk_STT_friend                  = create_vtb_textured_box(811, 266, 897, 348)  -- (815, 270, 896, 345)
 vtb_rdr_trk_STT_friend.name             = "vtb_rdr_trk_STT_friend"
 vtb_rdr_trk_STT_friend.init_pos         = {0.0, 0.0, 0.0}
 vtb_rdr_trk_STT_friend.parent_element   = vtb_rdr_trk_STT.name
@@ -436,14 +436,14 @@ Add_VTB_Element(vtb_rdr_trk_STT_friend)
 vtb_trk_STT_vvector                     = CreateElement "ceSimpleLineObject"
 vtb_trk_STT_vvector.name                = "vtb_trk_STT_vvector"
 vtb_trk_STT_vvector.material            = vtb_line_material
-vtb_trk_STT_vvector.width               = 0.004                                    -- 0.005
+vtb_trk_STT_vvector.width               = 0.005                                    -- 0.005
 vtb_trk_STT_vvector.init_pos            = {0, -0.7, 0}
 vtb_trk_STT_vvector.controllers         = {{"vis_track_stt"}, {"rdr_track_stt_th", 1.0}}
 Add_VTB_Element(vtb_trk_STT_vvector)
 
-vtb_trk_stt_vv_arrow                    = create_vtb_stt_textured_box(781, 3, 814, 35)  -- ( 789, 13, 809, 31)
+vtb_trk_stt_vv_arrow                    = create_vtb_stt_textured_box(781, 3, 814, 36)  -- ( 789, 13, 809, 31)
 vtb_trk_stt_vv_arrow.name               = "vtb_trk_stt_vv_arrow"
-vtb_trk_stt_vv_arrow.init_pos           = {0,-0.01,0}                              -- {0,0,0}
+vtb_trk_stt_vv_arrow.init_pos           = {0,0,0}                              -- {0,0,0}
 vtb_trk_stt_vv_arrow.parent_element     = vtb_trk_STT_vvector.name
 vtb_trk_stt_vv_arrow.controllers        = {{"rdr_track_stt_ah", 0.01}}
 vtb_trk_stt_vv_arrow.additive_alpha     = true
@@ -456,7 +456,7 @@ vtb_rdr_trk_STT_mach.material           = vtb_indication_font
 vtb_rdr_trk_STT_mach.init_pos           = {0.19, -0.04, 0.0}                      -- {0.18, -0.05, 0.0}
 vtb_rdr_trk_STT_mach.alignment          = "RightCenter"
 vtb_rdr_trk_STT_mach.formats            = {"%1.1f"}
-vtb_rdr_trk_STT_mach.stringdefs         = {0.004,0.004}
+vtb_rdr_trk_STT_mach.stringdefs         = vtb_font_size_default                   -- {0.004,0.004}
 vtb_rdr_trk_STT_mach.parent_element     = vtb_rdr_trk_STT.name
 vtb_rdr_trk_STT_mach.controllers        = {{"rdr_track_stt_mach"}}
 vtb_rdr_trk_STT_mach.additive_alpha     = true
@@ -468,7 +468,7 @@ vtb_rdr_trk_STT_rng0.material           = vtb_indication_font
 vtb_rdr_trk_STT_rng0.init_pos           = {-0.13, -0.65, 0.0}                      -- {-0.15, -0.7, 0.0}
 vtb_rdr_trk_STT_rng0.alignment          = "RightCenter"
 vtb_rdr_trk_STT_rng0.formats            = {"%01.f"}
-vtb_rdr_trk_STT_rng0.stringdefs         = {0.0045,0.0045}                         -- {0.005,0.005}
+vtb_rdr_trk_STT_rng0.stringdefs         = vtb_font_size_big                        -- {0.005,0.005}
 vtb_rdr_trk_STT_rng0.controllers        = {{"vis_track_stt"}, {"rdr_track_stt_rng0"}, {"rdr_track_stt_pos", 1.0}}
 vtb_rdr_trk_STT_rng0.additive_alpha     = true
 Add_VTB_Element(vtb_rdr_trk_STT_rng0)
@@ -479,7 +479,7 @@ vtb_rdr_trk_STT_rng1.material           = vtb_indication_font
 vtb_rdr_trk_STT_rng1.init_pos           = {-0.13, -0.65, 0.0}                      -- {-0.15, -0.7, 0.0}
 vtb_rdr_trk_STT_rng1.alignment          = "RightCenter"
 vtb_rdr_trk_STT_rng1.formats            = {"%01.1f"}
-vtb_rdr_trk_STT_rng1.stringdefs         = {0.0045,0.0045}                         -- {0.005,0.005}
+vtb_rdr_trk_STT_rng1.stringdefs         = vtb_font_size_big                         -- {0.005,0.005}
 vtb_rdr_trk_STT_rng1.controllers        = {{"vis_track_stt"}, {"rdr_track_stt_rng1"}, {"rdr_track_stt_pos", 1.0}}
 vtb_rdr_trk_STT_rng1.additive_alpha     = true
 Add_VTB_Element(vtb_rdr_trk_STT_rng1)
@@ -490,7 +490,7 @@ vtb_rdr_trk_STT_b_angle.material        = vtb_indication_font
 vtb_rdr_trk_STT_b_angle.init_pos        = {0.0, -0.75, 0.0}
 vtb_rdr_trk_STT_b_angle.alignment       = "CenterCenter"
 vtb_rdr_trk_STT_b_angle.formats         = {"%01.f"}
-vtb_rdr_trk_STT_b_angle.stringdefs      = {0.004,0.004}
+vtb_rdr_trk_STT_b_angle.stringdefs      = vtb_font_size_default                     -- {0.004,0.004}
 vtb_rdr_trk_STT_b_angle.controllers     = {{"vis_track_stt"}, {"rdr_track_stt_b_angle"}, {"rdr_track_stt_pos", 1.0}}
 vtb_rdr_trk_STT_b_angle.additive_alpha  = true
 Add_VTB_Element(vtb_rdr_trk_STT_b_angle)
@@ -501,7 +501,7 @@ vtb_rdr_trk_STT_nctr.material           = vtb_indication_font
 vtb_rdr_trk_STT_nctr.init_pos           = {0.75, -0.57, 0.0}                      -- {0.6, -0.5, 0.0}
 vtb_rdr_trk_STT_nctr.alignment          = "CenterCenter"
 vtb_rdr_trk_STT_nctr.formats            = {"%s"}
-vtb_rdr_trk_STT_nctr.stringdefs         = {0.004,0.004}
+vtb_rdr_trk_STT_nctr.stringdefs         = vtb_font_size_default                   -- {0.004,0.004}
 vtb_rdr_trk_STT_nctr.controllers        = {{"rdr_track_stt_nctr"}}
 vtb_rdr_trk_STT_nctr.additive_alpha     = true
 Add_VTB_Element(vtb_rdr_trk_STT_nctr)
@@ -522,7 +522,7 @@ vtb_r_txt_trk_abc.material        = vtb_indication_font
 vtb_r_txt_trk_abc.init_pos        = {0.55, 0.83, 0.0}                              -- {0.6, 0.8, 0.0}
 vtb_r_txt_trk_abc.alignment       = "RightCenter"
 vtb_r_txt_trk_abc.formats         = {"%1.f"}
-vtb_r_txt_trk_abc.stringdefs      = {0.004,0.004}
+vtb_r_txt_trk_abc.stringdefs      = vtb_font_size_default                         -- {0.004,0.004}
 vtb_r_txt_trk_abc.controllers     = {{"vis_dcible"}, {"txt_abc"}}
 Add_VTB_Element(vtb_r_txt_trk_abc)
 
@@ -542,7 +542,7 @@ vtb_r_txt_trk_vrc.material        = vtb_indication_font
 vtb_r_txt_trk_vrc.init_pos        = {0.15, 0.83, 0.0}                              -- {0.25, 0.8, 0.0}
 vtb_r_txt_trk_vrc.alignment       = "RightCenter"
 vtb_r_txt_trk_vrc.formats         = {"%1.f"}
-vtb_r_txt_trk_vrc.stringdefs      = {0.004,0.004}
+vtb_r_txt_trk_vrc.stringdefs      = vtb_font_size_default                         -- {0.004,0.004}
 vtb_r_txt_trk_vrc.controllers     = {{"vis_dcible"}, {"txt_vrc"}}
 Add_VTB_Element(vtb_r_txt_trk_vrc)
 
@@ -552,7 +552,7 @@ vtb_r_txt_trk_rbc.material        = vtb_indication_font
 vtb_r_txt_trk_rbc.init_pos        = {-0.32, 0.83, 0.0}                             -- {-0.3, 0.8, 0.0}
 vtb_r_txt_trk_rbc.alignment       = "LeftCenter"
 vtb_r_txt_trk_rbc.formats         = {"%03.f"}
-vtb_r_txt_trk_rbc.stringdefs      = {0.004,0.004}
+vtb_r_txt_trk_rbc.stringdefs      = vtb_font_size_default                         -- {0.004,0.004}
 vtb_r_txt_trk_rbc.controllers     = {{"vis_dcible"}, {"txt_rbc"}}
 Add_VTB_Element(vtb_r_txt_trk_rbc)
 
@@ -572,19 +572,19 @@ vtb_r_txt_trk_mnc.material        = vtb_indication_font
 vtb_r_txt_trk_mnc.init_pos        = {-0.68, 0.83, 0.0}                              -- {-0.6, 0.8, 0.0}
 vtb_r_txt_trk_mnc.alignment       = "LeftCenter"
 vtb_r_txt_trk_mnc.formats         = {"%1.1f"}
-vtb_r_txt_trk_mnc.stringdefs      = {0.004,0.004}
+vtb_r_txt_trk_mnc.stringdefs      = vtb_font_size_default                         -- {0.004,0.004}
 vtb_r_txt_trk_mnc.controllers     = {{"vis_dcible"}, {"txt_mnc"}}
 Add_VTB_Element(vtb_r_txt_trk_mnc)
 
 -- Flight Director
-vtb_rdr_pol_bore                  = create_vtb_textured_box(502, 100, 718, 316)
+vtb_rdr_pol_bore                  = create_vtb_textured_box(519, 118, 698, 297)   -- (502, 100, 718, 316)
 vtb_rdr_pol_bore.name             = "vtb_rdr_pol_bore"
 vtb_rdr_pol_bore.init_pos         = {0.0, 0.0, 0.0}
 vtb_rdr_pol_bore.controllers      = {{"vis_pol_bore"}}
 vtb_rdr_pol_bore.additive_alpha   = true
 Add_VTB_Element(vtb_rdr_pol_bore)
 
-vtb_rdr_pol_director				      = create_vtb_textured_box(821, 7, 849, 33)      -- (825, 8, 850, 33)
+vtb_rdr_pol_director				      = create_vtb_textured_box(822, 7, 849, 34)      -- (825, 8, 850, 33)
 vtb_rdr_pol_director.name			    = "vtb_rdr_pol_director"
 vtb_rdr_pol_director.init_pos		  = {0.0, 0.0, 0.0}
 vtb_rdr_pol_director.controllers	= {{"vis_pol_drct"}}

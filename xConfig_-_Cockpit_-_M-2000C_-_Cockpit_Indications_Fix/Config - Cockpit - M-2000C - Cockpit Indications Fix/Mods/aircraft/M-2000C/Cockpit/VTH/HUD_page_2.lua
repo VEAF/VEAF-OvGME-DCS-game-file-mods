@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -149,10 +149,10 @@ txt_GMeter_L.stringdefs       = font_size_default                               
 txt_GMeter_L.value            = "G"
 AddHUDElement(txt_GMeter_L)
 
-local aoa_symbol              = create_vth_textured_box(932, 291, 961, 315)       -- ( 967, 293, 997, 320)
+local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)       -- ( 967, 293, 997, 320)
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
-aoa_symbol.init_pos           = {-118.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
+aoa_symbol.init_pos           = {-115.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
 aoa_symbol.controllers	      = {{"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
@@ -232,9 +232,9 @@ AddHUDElement(txt_salvo_fire)
 
 -- RETICLES
 -- CCRP NORMAL
-local Ret_CCRP_Sight              = create_vth_textured_box(711, 61, 792, 118)    -- ( 713, 63, 791, 116)
+local Ret_CCRP_Sight              = create_vth_textured_box(710, 61, 793, 118)    -- ( 713, 63, 791, 116)
 Ret_CCRP_Sight.name               = "Ret_CCRP_Sight"
-Ret_CCRP_Sight.init_pos           = {0, 0.0, 0}
+Ret_CCRP_Sight.init_pos           = {0, 3.5, 0}
 Ret_CCRP_Sight.parent_element     = FOV_center2.name
 Ret_CCRP_Sight.controllers        = {{"ag_ccrp_sight", 1.5}}
 AddHUDElement(Ret_CCRP_Sight)
@@ -246,14 +246,14 @@ CCRP_reticule.parent_element      = FOV_center2.name
 CCRP_reticule.controllers         = {{"ag_ccrp_TDC"}}
 AddHUDElement(CCRP_reticule)
 
-local Ret_CCRP_Sight_Az           = create_vth_textured_box(90, 212, 249, 218)    -- ( 92, 213, 248, 216)
+local Ret_CCRP_Sight_Az           = create_vth_textured_box(90, 212, 250, 219)    -- ( 92, 213, 248, 216)
 Ret_CCRP_Sight_Az.name            = "Ret_CCRP_Sight_Az"
 Ret_CCRP_Sight_Az.init_pos        = {0, 0, 0}
 Ret_CCRP_Sight_Az.parent_element  = Ret_CCRP_Sight.name
 Ret_CCRP_Sight_Az.controllers     = {{"ag_ccrp_ERR", 0.8}}
 AddHUDElement(Ret_CCRP_Sight_Az)
 
-local Ret_CCRP_Sight_Cue          = create_vth_textured_box(266, 212, 425, 218)   -- ( 268, 214, 372, 218)
+local Ret_CCRP_Sight_Cue          = create_vth_textured_box(266, 212, 426, 219)   -- ( 268, 214, 372, 218)
 Ret_CCRP_Sight_Cue.name           = "Ret_CCRP_Sight_Cue"
 Ret_CCRP_Sight_Cue.init_pos       = {0, 0, 0}
 Ret_CCRP_Sight_Cue.parent_element = Ret_CCRP_Sight.name
@@ -261,21 +261,21 @@ Ret_CCRP_Sight_Cue.controllers    = {{"ag_ccrp_CUE", 0.8}}
 AddHUDElement(Ret_CCRP_Sight_Cue)
 
 -- CCRP IP
-local CCRP_IP_reticule            =  create_vth_textured_box(525, 57, 582, 113)   -- ( 526, 59, 581, 113)
+local CCRP_IP_reticule            =  create_vth_textured_box(525, 57, 583, 114)   -- ( 526, 59, 581, 113)
 CCRP_IP_reticule.name             = "CCRP_IP_reticule"
 CCRP_IP_reticule.init_pos         = {0, 0, 0}
 CCRP_IP_reticule.parent_element   = FOV_center2.name
 CCRP_IP_reticule.controllers      = {{"ag_ccrp_IP_TGT"}}
 AddHUDElement(CCRP_IP_reticule)
 
-local Ret_CCRP_IP_TRK_ERR         = create_vth_textured_box(806, 887, 1012, 894)  -- ( 808, 888, 1001, 892)
+local Ret_CCRP_IP_TRK_ERR         = create_vth_textured_box(806, 887, 1013, 894)  -- ( 808, 888, 1001, 892)
 Ret_CCRP_IP_TRK_ERR.name          = "Ret_CCRP_IP_TRK_ERR"
 Ret_CCRP_IP_TRK_ERR.init_pos      = {0, 0, 0}
 Ret_CCRP_IP_TRK_ERR.parent_element= vth_fpm_ccip.name
 Ret_CCRP_IP_TRK_ERR.controllers   = {{"ag_ccrp_IP_ERR", 0.8}}
 AddHUDElement(Ret_CCRP_IP_TRK_ERR)
 
-local Ret_CCRP_IP_REL_Cue         = create_vth_textured_box(266, 212, 373, 218)   -- ( 268, 214, 372, 218)
+local Ret_CCRP_IP_REL_Cue         = create_vth_textured_box(266, 212, 426, 219)   -- ( 268, 214, 372, 218)
 Ret_CCRP_IP_REL_Cue.name          = "Ret_CCRP_IP_REL_Cue"
 Ret_CCRP_IP_REL_Cue.init_pos      = {0, 0, 0}
 Ret_CCRP_IP_REL_Cue.parent_element= vth_fpm_ccip.name
@@ -283,7 +283,7 @@ Ret_CCRP_IP_REL_Cue.controllers   = {{"ag_ccrp_IP_CUE", 0.8}}
 AddHUDElement(Ret_CCRP_IP_REL_Cue)
 
 -- CCIP
-local Ret_CCIP_Sight              = create_vth_textured_box(594, 71, 702, 107)    -- ( 596, 71, 700, 105)
+local Ret_CCIP_Sight              = create_vth_textured_box(594, 71, 703, 107)    -- ( 596, 71, 700, 105)
 Ret_CCIP_Sight.name               = "Ret_CCIP_Sight"
 Ret_CCIP_Sight.init_pos           = {0,0,0}
 Ret_CCIP_Sight.parent_element     = FOV_center2.name
@@ -292,14 +292,14 @@ AddHUDElement(Ret_CCIP_Sight)
 
 local Ret_CCIP_BFL                = CreateElement "ceSimpleLineObject"
 Ret_CCIP_BFL.name                 = "Ret_CCIP_BFL"
-Ret_CCIP_BFL.material             = vth_line_material                             -- MakeMaterial(nil, vth_ind_color)
-Ret_CCIP_BFL.width                = 0.7
-Ret_CCIP_BFL.init_pos             = {0.2,0,0}                                     -- {0,0,0}
+Ret_CCIP_BFL.material             = vth_line_material
+Ret_CCIP_BFL.width                = 0.8                                           -- 0.8
+Ret_CCIP_BFL.init_pos             = {0,0,0}                                       -- {0,0,0}
 Ret_CCIP_BFL.parent_element       = vth_fpm_ccip.name
 Ret_CCIP_BFL.controllers          = {{"ag_ccip_bfl", 0.8}}
 AddHUDElement(Ret_CCIP_BFL)
 
-local Ret_MinSafe_Height          = create_vth_textured_box(885, 262, 991, 279)   -- ( 887, 264, 989, 277)
+local Ret_MinSafe_Height          = create_vth_textured_box(885, 262, 992, 280)   -- ( 887, 264, 989, 277)
 Ret_MinSafe_Height.name           = "Ret_MinSafe_Height"
 Ret_MinSafe_Height.init_pos       = {0, 0, 0}
 Ret_MinSafe_Height.parent_element = vth_fpm_ccip.name
@@ -324,21 +324,21 @@ AddHUDElement(AG_Gun_Reticle)
 local AG_Gun_Range                = CreateElement "ceSimpleLineObject"
 AG_Gun_Range.name                 = "AG_Gun_Range"
 AG_Gun_Range.material             = vth_line_material
-AG_Gun_Range.width                = 0.7                                           -- 0.8
+AG_Gun_Range.width                = 0.8                                           -- 0.8
 AG_Gun_Range.init_pos             = {0, 0, 0}
 AG_Gun_Range.parent_element       = AG_Gun_Reticle.name
 AG_Gun_Range.controllers          = {{"ag_gun_range"}}
 AddHUDElement(AG_Gun_Range)
 
 -- CCRP Nav cues
-local wp_ccrp_trkerr_to           = create_vth_textured_box(881, 17, 917, 61, nil, 59) -- ( 883, 19, 916, 60, nil, 60)
+local wp_ccrp_trkerr_to           = create_vth_textured_box(881, 17, 918, 61, nil, 59) -- ( 883, 19, 916, 60, nil, 60)
 wp_ccrp_trkerr_to.name            = "wp_ccrp_trkerr_to"
 wp_ccrp_trkerr_to.init_pos        = {0,0,0}
 wp_ccrp_trkerr_to.parent_element  = Ret_CCRP_Sight.name
 wp_ccrp_trkerr_to.controllers     = {{"wp_trk_err_t", 0.6}}
 AddHUDElement(wp_ccrp_trkerr_to)
 
-local wp_ccrp_trkerr_frm          = create_vth_textured_box(922, 20, 958, 65, nil, 21)  -- ( 925, 23, 957, 64)
+local wp_ccrp_trkerr_frm          = create_vth_textured_box(922, 20, 959, 65, nil, 21)  -- ( 925, 23, 957, 64)
 wp_ccrp_trkerr_frm.name           = "wp_ccrp_trkerr_frm"
 wp_ccrp_trkerr_frm.init_pos       = {0,-10.0,0}
 wp_ccrp_trkerr_frm.parent_element = Ret_CCRP_Sight.name

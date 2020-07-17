@@ -3,10 +3,9 @@ __DO_NOT_ERASE_DEBRIEF_LOG__ = true;
 -- добавлять коды команд в тултип для команды
 OPTIONS_ADD_COMMAND_CODES_TO_TOOLTIP = true
 
---test_addNeutralCoalition = true
+test_addNeutralCoalition = true
 --test_Loadout_vehicles = true
 test_topdown_view_models = true
---test_eras = true
 --test_Visible_Map_Bounds = true
 --test_localizationMG = true
 --test_dyn_missions = true
@@ -659,8 +658,8 @@ print("---- openReturnScreen=",START_PARAMS.returnScreen)
             mmw.show(true)
 			MapWindow.initMapAfterSim()
 			panel_auth.openAutorization(mmw.setAutorization)
-            modulesInfo.init()    
-			modulesInfo.setCallback(mmw.UpdateIndicatorMM)
+            modulesInfo.init()  
+			modulesInfo.setCallback(mmw.callbackMainMenu)
         end 
 	elseif START_PARAMS.returnScreen == 'quickstart' then
 		panel_debriefing.returnScreen = defaultReturnScreen
@@ -910,6 +909,7 @@ local function loadUiInputlayer()
 end
 
 loadUiInputlayer()
+
 
 -- выгружаем картинку задника
 Gui.SetBackground()

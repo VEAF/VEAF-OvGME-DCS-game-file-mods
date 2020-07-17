@@ -16,7 +16,6 @@ join(res.keyCommands,{
 {down = HUD_commands.HUD_AltitudeSw, up = HUD_commands.HUD_AltitudeSw, cockpit_device_id = devices.HUD,	value_down =  1.0, value_up =  0.0, name = _('Altitude Switch 2-Pos BARO/RADAR'), category = {_('Toggle Switches'),_('Instrument Panel'), _('HUD Control Panel')}},
 {down = gear_commands.HookHandle, up = gear_commands.HookHandle, cockpit_device_id = devices.GEAR_INTERFACE, value_down =  1.0, value_up =  0.0, name = _('Arresting Hook Handle 2-Pos UP/DOWN'), category = {_('Toggle Switches'),_('Right Vertical Panel')}},
 {down = hmd_commands.BrtKnob_AXIS, up = hmd_commands.BrtKnob_AXIS, cockpit_device_id = devices.HMD_INTERFACE, value_down =  1.0, value_up =  -1.0, name = _('HMD 2-Pos ON/OFF'), category = {_('Toggle Switches'),_('Instrument Panel')}},
-
 ---------------------------------------------
 -- Cheat ------------------------------------
 ---------------------------------------------

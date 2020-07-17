@@ -13,7 +13,6 @@ join(res.keyCommands,{
     {down = engine_commands.Switch_H20,         up = engine_commands.Switch_H20,        cockpit_device_id=devices.DECS,             value_down=1.0, value_up=0.5,   name= _('H2O TO else OFF'),         category=_('Joystick Switch Abstractions')},
     {down = engine_commands.Switch_H20,         up = engine_commands.Switch_H20,        cockpit_device_id=devices.DECS,             value_down=0.0, value_up=0.5,   name= _('H2O LN else OFF'),         category=_('Joystick Switch Abstractions')},        
     {down = iCommandPlaneGearUp,                up = iCommandPlaneGearDown,     																					name = _('Landing Gear UP else DOWN'),  category = _('Joystick Switch Abstractions')},
-    {down = iCommandPlaneAirBrakeOn,            up = iCommandPlaneAirBrakeOff,  																					name = _('Airbrake ON else OFF'),       category = _('Joystick Switch Abstractions')},	
     
 	-- Toggle Switches
 	{down = fcs_commands.Switch_FLAP_SELECT, up = fcs_commands.Switch_FLAP_SELECT, cockpit_device_id = devices.VREST, value_down = 1, value_up = 0.5, name = _('Flaps CRUISE/AUTO Three Position'), category = { _('Toggle Switches'), _('VSTOL Controls'), _('Landing Gear/Flaps Control Panel')}},
@@ -253,16 +252,16 @@ join(res.keyCommands,{
 	
 	{down = iCommandPlane_ABRIS_Axis_Push,					name = _('Cage/Uncage'),					category = _('HOTAS')},
 	
-	{down = iCommandPlane_HOTAS_CMS_Up,						name = _('Engine Air Start'),				category = _('HOTAS')},
+	{down = iCommandPlane_HOTAS_CMS_Up,	up = iCommandPlane_HOTAS_CMS_Left,  name = _('Engine Air Start'),				category = _('HOTAS')},
 	{down = iCommandPlane_HOTAS_CMS_Down, up = iCommandPlane_HOTAS_CMS_Off, name = _('Emergency Flap Retraction'),		category = _('HOTAS')},
 	
 	{down = iCommandPlane_HOTAS_MIC_SwitchUp,				name = _('COMM FWD: Select COMM 1'),		category = _('HOTAS')},
 	{down = iCommandPlane_HOTAS_MIC_SwitchDown,				name = _('COMM AFT: Select COMM 2'),		category = _('HOTAS')},
 	-- Missing COMM CENTER
 	
-	{down = iCommandPlaneAirBrake,							name = _('Airbrake TOGGLE'),		category = _('HOTAS')},
-	{down = iCommandPlaneAirBrakeOn,						name = _('Airbrake ON'),			category = _('HOTAS')},
-	{down = iCommandPlaneAirBrakeOff,						name = _('Airbrake OFF'),			category = _('HOTAS')},
+	{down = iCommandPlaneAirBrake,							                        name = _('Airbrake TOGGLE'),		category = _('HOTAS')},
+	{pressed = iCommandPlaneAirBrakeOn, up = iCommandHelicopter_PPR_button_K_up,	name = _('Airbrake OUT'),			category = _('HOTAS')},
+	{pressed = iCommandPlaneAirBrakeOff, up = iCommandHelicopter_PPR_button_K_up,	name = _('Airbrake IN'),			category = _('HOTAS')},
 	
 	{pressed = iCommandPlane_HOTAS_CoolieUp,				up = iCommandPlane_HOTAS_CoolieOff, 		name = _('TDC Forward'),					category = _('HOTAS')},
 	{pressed = iCommandPlane_HOTAS_CoolieDown,  			up = iCommandPlane_HOTAS_CoolieOff, 		name = _('TDC Aft'),						category = _('HOTAS')},
@@ -380,7 +379,7 @@ join(res.keyCommands,{
 	
 	{down = iCommandPlaneJettisonFuelTanks,			name = _('Emergency Jettison Pushbutton'),			category = _('Armament Control')},
 	{down = iCommandPlaneWingtipSmokeOnOff,         name = _('Smoke'),                                  category = _('Armament Control')},
-	
+    
 	-- UFC
 	{down = iCommandPlaneUFC_1,						name = _('UFC 1 Button'),								category = _('Up Front Control')},
 	{down = iCommandPlaneUFC_2,						name = _('UFC 2/N Button'),								category = _('Up Front Control')},
@@ -410,8 +409,8 @@ join(res.keyCommands,{
 	{down = iCommandPlaneUFC_ALT,					name = _('UFC Altimeter Function Button'),				category = _('Up Front Control')},
 	{down = iCommandPlaneUFC_SEL_DOWN,				name = _('UFC EMCON Toggle Button'),					category = _('Up Front Control')},
 	{down = iCommandPlaneUFC_DEPR_DOWN, up = iCommandPlaneUFC_DEPR_UP,	name = _('UFC I/P Button'),			category = _('Up Front Control')},
-	{press = iCommandPlaneUFC_INTEN_INCREASE, 		name = _('UFC Display Brightness Increase'),			category = _('Up Front Control')},
-	{press = iCommandPlaneUFC_INTEN_DECREASE, 		name = _('UFC Display Brightness Decrease'),			category = _('Up Front Control')},
+	{pressed = iCommandPlaneUFC_INTEN_INCREASE, 	name = _('UFC Display Brightness Increase'),			category = _('Up Front Control')},
+	{pressed = iCommandPlaneUFC_INTEN_DECREASE, 	name = _('UFC Display Brightness Decrease'),			category = _('Up Front Control')},
 	
 	-- ODU
 	{down = iCommandPlaneCDU_1,						name = _('ODU Option 1'),								category = _('Up Front Control')},
@@ -419,6 +418,43 @@ join(res.keyCommands,{
 	{down = iCommandPlaneCDU_3,						name = _('ODU Option 3'),								category = _('Up Front Control')},
 	{down = iCommandPlaneCDU_4,						name = _('ODU Option 4'),								category = _('Up Front Control')},
 	{down = iCommandPlaneCDU_5,						name = _('ODU Option 5'),								category = _('Up Front Control')},
+	
+	-- Communications
+	{pressed = iCommandPlane_VHF_FM_Volume_Dec, 														name = _('UHF Radio 1 Volume Decrease'),				category = _('Radios Control')},
+	{pressed = iCommandPlane_VHF_FM_Volume_Inc, 														name = _('UHF Radio 1 Volume Increase'),				category = _('Radios Control')},
+	{down = iCommandPlane_VHF_FM_FreqMode_OFF,															name = _('UHF Radio 1 Selector'),						category = _('Radios Control')},
+	{down = iCommandPlane_VHF_FM_Preset_Dec, 															name = _('UHF Radio 1 Preset Channel Decrease'),		category = _('Radios Control')},
+	{down = iCommandPlane_VHF_FM_Preset_Inc, 															name = _('UHF Radio 1 Preset Channel Increase'),		category = _('Radios Control')},
+	
+	{pressed = iCommandPlane_VHF_AM_Volume_Dec, 														name = _('UHF Radio 2 Volume Decrease'),				category = _('Radios Control')},
+	{pressed = iCommandPlane_VHF_AM_Volume_Inc, 														name = _('UHF Radio 2 Volume Increase'),				category = _('Radios Control')},
+	{down = iCommandPlane_VHF_AM_FreqMode_OFF,															name = _('UHF Radio 2 Selector'),						category = _('Radios Control')},
+	{down = iCommandPlane_VHF_AM_Preset_Dec, 															name = _('UHF Radio 2 Preset Channel Decrease'),		category = _('Radios Control')},
+	{down = iCommandPlane_VHF_AM_Preset_Inc, 															name = _('UHF Radio 2 Preset Channel Increase'),		category = _('Radios Control')},
+	
+	{down = iCommandPlaneIntercomHM, 																	name = _('UHF Radio Control Selector (UFC/RCU-8150)'),	category = _('Radios Control')},
+	{down = iCommandPlaneIntercomVHF, 																	name = _('UHF RCU-8150 Radio Selector (COM1/COM2)'),	category = _('Radios Control')},
+
+	{down = iCommandPlaneUHFPresetChannelSelectorInc, 													name = _('UHF RCU-8150 Chan/Freq Knob CW'),				category = _('Radios Control')},
+	{down = iCommandPlaneUHFPresetChannelSelectorDec, 													name = _('UHF RCU-8150 Chan/Freq Knob CCW'),			category = _('Radios Control')},
+	{pressed = iCommandPlaneUHFVolumeInc, 																name = _('UHF RCU-8150 Volume Increase'),				category = _('Radios Control')},
+	{pressed = iCommandPlaneUHFVolumeDec, 																name = _('UHF RCU-8150 Volume Decrease'),				category = _('Radios Control')},
+	{down = radio_commands.Switch_OP_MOD,		cockpit_device_id = devices.RSC,	value_down = 0.05, 	name = _('UHF RCU-8150 Operational Mode: OFF'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_OP_MOD,		cockpit_device_id = devices.RSC,	value_down = 0.15, 	name = _('UHF RCU-8150 Operational Mode: TEST'),		category = _('Radios Control')},
+	{down = radio_commands.Switch_OP_MOD,		cockpit_device_id = devices.RSC,	value_down = 0.35, 	name = _('UHF RCU-8150 Operational Mode: TR+G'),		category = _('Radios Control')},
+	{down = radio_commands.Switch_OP_MOD,		cockpit_device_id = devices.RSC,	value_down = 0.45, 	name = _('UHF RCU-8150 Operational Mode: TR'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_OP_MOD,		cockpit_device_id = devices.RSC,	value_down = 0.55, 	name = _('UHF RCU-8150 Operational Mode: ADF'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_OP_MOD,		cockpit_device_id = devices.RSC,	value_down = 0.65, 	name = _('UHF RCU-8150 Operational Mode: CHNG PRST'),	category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.15, 	name = _('UHF RCU-8150 Frequency Mode: AJ'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.30, 	name = _('UHF RCU-8150 Frequency Mode: MAR'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.45, 	name = _('UHF RCU-8150 Frequency Mode: PRST'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.60, 	name = _('UHF RCU-8150 Frequency Mode: MAN'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.75, 	name = _('UHF RCU-8150 Frequency Mode: 243'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.90, 	name = _('UHF RCU-8150 Frequency Mode: AJ/M'),			category = _('Radios Control')},
+	{down = radio_commands.Switch_FREQ_MODE,	cockpit_device_id = devices.RSC,	value_down = 0.00, 	name = _('UHF RCU-8150 Frequency Mode: 121'),			category = _('Radios Control')},
+	{down = iCommandPlaneUHFFunctionDialMAIN, 															name = _('UHF RCU-8150 Ancillary Mode Pointer'),		category = _('Radios Control')},
+	{down = iCommandPlaneUHFFunctionDialBOTH, 															name = _('UHF RCU-8150 Ancillary Mode Switch'),			category = _('Radios Control')},
+	{down = iCommandPlaneUHFFreqModeDialMNL, 	up = iCommandPlaneUHFFunctionDialOFF,					name = _('UHF RCU-8150 LOAD/OFST Switch'),				category = _('Radios Control')},
 	
 	-- MISCELLANEOUS PANEL
 	{down = iCommandPlaneNavChangePanelModeLeft,	name = _('INS Mode Left  (NAV - ALIGN  - OFF)'),				category = _('Miscellaneous Controls')},
@@ -430,8 +466,18 @@ join(res.keyCommands,{
 	{down = iCommandPlaneCMSC_PRI,					name = _('Stopwatch Start/Stop toggle'),						category = _('Miscellaneous Controls')},
 	{down = iCommandPlaneCMSC_SEP,					name = _('Stopwatch Lap/Reset toggle'),							category = _('Miscellaneous Controls')},
 		
+	-- Navigation Panel
+	{down = iCommandHSI_CourseRotaryLeft,																name = _('UHF RCU-8150 Chan/Freq Knob CW'),		category = _('Navigation Control')},
+	{down = iCommandHSI_CourseRotaryRight, 																name = _('UHF RCU-8150 Chan/Freq Knob CCW'),	category = _('Navigation Control')},
+	{down = misc_commands.Knob_INS_Mode,	cockpit_device_id = devices.NAV_INS,	value_down = 0.0, 	name = _('INS Mode: OFF'),						category = _('Navigation Control')},
+	{down = misc_commands.Knob_INS_Mode,	cockpit_device_id = devices.NAV_INS,	value_down = 0.1, 	name = _('INS Mode: SEA ALIGN'),				category = _('Navigation Control')},
+	{down = misc_commands.Knob_INS_Mode,	cockpit_device_id = devices.NAV_INS,	value_down = 0.2, 	name = _('INS Mode: GND ALIGN'),				category = _('Navigation Control')},
+	{down = misc_commands.Knob_INS_Mode,	cockpit_device_id = devices.NAV_INS,	value_down = 0.3, 	name = _('INS Mode: NAV'),						category = _('Navigation Control')},
+	{down = misc_commands.Knob_INS_Mode,	cockpit_device_id = devices.NAV_INS,	value_down = 0.4, 	name = _('INS Mode: IFA'),						category = _('Navigation Control')},
+	{down = misc_commands.Knob_INS_Mode,	cockpit_device_id = devices.NAV_INS,	value_down = 0.5, 	name = _('INS Mode: GYRO'),						category = _('Navigation Control')},
+	
 	-- INTERNAL LIGHTS
-	{												down = iCommandPlaneMasterCaution,		name = _('Master Warning/Caution Reset'),	category = _('Internal Lights')},
+	{down = iCommandPlaneMasterCaution,					name = _('Master Warning/Caution Reset'),					category = _('Internal Lights')},
 	
 	--EXTERNAL LIGHTS
 	{down = iCommandPlaneLightsOnOff,					name = _('Exterior Lights Toggle'),							category = _('Exterior Lights')},

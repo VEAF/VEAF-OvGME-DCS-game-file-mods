@@ -4,9 +4,9 @@ Useful for knowing what value to set in the COCKPIT PERFORM CLICKABLE ACTION tri
 Ajoute l'identifiant des contrôles aux infobulles du dialogue d'édition des contrôles.
 Très pratique pour savoir quoi mettre dans le trigger COCKPIT PERFORM CLICKABLE ACTION
 
----------------------------------------
--- Tested with DCS World 2.5.6.49314 --
----------------------------------------
+--------------------------------------------
+-- Tested with DCS World 2.5.6.52196      --
+--------------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.
 Kudos to Skywalker !

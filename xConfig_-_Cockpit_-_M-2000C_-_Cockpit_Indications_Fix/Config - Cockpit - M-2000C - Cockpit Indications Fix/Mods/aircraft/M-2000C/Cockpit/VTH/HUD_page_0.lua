@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -115,7 +115,7 @@ takeoff_pitch.init_pos        = {0, -130, 0}
 takeoff_pitch.controllers     = {{"vis_wdown"}}
 AddHUDElement(takeoff_pitch)
 
-local JxAccel_box             = create_vth_textured_box(290, 232, 400, 283)       -- (290, 230, 400, 285)
+local JxAccel_box             = create_vth_textured_box(290, 232, 401, 283)       -- (290, 230, 400, 285)
 JxAccel_box.name              = "JxAccel_box"
 JxAccel_box.init_pos          = {0.0, 50.0, 0.0}
 JxAccel_box.controllers       = {{"vis_wdown"}}

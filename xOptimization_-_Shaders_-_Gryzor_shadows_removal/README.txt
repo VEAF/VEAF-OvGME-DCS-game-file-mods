@@ -2,9 +2,10 @@ Supprime _toutes_ les ombres lointaines (>500m) sauf celles du terrain (montagne
 Choisir la qualité d'ombrage désirée dans "Shadows".
 10% d'amélioration sur les fps moyennes avec ce mod.
 
----------------------------------------
--- Tested with DCS World 2.5.6.47224 --
----------------------------------------
+--------------------------------------------
+-- Tested with DCS World 2.5.6.49314      --
+-- Should work with DCS World 2.5.6.52196 --
+--------------------------------------------
 
 Updated by Zip, made by Gryzor (https://forums.eagle.ru/showpost.php?p=4276907&postcount=25)
 

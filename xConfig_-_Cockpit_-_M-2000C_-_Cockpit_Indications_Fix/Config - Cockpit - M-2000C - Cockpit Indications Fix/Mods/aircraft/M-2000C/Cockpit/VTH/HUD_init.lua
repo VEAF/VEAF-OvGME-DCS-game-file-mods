@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."devices_defs.lua")
 
@@ -80,5 +80,5 @@ opacity_sensitive_materials = {
 	"vth_hdg_material",
   "vth_line_material",
 	"vth_indication_font",
-  "vth_indication_font_light",                                                    -- ADDED
+  "vth_indication_font_big",                                                    -- ADDED
 }

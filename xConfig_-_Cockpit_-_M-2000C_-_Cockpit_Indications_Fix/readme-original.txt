@@ -3,7 +3,7 @@ ________________________________________________________________________________
                     Cockpit Indications Fix by Sedenion
                       for DCS Mirage 2000C by RAZBAM
 
-            v1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+           v1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 ________________________________________________________________________________
 
 
@@ -15,7 +15,11 @@ of cockpit main displays and indicators such as HUD, radar screen, RWR and liqui
 cristal displays for both a better fidelity to the real aircraft and a better 
 visual experience.
 
-All symbology elements size, position and proportion of elements with each 
+All symbologies and fonts texture are fully redone from scratch using 
+pixel-aligned vector graphic and converted in DDS format for a better alpha 
+mipmapping and optimization.
+
+symbology elements size, position and proportion of elements with each 
 others were carefully and patientely adjusted to better reflect the real ones 
 according footages, photographies and best guess. If you noticed a mistake or 
 if you have remarks, please contact me via the Eagle Dynamics DCS Forum : 
@@ -47,12 +51,15 @@ ________________________________________________________________________________
   1. [Backup] - Go to your DCS World installation folder, then copy following 
      files and/or folders into a safe location:
      
-      - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures
-      - \Mods\aircraft\M-2000C\Cockpit\materials.lua
+      - \Mods\aircraft\M-2000C\Cockpit\COM
+      - \Mods\aircraft\M-2000C\Cockpit\FUEL
       - \Mods\aircraft\M-2000C\Cockpit\PCA_PPA
+      - \Mods\aircraft\M-2000C\Cockpit\PCN
       - \Mods\aircraft\M-2000C\Cockpit\RWR
       - \Mods\aircraft\M-2000C\Cockpit\VTB
       - \Mods\aircraft\M-2000C\Cockpit\VTH
+      - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures
+      - \Mods\aircraft\M-2000C\Cockpit\materials.lua
 
   2. [Install] - Open the "M-2000C - Cockpit Indication Fix.zip", go inside 
      the "M-2000C - Cockpit Indication Fix" folder within the zip structure then 
@@ -64,70 +71,54 @@ ________________________________________________________________________________
 MODIFICATIONS DETAILS
 ________________________________________________________________________________
 
+* General
+   
+  - All symbologies and fonts textures redone using pixel-aligned vector graphic
+  - New textures pack in DDS format for better quality alpha mipmapping
 
 * HUD Symbology Rework
 
   - New HUD font, two separate textures for large and small text
-
   - Adjusted HUD font dot character width for correct font spacing
-
   - New "zoom-proof" HUD heading tape texture with corrected ratio
-
   - Fixed HUD heading tape mipmaping problem
-
   - New "zoom-proof" HUD symbology texture with harmonized style and tickness
-
   - HUD elements rationally aligned together according real data & best guess
-
   - Fixel HUD dynamic elements opacity and brighness control
-
   - HUD symbology color adjusted and default opacity fixed.
 
 
 * VTB (radar screen) Symbology Rework
 
   - New VTB font texture
-
   - New "zoom-proof" VTB grid textures with correct alignment
-
   - Fixed VTB grid textures mipmaping problem
-
   - New "zoom-proof" VTB heading tape textures with corrected ratio
-
   - Fixed VTB heading tape mipmaping problem
-
   - New "zoom-proof" VTB symbology texture
-
   - VTB grid, font and symbology textures style harmonized with screen effect
-
   - VTB elements rationally aligned together according real data & best guess
-
   - VTB symbology color slightly adjusted
 
 
 * RWR Symbology Rework
 
   - New dedicated RWR font texture
-
   - New RWR symbology texture
-
   - RWR font and symbology style harmonized with screen effect
-
   - RWR elements rationally aligned and adjusted for better readability
-
   - RWR symbology color adjusted
 
 
 * Miscellaneous Cockpit Displays Rework
 
   - New PCA font texture closer to the real digital display
-
   - PCA digits position slightly corrected
-
   - PCA digits color slightly adjusted
-
-  - New common digital cristal font texture
-
+  - New common LCD font texture.
+  - Adjusted position for fuel gauge and PPA bomb display
+  - New radio Dot-Matrix font texture.
+  - Changed UHF radio display from LCD to Dot-Matrix
 
 
 
@@ -135,50 +126,120 @@ PACKAGE DETAILS
 ________________________________________________________________________________
 
 Added files:
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_HUD_light_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_RWR_M2KC.tga
- 
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_GreenBoxRadio_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_HUD_big_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_HUD_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_LCD_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_PCA_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_RWR_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_VTB_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\headingtape_hud_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\headingtape_vtb_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\Indication_hud_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\Indication_vtb_M2KC.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Grid_0.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Grid_1.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Grid_2.dds
+ - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Page_2.dds
+
 Modified files:
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_HUD_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_LCD_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_PCA_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\font_VTB_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\headingtape_hud_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\headingtape_vtb_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\indication_hud_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\indication_VTB_M2KC.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Grid_0.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Grid_1.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Grid_2.tga
- - \Mods\aircraft\M-2000C\Cockpit\Resources\IndicationTextures\M2KC_VTB_Page_2.tga
  - \Mods\aircraft\M-2000C\Cockpit\materials.lua
- - \Mods\aircraft\M-2000C\Cockpit\PCA_PPA\PCA_definition.lua
+ - \Mods\aircraft\M-2000C\Cockpit\COM\COM_display.lua
+ - \Mods\aircraft\M-2000C\Cockpit\COM\COM_GreenBox_display.lua
+ - \Mods\aircraft\M-2000C\Cockpit\FUEL\FUEL_definitions.lua
+ - \Mods\aircraft\M-2000C\Cockpit\FUEL\FUEL_gauge.lua
  - \Mods\aircraft\M-2000C\Cockpit\PCA_PPA\PCA_BR.lua
  - \Mods\aircraft\M-2000C\Cockpit\PCA_PPA\PCA_UR.lua
+ - \Mods\aircraft\M-2000C\Cockpit\PCA_PPA\PPA_display.lua
+ - \Mods\aircraft\M-2000C\Cockpit\PCN\PCN_UR.lua
  - \Mods\aircraft\M-2000C\Cockpit\RWR\RWR_definitions.lua
  - \Mods\aircraft\M-2000C\Cockpit\RWR\RWR_page.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_definitions.lua
+ - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_base.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_page_0.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_page_1.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_page_2.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_page_3.lua
+ - \Mods\aircraft\M-2000C\Cockpit\VTB\VTB_MDO_Menu.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_definitions.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_init.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_base.lua
- - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_base.lua
+ - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_base_appr.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_0.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_1.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_2.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_3.lua
+ - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_4.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_5.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_6.lua
- - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_base_appr.lua
+ - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_base.lua
  - \Mods\aircraft\M-2000C\Cockpit\VTH\HUD_page_appr.lua
 
 
 
 Version History
 ________________________________________________________________________________
+
+v1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+ - Fixed CCRP Sight position.
+ - Fixed OBL reticle position.
+ - Moved CC Radar Mode text.
+ - Adjusted AP FMP size.
+ - Tuned font for HUD, RWR and VTB (better aligned).
+ - New LCD font with proper elements for INS.
+ - New dedicated material for INS LCD display.
+ - Fixed INS display bad or unreadable symbols (N, S, E, W, +, -).
+ - Tuned LCD font material.
+ - Fixed Fuel LCD Gauge material (now same as others LCD).
+ - Tuned Fuel LCD Gauge size and placement.
+ - New Radio (Dot-Matrix) font.
+ - Changed Radio UHF display font to Dot-Matrix.
+ - Tuned Radio VHF display size and alignment.
+ - New PCA font with new numbers schems (according photography).
+ - Tuned PPA LCD size and placement.
+ - All textures converted to DDS format for better rendering.
+ - Recreated all textures using pixel-aligned vector graphics.
+ - Readjusted alignment of some HUD and VTB elements.
+
+v1.7.2 (06/10/2020) for DCS World 2.5.6.49798 (05/29/2020)
+ - Fixed HUD test/standby mode.
+ - Fixed HUD half-sized horizon line in approach mode.
+ - Modified HUD RS alert.
+ - Tuned HUD font sizing.
+ - Tuned HUD ILS guide indicators.
+ - Removed VTB glow effect on texture.
+
+v1.7.1 (06/08/2020) for DCS World 2.5.6.49798 (05/29/2020)
+ - Modified RWR Air threat symbol.
+ - Fixed RWR DDM threat sprite.
+ - Fixed HUD half-sized horizon line.
+ - Fixel HUD dynmatic line element color mismatch.
+ - Tuned colors.
+
+v1.7 (06/05/2020) for DCS World 2.5.6.49798 (05/29/2020)
+ - Tuned HUD interception and NEZ ring width and placement.
+ - Corrected HUD AA mode TIR and DOM position (now out of NEZ ring).
+ - Tuned HUD dynamic line elements width and opacity.
+ - Modified HUD texture for ground pitch ladder steps (adding spaces).
+ - Tuned HUD target NEZ scale position.
+ - Corrected HUD heading tape numbers size and thickness.
+ - Corrected HUD pitch ladder numbers size and thickness.
+ - Alignment of VTB MDO mode elements.
+ - Tuned VTB heading tape font size.
+ - Tuned VTB dynamic line elements width and opacity.
+ - Tuned RWR font spacing and symbols aligment.
+ - Tuned RWR symbology and alignment.
+ - New digital/liquid crystal numbers font.
+ - New PCA font.
+ - New LCD font.
+ - Adjusted colors.
+ - All screenshots updated.
+ 
+v1.62 (05/31/2020) for DCS World 2.5.6.49798 (05/29/2020)
+ - Corrected digital crystal font "1" digit.
+
+v1.61 (05/30/2020) for DCS World 2.5.6.49798 (05/29/2020)
+ - Adapt and repack for the 2.5.6.49798 stable release.
 
 v1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
  - Adaptation and update to fit the 2.5.6.49314 release.

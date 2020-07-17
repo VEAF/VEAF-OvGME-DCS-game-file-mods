@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.6 (05/22/2020) for DCS World 2.5.6.49314 (05/20/2020)
+-- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -29,7 +29,7 @@ txt_RS_static.value           = "RS"
 txt_RS_static.controllers     = {{"vis_RS_rng"}}
 Add_VTB_Element(txt_RS_static)
 
-local vtb_rdr_inop            = create_vtb_textured_box(184, 40, 357, 97)
+local vtb_rdr_inop            = create_vtb_textured_box(189, 47, 350, 89)       -- (184, 40, 357, 97)
 vtb_rdr_inop.name             = "vtb_rdr_inop"
 vtb_rdr_inop.init_pos         = {0.0, 0.0, 0.0}
 vtb_rdr_inop.controllers      = {{"vis_radar"}}
