@@ -1,0 +1,4 @@
+wave = "Effects/RWR_Threat"
+inner_radius = 10
+outer_radius = 100
+gain = 0.25
