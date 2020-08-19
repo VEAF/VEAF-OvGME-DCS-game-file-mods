@@ -84,6 +84,12 @@ function isTakeOffParking(type)
     return  type.type == actions.takeoffParking.type or 
 			type.type == actions.takeoffParkingHot.type 
 end
+
+function isTakeOffGround(type)
+    return  type.type == actions.takeoffGround.type or 
+			type.type == actions.takeoffGroundHot.type 
+end
+
 function isTakeOff(type)
     return  isTakeOffParking(type) or
 			type.type == actions.takeoffRunway.type
@@ -810,6 +816,7 @@ local function createComboType()
 		c_form_templ:setEnabled(c_form_templ_active)
 		if not c_form_templ_active then teml_setItem("") end
 		updateParking()
+		updateEnabled()
     end
 end
 
@@ -1488,25 +1495,48 @@ function ETA_valid(lateActivation, wpt)
 	end
 end
 
+function updateEnabled()
+	if base.isPlannerMission() == false then
+		s_alt:setEnabled(true)
+		
+		if isNeedDisable() then
+			s_speed:setEnabled(false)
+			e_speed:setEnabled(false)
+			sbMachSpeed:setEnabled(false)
+			ETA_panel:setEnabled(false)	
+		else
+			s_speed:setEnabled(verifyResult == nil)
+			e_speed:setEnabled(verifyResult == nil)
+			sbMachSpeed:setEnabled(verifyResult == nil)
+			ETA_panel:setEnabled(verifyResult == nil)	
+		end
+		
+		local isNoSpeedAndAlt = isTakeOffParking(vdata.wpt.type) or isTakeOff(vdata.wpt.type) 
+						or isTakeOffRunway(vdata.wpt.type) or isLandingReFuAr(vdata.wpt.type)
+						or isTakeOffGround(vdata.wpt.type)
+		if isNoSpeedAndAlt then
+			s_speed:setEnabled(false)
+			e_speed:setEnabled(false)
+			sbMachSpeed:setEnabled(false)			
+		end    
+		
+		if isNoSpeedAndAlt or (vdata.group.type == 'ship') or (vdata.group.type == 'vehicle') then
+			s_alt:setEnabled(false)
+		end
+	end
+end
+
 -------------------------------------------------------------------------------
 --
 local function updateTimeAndSpeedFor_(wpt)
 	local verifyResult = verifyRouteAroundWpt(vdata.group.route, wpt.index, vdata.group.lateActivation)
 	
-	if isNeedDisable() then
-		s_speed:setEnabled(false)
-		e_speed:setEnabled(false)
-		ETA_panel:setEnabled(false)	
-	else
-		s_speed:setEnabled(verifyResult == nil)
-		e_speed:setEnabled(verifyResult == nil)
-		ETA_panel:setEnabled(verifyResult == nil)	
-	end
-	
     local validSkin = verifyResult == nil
     
 	cb_speed_locked:setValidSkin(validSkin)
 	cb_ETA_locked:setValidSkin(validSkin)
+	
+	updateEnabled()
 	
 	if verifyResult then		
 		return
@@ -1553,7 +1583,7 @@ local function updateTimeAndSpeedFor_(wpt)
 		end
 		if length > 0.0 then
 			local speed = length / (right.ETA - left.ETA - ETE)
-			if not wpt.speed_locked then
+			if not wpt.speed_locked then				
 				wpt.speed = math.floor(speed + 0.5)			
 			end
 			wpt.ETA = left.ETA + ETEBefore + lengthBefore / speed
@@ -1621,7 +1651,6 @@ function updateTimeAndSpeed()
 		updateValueMachSpeed()	
 		if 	vdata.wpt.speed < speed_min or
 			vdata.wpt.speed > speed_max then
-            
             e_speed:setValidSkin(false)
             
 			if vdata.wpt.ETA_locked then
@@ -1643,7 +1672,7 @@ function updateTimeAndSpeed()
 		end
 		vdata.group.start_time = first_wpt.ETA;
 	end
-    
+
 end
 
 -------------------------------------------------------------------------------
@@ -1669,8 +1698,9 @@ end
 
 -------------------------------------------------------------------------------
 --
-function setWaypoint(wpt)	
-    panel_wpt_properties.setWaypoint(wpt)    
+function setWaypoint(wpt)		
+    panel_wpt_properties.setWaypoint(wpt)  
+	
 	if vdata.wpt ~= wpt then		
 		
 		vdata.wpt = wpt		
@@ -1687,8 +1717,9 @@ function setWaypoint(wpt)
 		updateActionsList()
 		updateDepth(wpt)
 	end	
+
 	local unitTypeDesc = DB.unit_by_type[vdata.wpt.boss.units[1].type]
-	panel_wpt_properties.applyWptProperties(unitTypeDesc, wpt)	
+	panel_wpt_properties.applyWptProperties(unitTypeDesc, wpt)
 end
 
 function getSelectedWaypoint()
@@ -1697,10 +1728,8 @@ end
 
 
 function getSpeedLimit()
-	local maxSpeed = vdata.unit ~= nil and getMaxSpeed(vdata.unit, -1) or 2000
-    if -1 == maxSpeed then
-        maxSpeed = 1000
-    end
+	
+    
     local minSpeed = 0
     if vdata.group and vdata.group.type == 'plane' then
 		local unitTypeDesc = DB.unit_by_type[vdata.group.units[1].type]
@@ -1709,12 +1738,27 @@ function getSpeedLimit()
 		else
 			minSpeed = 250
 		end	
-    else
+    else		
         if wpt and wpt.index > 1 then
             minSpeed = 1
         else
             minSpeed = 0
         end
+    end
+	
+	local maxSpeed = -1
+	if vdata.group then
+		maxSpeed = 10000
+		for k,unit in base.pairs(vdata.group.units) do
+			local maxSpeedTmp = getMaxSpeed(unit, -1)
+			if maxSpeedTmp < maxSpeed then
+				maxSpeed = maxSpeedTmp
+			end
+		end
+	end
+	
+	if -1 == maxSpeed then
+        maxSpeed = 1000
     end
 	
 	return minSpeed / 3.6, maxSpeed / 3.6
@@ -1738,6 +1782,9 @@ function updateAltSpeed()
     local minSpeed, maxSpeed = getSpeedLimit()
 
     speedUnitSpinBox:setRange(minSpeed, maxSpeed)
+	if vdata.wpt.speed > maxSpeed then
+		vdata.wpt.speed  = maxSpeed
+	end
 	updateRangeMachSpeed(minSpeed, maxSpeed)
 end
 
@@ -1805,7 +1852,7 @@ function update()
 		end
 		
 		depthUnitSpinBox:setValue(vdata.wpt.depth or 0)
-		
+
 		-- Скорость нужно переводить!
 		if vdata.wpt.speed_locked then
 			speedUnitSpinBox:setValue(vdata.wpt.speed)
@@ -1956,6 +2003,7 @@ function setPlannerMission(planner_mission)
 		s_alt:setEnabled(false)
 		s_depth:setEnabled(false)
 		s_speed:setEnabled(false)
+		sbMachSpeed:setEnabled(false)
 		ETA_panel:setEnabled(false)
 		b_add:setEnabled(false)
 		b_edit:setEnabled(false)    
@@ -1978,6 +2026,7 @@ function setPlannerMission(planner_mission)
 				c_type:setEnabled(true)
 				s_alt:setEnabled(true)
 				s_speed:setEnabled(true)
+				sbMachSpeed:setEnabled(true)
 				ETA_panel:setEnabled(true)
 				e_pviNavPoint:setEnabled(true) 
 				b_add:setState(false)
@@ -2003,6 +2052,7 @@ function setPlannerMission(planner_mission)
 		e_name:setEnabled(true)
 		c_type:setEnabled(true)		
 		s_speed:setEnabled(true)
+		sbMachSpeed:setEnabled(true)
 		ETA_panel:setEnabled(true)
 		b_add:setEnabled(true)
 		b_edit:setEnabled(true)    
@@ -2031,9 +2081,6 @@ function show(b)
 	end
 
     if not b then
-        if window:isVisible() then
-            s_alt:setEnabled(true)
-        end
 		actionsListBox:show(false)
 
         b_edit:setState(true)
@@ -2092,6 +2139,10 @@ function open(wptIndex, task)
 				end
 			end
 		end
+	end
+	
+	if vdata.group and vdata.wpt then
+		updateEnabled()
 	end
 end
 
@@ -2220,13 +2271,6 @@ end
 function setSafeMode(enable)
     window:setEnabled(not enable)
 end
-
--------------------------------------------------------------------------------
--- enable or disable altitude editing
-function enableAlt(enable)
-    s_alt:setEnabled(enable)
-end
-
 
 -------------------------------------------------------------------------------
 -- create waypoints type index mapped by waypoints types
@@ -2646,17 +2690,17 @@ function changeCountryGroup(a_group, a_oldCountry, a_newCountry)
 	-- проверяем все группы на наличие задачи с id переданной группы
 	for k1,group in base.pairs(base.module_mission.group_by_id) do
 		if group.route and group.route.points then
-			for k,point in base.pairs(group.route.points) do
+			for k,point in base.pairs(group.route.points) do				
 				if point.task and point.task.params and point.task.params.tasks then
 					local toRemove = {}
 					for kk, task in base.pairs(point.task.params.tasks) do
-						if task.id == 'GroundEscort' and task.params and task.params.groupId == a_group.groupId then
+						if (task.id == 'GroundEscort' or task.id == 'AttackGroup')  
+							and task.params and task.params.groupId == a_group.groupId then
 							base.table.insert(toRemove,kk)
 						end
 
 						if task.id == 'EngageUnit' 
-							or task.id == 'AttackUnit' 
-							or task.id == 'AttackGroup' then
+							or task.id == 'AttackUnit' then
 							for ind1, unit in base.pairs(a_group.units) do
 								if task.params and task.params.unitId == unit.unitId then
 									base.table.insert(toRemove,kk)
