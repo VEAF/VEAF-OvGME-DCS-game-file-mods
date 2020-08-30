@@ -75,7 +75,7 @@ local mod_dictionary        = require('dictionary')
 local editorManager         = require('me_editorManager')
 
 i18n.setup(_M)
-local VERSION_MISSION = 17
+local VERSION_MISSION = 18
 
 -- minimum scale to show units in group
 UNITS_SCALE = 25000
@@ -1755,7 +1755,16 @@ function load(fName)
 				missionCountry[v.name] = v
 				countryCoalition[v.name] = coalition
 			end
-					
+			
+			-- добавляем пустые страны потому что при сохранении их не пишем в миссию
+			local coalitionCountryIds = CoalitionController.getCoalitions()
+			for i, countryId in pairs(coalitionCountryIds[coalitionName]) do
+				local countryName = CoalitionController.getCountryNameById(countryId)
+				if missionCountry[countryName] == nil then
+					addCountryToCoalition(coalition, countryId)	
+				end
+			end
+								
 			mission.bullseye[coalitionName] = {}
 			mission.bullseye[coalitionName].mapObjects = {}
 			if (mission.coalition[coalitionName].bullseye) then
@@ -1771,7 +1780,7 @@ function load(fName)
 			createCoalitionObjects(coalition)		
 			
 			coalition.nav_points = coalition.nav_points or {}
-			NavigationPointController.loadCoalition(coalitionName, coalition.nav_points)
+			NavigationPointController.loadCoalition(coalitionName, coalition.nav_points)	
 		end	
     end
 
@@ -2540,6 +2549,24 @@ function createCoalitionObjects(cltn)
   end
 end
 
+function addCountryToCoalition(coalition, countryId)	
+	local countryName = CoalitionController.getCountryNameById(countryId)
+	
+	local country = {
+		id = countryId,
+		boss = coalition, 
+		name = countryName,
+		plane = {group = {},},
+		helicopter = {group = {},},
+		ship = {group = {},},
+		vehicle = {group = {},},
+		static = {group = {},},
+	}
+	
+	table.insert(coalition.country, country)
+	missionCountry[countryName] = country
+	countryCoalition[countryName] = coalition
+end
 
 function createCoalition(coalitionName)
 	local coalition = { 
@@ -2559,22 +2586,7 @@ function createCoalition(coalitionName)
 	local coalitionCountryIds = CoalitionController.getCoalitions()
 
 	for i, countryId in pairs(coalitionCountryIds[coalitionName]) do
-		local countryName = CoalitionController.getCountryNameById(countryId)
-		
-		local country = {
-			id = countryId,
-			boss = coalition, 
-			name = countryName,
-			plane = {group = {},},
-			helicopter = {group = {},},
-			ship = {group = {},},
-			vehicle = {group = {},},
-			static = {group = {},},
-		}
-		
-		table.insert(coalition.country, country)
-		missionCountry[countryName] = country
-		countryCoalition[countryName] = coalition
+		addCountryToCoalition(coalition, countryId)
 	end
 end
 	
@@ -2647,142 +2659,106 @@ end
 -- Создает пустую миссию заново.
 function create_new_mission(doNotCreateDefaultCoalitions)
 --base.print("---create_new_mission----")
-  mapElementsCreated_ = false
-  MissionData.newMission()
-  mod_copy_paste.clear()
-  
-  maxUnitId = 0
-  maxGroupId = 0
-  
-  curDict = 'DEFAULT'
-  LangController.setSelectLang(nil)
-  LangController.setCurLang(curDict)
-  langPanel.updateCurLang()
-  statusbar.updateLang()
+	mapElementsCreated_ = false
+	MissionData.newMission()
+	editorManager.setNewGroupCountryName(nil)
+	mod_copy_paste.clear()
 
-  mod_dictionary.setMaxDictId(0)
-  
-  playerUnit = nil
-  
-  clearTempFolder()
-  mapObjects = {}
-  if MapWindow.isCreated() then
-      MapWindow.selectedGroup = nil;
-  end;
-  panel_aircraft.vdata.group = nil
-  panel_ship.vdata.group = nil
-  panel_vehicle.vdata.group = nil
-  panel_route.setGroup(nil)
-  panel_suppliers.setGroup(nil)
-  panel_payload.vdata.group = nil
-  panel_targeting.vdata.group = nil
-  panel_summary.vdata.group = nil
-  panel_roles.update()  
-  
-  toolbar.setEnabledSave(true)
-  MenuBar.setEnabledSave(true)
-  
-  for name, module in pairs(base.package.loaded) do
-    if 'table' == base.type(module) then
-        local fun = module.initModule;
-        if fun and ('function' == base.type(fun)) then
-            fun()
-        end;
-    end
-  end;
-  
-  mission = {}
-  currentKey = 2  --0 и 1 - зарезервированы под линейку
-  mapObjects = {}
-  clearGroups()
-  waypointNameIndex = 0
-  target_by_name = {}
-  targetNameIndex = 0
-  zoneNameIndex = 0
-  
-  
-  mission.date = { Year = base.MissionDate.Year, Month = base.MissionDate.Month, Day = base.MissionDate.Day }
-  mission.start_time = 28800;  
-  panel_weather.resetModifiedTime()
-  panel_weather.start_time = mission.start_time
-  panel_weather.loadDefaultWeather()
-  panel_weather.updateSeason(mission.start_time, mission.date)
- -- mission.weather = U.copyTable(nil, panel_weather.vdata)
-  mission.weather = panel_weather.vdata
-  --mission.options = base.panel_options.vdata
-  
-  mod_dictionary.resetDictionary()
-    
-  mod_dictionary.textToME(mission, 'descriptionText', mod_dictionary.getNewDictId('descriptionText'))
- -- base.print("----KeyDict_descriptionText1=",mission.KeyDict_descriptionText)
-  mod_dictionary.textToME(mission, 'descriptionRedTask', mod_dictionary.getNewDictId('descriptionRedTask'))
-  mod_dictionary.textToME(mission, 'descriptionBlueTask', mod_dictionary.getNewDictId('descriptionBlueTask'))
-  mod_dictionary.textToME(mission, 'descriptionNeutralsTask', mod_dictionary.getNewDictId('descriptionNeutralsTask'))  
-  mod_dictionary.textToME(mission, 'sortie', mod_dictionary.getNewDictId('sortie'))
- 
+	maxUnitId = 0
+	maxGroupId = 0
 
-  panel_failures.clear()
-  mission.failures = {}
-  U.copyTable(mission.failures, panel_failures.vdata)
-    
-  mission.groundControl = panel_roles.getGroundControlData()		
+	curDict = 'DEFAULT'
+	LangController.setSelectLang(nil)
+	LangController.setCurLang(curDict)
+	langPanel.updateCurLang()
+	statusbar.updateLang()
 
-  mission.triggers = {}
-  
-  if (doNotCreateDefaultCoalitions ~= true) then
-	CoalitionController.setDefaultCoalitions()
-  end
-  
-  mission.goals = { }
-  mission.pictureFileNameR = {}
-  mission.pictureFileNameB = {}
-  
-  if base.test_addNeutralCoalition == true then  
-	mission.pictureFileNameN = {}
-  end
+	mod_dictionary.setMaxDictId(0)
 
-  mission.coalition = { }
-  
-  missionCountry = {}
-  countryCoalition = {}
+	playerUnit = nil
 
-	local createCoalition = function(coalitionName)
-		local coalition = { 
-			airports	    = {},
-			heliports	    = {},
-            GrassAirfields  = {},
-			country		    = {},	
-		}
-		
-		mission.coalition[coalitionName] = coalition
-		coalition.name = coalitionName
+	clearTempFolder()
+	mapObjects = {}
+	if MapWindow.isCreated() then
+		MapWindow.selectedGroup = nil
+	end
+	panel_aircraft.vdata.group = nil
+	panel_ship.vdata.group = nil
+	panel_vehicle.vdata.group = nil
+	panel_route.setGroup(nil)
+	panel_suppliers.setGroup(nil)
+	panel_payload.vdata.group = nil
+	panel_targeting.vdata.group = nil
+	panel_summary.vdata.group = nil
+	panel_roles.update()  
 
-		for k, v in pairs(coalitionColors[coalitionName]) do
-			coalition[k] = v
-		end
-	  
-		local coalitionCountryIds = CoalitionController.getCoalitions()
+	toolbar.setEnabledSave(true)
+	MenuBar.setEnabledSave(true)
 
-		for i, countryId in pairs(coalitionCountryIds[coalitionName]) do
-			local countryName = CoalitionController.getCountryNameById(countryId)
-			
-			local country = {
-				id = countryId,
-				boss = coalition, 
-				name = countryName,
-				plane = {group = {},},
-				helicopter = {group = {},},
-				ship = {group = {},},
-				vehicle = {group = {},},
-				static = {group = {},},
-			}
-			
-			table.insert(coalition.country, country)
-			missionCountry[countryName] = country
-			countryCoalition[countryName] = coalition
+	for name, module in pairs(base.package.loaded) do
+		if 'table' == base.type(module) then
+			local fun = module.initModule;
+			if fun and ('function' == base.type(fun)) then
+				fun()
+			end;
 		end
 	end
-	
+
+	mission = {}
+	currentKey = 2  --0 и 1 - зарезервированы под линейку
+	mapObjects = {}
+	clearGroups()
+	waypointNameIndex = 0
+	target_by_name = {}
+	targetNameIndex = 0
+	zoneNameIndex = 0
+
+
+	mission.date = { Year = base.MissionDate.Year, Month = base.MissionDate.Month, Day = base.MissionDate.Day }
+	mission.start_time = 28800
+	panel_weather.resetModifiedTime()
+	panel_weather.start_time = mission.start_time
+	panel_weather.loadDefaultWeather()
+	panel_weather.updateSeason(mission.start_time, mission.date)
+	-- mission.weather = U.copyTable(nil, panel_weather.vdata)
+	mission.weather = panel_weather.vdata
+	--mission.options = base.panel_options.vdata
+
+	mod_dictionary.resetDictionary()
+
+	mod_dictionary.textToME(mission, 'descriptionText', mod_dictionary.getNewDictId('descriptionText'))
+	-- base.print("----KeyDict_descriptionText1=",mission.KeyDict_descriptionText)
+	mod_dictionary.textToME(mission, 'descriptionRedTask', mod_dictionary.getNewDictId('descriptionRedTask'))
+	mod_dictionary.textToME(mission, 'descriptionBlueTask', mod_dictionary.getNewDictId('descriptionBlueTask'))
+	mod_dictionary.textToME(mission, 'descriptionNeutralsTask', mod_dictionary.getNewDictId('descriptionNeutralsTask'))  
+	mod_dictionary.textToME(mission, 'sortie', mod_dictionary.getNewDictId('sortie'))
+
+
+	panel_failures.clear()
+	mission.failures = {}
+	U.copyTable(mission.failures, panel_failures.vdata)
+
+	mission.groundControl = panel_roles.getGroundControlData()		
+
+	mission.triggers = {}
+
+	if (doNotCreateDefaultCoalitions ~= true) then
+		CoalitionController.setDefaultCoalitions()
+	end
+
+	mission.goals = { }
+	mission.pictureFileNameR = {}
+	mission.pictureFileNameB = {}
+
+	if base.test_addNeutralCoalition == true then  
+		mission.pictureFileNameN = {}
+	end
+
+	mission.coalition = { }
+
+	missionCountry = {}
+	countryCoalition = {}
+
 	createCoalition(CoalitionController.redCoalitionName())
 	createCoalition(CoalitionController.blueCoalitionName())
 	
@@ -3573,26 +3549,34 @@ function unload()
 
 			um.coalition[i] = coal
 			for j,u in pairs(v.country) do
-			  local cant = {id = u.id, name = me_db.country_by_id[u.id].OldID }
-			  coal.country[j] = cant
-			  if u.plane then
-				unload_air_groups(u, 'plane', cant, um)
-			  end
-			  if u.helicopter then
-				unload_air_groups(u, 'helicopter', cant, um)
-			  end
-			  if u.ship then
-				unload_nonair_groups(u, 'ship', cant, usedCustomForms,um)
-			  end
-			  if u.vehicle then
-				unload_nonair_groups(u, 'vehicle', cant, usedCustomForms,um)
-			  end
-			  if u.static then
-				unload_static_groups(u, 'static', cant,um)
-			  end
-			  if u.complex then
-				unload_static_groups(u, 'complex', cant,um)
-			  end
+				local cant = {id = u.id, name = me_db.country_by_id[u.id].OldID }
+				
+				if u.plane then
+					unload_air_groups(u, 'plane', cant, um)
+				end
+				if u.helicopter then
+					unload_air_groups(u, 'helicopter', cant, um)
+				end
+				if u.ship then
+					unload_nonair_groups(u, 'ship', cant, usedCustomForms,um)
+				end
+				if u.vehicle then
+					unload_nonair_groups(u, 'vehicle', cant, usedCustomForms,um)
+				end
+				if u.static then
+					unload_static_groups(u, 'static', cant,um)
+				end
+				if u.complex then
+					unload_static_groups(u, 'complex', cant,um)
+				end
+
+				if (cant.helicopter ~= nil)
+						or (cant.plane ~= nil)
+						or (cant.ship ~= nil)
+						or (cant.vehicle ~= nil)
+						or (cant.static ~= nil) then					
+					base.table.insert(coal.country, cant)
+				end	
 			end
 		end
     end
@@ -3860,28 +3844,47 @@ end
 
 function check_group_name(a_name)
 	local nm = a_name
-	local num = 0
-	local baseName = nm
+    local MAGIC_MARKER = " #%d+" -- unit names ending with #n whith n an integer will be treated apart ; we'll simply increment the numeric part
+    local REKRAM_CIGAM = "%d+# " -- reversed magic marker ;)
   
-	local dotIdx = base.string.find(base.string.reverse(nm), '-')
-	if dotIdx then
-		baseName = base.string.sub(nm, 0,-dotIdx-1)
-	end
-	
-	while group_by_name[nm] do
-		num = num + 1
-		nm = baseName.."-"..num		
-	end
+    -- first, check if the original unit name contains the magic marker (searching from the end of the string, nice move using string.reverse, ED !)
+    local magicMarkerIdx = nil
+    local magicMarkerLen = nil
+    magicMarkerIdx, magicMarkerLen = base.string.find(base.string.reverse(a_name), REKRAM_CIGAM)
+    if magicMarkerIdx then
+        -- magic marker found, we'll simply append a numeric value to the unit name
+        local num = 1
+        local baseName = base.string.sub(a_name, 0,-magicMarkerIdx-magicMarkerLen+2)
+        repeat 
+          nm = baseName .. base.string.format("%03i", num)
+          num = num + 1
+        until not(group_by_name[nm])
+    else
+        -- magic marker not found, let ED's original code work
+        local num = 0
+        local baseName = nm
+    
+        local dotIdx = base.string.find(base.string.reverse(nm), '-')
+        if dotIdx then
+            baseName = base.string.sub(nm, 0,-dotIdx-1)
+        end
+        
+        while group_by_name[nm] do
+            num = num + 1
+            nm = baseName.."-"..num		
+        end
+    end
 	return nm
 end
 
 function check_unit_name(a_name, a_forbiddenNames, originalUnitName)
 	local nm = a_name
     local MAGIC_MARKER = " #%d+" -- unit names ending with #n whith n an integer will be treated apart ; we'll simply increment the numeric part
-    local REKRAM_CIGAM = "%d+# "
+    local REKRAM_CIGAM = "%d+# " -- reversed magic marker ;)
   
     -- first, check if the original unit name contains the magic marker (searching from the end of the string, nice move using string.reverse, ED !)
     local magicMarkerIdx = nil
+    local magicMarkerLen = nil
     if originalUnitName then
         magicMarkerIdx, magicMarkerLen = base.string.find(base.string.reverse(originalUnitName), REKRAM_CIGAM)
     end
