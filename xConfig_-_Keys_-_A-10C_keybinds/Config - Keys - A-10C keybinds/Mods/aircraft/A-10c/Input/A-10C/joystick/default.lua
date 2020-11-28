@@ -126,7 +126,7 @@ keyCommands = {
 {pressed = iCommandViewForward, up = iCommandViewForwardStop, name = _('Zoom in'), category = _('View Cockpit')},
 {pressed = iCommandViewBack, up = iCommandViewBackStop, name = _('Zoom out'), category = _('View Cockpit')},
 
--- Cockpit Camera Motion (������������ ������ � ������)
+-- Cockpit Camera Motion (Ïåðåäâèæåíèå êàìåðû â êàáèíå)
 {pressed = iCommandViewPitCameraMoveUp, up = iCommandViewPitCameraMoveStop, name = _('Cockpit Camera Move Up'), category = _('View Cockpit')},
 {pressed = iCommandViewPitCameraMoveDown, up = iCommandViewPitCameraMoveStop, name = _('Cockpit Camera Move Down'), category = _('View Cockpit')},
 {pressed = iCommandViewPitCameraMoveLeft, up = iCommandViewPitCameraMoveStop, name = _('Cockpit Camera Move Left'), category = _('View Cockpit')},
@@ -761,6 +761,11 @@ keyCommands = {
 {pressed = iCommandPlaneFloodLightsIncrease,							name = _('Floodlight Increase'), category = _('Lighting Panel')},
 {pressed = iCommandPlaneConsoleLightsDecrease,							name = _('Console Light Decrease'), category = _('Lighting Panel')},
 {pressed = iCommandPlaneConsoleLightsIncrease,							name = _('Console Light Increase'), category = _('Lighting Panel')},
+-- Flashlight (Utility Light)
+{down = 3256, cockpit_device_id = 0, value_down = 1.0, 					name = _('Flashlight'), category = _('View Cockpit')},
+{down = 3255, cockpit_device_id = 0, value_down = 1.0,					name = _('Flashlight Color - Toggle Green/White'), category = {_('View Cockpit'), _('Right Console')}},
+{down = 3019, cockpit_device_id = 49, value_down =  0.1,				name = _('Flashlight BRT Control - Increase'), category = {_('View Cockpit'), _('Right Console')}},
+{down = 3019, cockpit_device_id = 49, value_down = -0.1,				name = _('Flashlight BRT Control - Decrease'), category = {_('View Cockpit'), _('Right Console')}},
 
 --AHCP
 {down = iCommandPlaneAHCPMasterArm, 									name = _('Master switch ARM'), category = _('Armament HUD Control Panel')},
@@ -1036,6 +1041,9 @@ axisCommands = {
 
 {action = iCommandPlaneSelecterHorizontalAbs, name = _('HOTAS Slew Horizontal')},
 {action = iCommandPlaneSelecterVerticalAbs	, name = _('HOTAS Slew Vertical')},
+
+-- Flashlight (Utility Light)
+{action = 3020, cockpit_device_id = 49, name = _('Flashlight BRT Control'), category = {_('Right Console')}},
 
 },
 }

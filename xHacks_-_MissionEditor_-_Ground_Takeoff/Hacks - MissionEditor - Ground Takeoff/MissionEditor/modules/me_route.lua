@@ -1885,7 +1885,7 @@ function update()
 	  --  e_pviNavPoint:setText(update_PVI_NAVPOINT());
 
 		updateTimeAndSpeed()
-		if (not vdata.group.hidden) or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true)  then
+		if base.MapWindow.isShowHidden(vdata.group) == true  then
 			module_mission.set_waypoint_map_object(vdata.wpt)
 		end
 		
@@ -2592,7 +2592,7 @@ function updateParking()
 				c_parking:setText(loc_parking.name)
 				
 				if vdata.wpt.type.type == actions.takeoffRunway.type
-					or not isAircraftOnShip(vdata.group) then
+					or not (isAircraftOnShip(vdata.group) and vdata.wpt.index == 1) then
 					setParkingWidgetsVisible(true)
 				else
 					setParkingWidgetsVisible(false)

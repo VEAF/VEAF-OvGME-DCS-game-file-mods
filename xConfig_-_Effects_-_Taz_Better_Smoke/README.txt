@@ -1,9 +1,9 @@
-Improved smoke effect for destroyed vehicles.
+Improved smoke effects.
 
-Effets de fumée améliorés pour les véhicules détruits.
+Effets de fumée améliorés.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.52196 --
+-- Tested with DCS World 2.5.6.58125 --
 ---------------------------------------
 
 By Taz (https://forums.eagle.ru/showthread.php?t=284590)

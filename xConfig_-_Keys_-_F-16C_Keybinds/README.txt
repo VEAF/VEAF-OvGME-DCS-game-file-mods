@@ -8,7 +8,7 @@ Pour le F-16C Viper.
 
 --------------------------------------------
 -- Tested with DCS World 2.5.6.49314      --
--- Should work with DCS World 2.5.6.52196 --
+-- Should work with DCS World 2.5.6.58125 --
 --------------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.

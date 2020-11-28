@@ -73,6 +73,7 @@ local panel_dataCartridge	= require('me_dataCartridge')
 local UC					= require('utils_common')
 local mod_dictionary        = require('dictionary')
 local editorManager         = require('me_editorManager')
+local ProductType 			= require('me_ProductType') 
 
 i18n.setup(_M)
 local VERSION_MISSION = 18
@@ -248,7 +249,7 @@ cdata =
   Unit001 = _('Unit #001'),
 }
 
-if base.LOFAC then
+if ProductType.getType() == "LOFAC" then
     cdata.need_modules = _('Need modules for load mission: -LOFAC')
     cdata.ErrorLoading = _('Error loading mission "-LOFAC')
 end
@@ -453,7 +454,10 @@ end
 function fixUnitsPos()
 	for _tmp, v in pairs(unit_by_id) do
 		if v.boss then
-			if v.boss.route then
+			if v.boss.route 
+				and (not (v.boss.route.points[1].action == 'From Ground Area' 
+				   or v.boss.route.points[1].action == 'From Ground Area Hot'
+				   or v.boss.route.points[1].action == 'On Road')) then
 				local p1 = v.boss.route.points[1]				
 				if p1 then
 					v.speed 	= p1.speed
@@ -1927,7 +1931,7 @@ function localizingStrings()
     for _tmp, group in pairs(group_by_id) do   
         for _tmp, wpt in pairs(group.route.points) do  
             func(wpt, 'name', wpt.name, "WptName") 
-            if group.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+            if base.MapWindow.isShowHidden(group) == true then
                 set_waypoint_map_object(wpt)
             end
         end     
@@ -2213,11 +2217,13 @@ end
 
 -------------------------------------------------------------------------------
 -- Создаем объекты статического темплейта
-function createStaticTemplateObjects(a_tmpl, a_offsetUnitId, a_offsetGroupId)	
+function createStaticTemplateObjects(a_tmpl, a_oldToNew_GroupId, a_oldToNew_UnitId)	
 	local func = mod_dictionary.fixDictAll	
 	local curDict = mod_dictionary.getCurDictionary()
 	local locTbl = a_tmpl.localization
 	local addGroup = {}
+	local offsetUnitId = getMaxUnitId()
+	local offsetGroupId = getMaxGroupId()
 
 	for i,cltn in pairs(a_tmpl.coalition) do		
 		for i,v in pairs(cltn.country) do			
@@ -2245,10 +2251,10 @@ function createStaticTemplateObjects(a_tmpl, a_offsetUnitId, a_offsetGroupId)
 							if u.route and u.route.points then
 								for i_point, v_point in base.ipairs(u.route.points) do
 									if v_point.linkUnit then
-										v_point.linkUnit = v_point.linkUnit + a_offsetUnitId									
+										v_point.linkUnit = a_oldToNew_UnitId[v_point.linkUnit] + offsetUnitId									
 									end
 									if v_point.helipadId then
-										v_point.helipadId = v_point.helipadId + a_offsetUnitId
+										v_point.helipadId = a_oldToNew_UnitId[v_point.helipadId] + offsetUnitId
 									end
 									
 									v_point.depth = -v_point.alt or 0
@@ -2256,12 +2262,20 @@ function createStaticTemplateObjects(a_tmpl, a_offsetUnitId, a_offsetGroupId)
 									if v_point.task and v_point.task.params and v_point.task.params.tasks then									
 										for k,task in base.pairs(v_point.task.params.tasks) do
 											if task.params and task.params.groupId then
-												task.params.groupId = task.params.groupId + a_offsetGroupId
+												task.params.groupId = a_oldToNew_GroupId[task.params.groupId] + offsetGroupId
 											end
-
+											
+											if task.params and task.params.distribution then
+												for kk,distributions in base.ipairs(task.params.distribution) do
+													for kkk,vvv in base.ipairs(distributions) do
+														task.params.distribution[kk][kkk] = a_oldToNew_GroupId[task.params.distribution[kk][kkk]] + offsetGroupId
+													end	
+												end
+											end
+											
 											if task.params and task.params.groupsForEmbarking then
 												for kk,vv in base.ipairs(task.params.groupsForEmbarking) do
-													task.params.groupsForEmbarking[kk] = task.params.groupsForEmbarking[kk] + a_offsetGroupId
+													task.params.groupsForEmbarking[kk] = a_oldToNew_GroupId[task.params.groupsForEmbarking[kk]] + offsetGroupId
 												end												
 											end
 										end
@@ -2270,7 +2284,7 @@ function createStaticTemplateObjects(a_tmpl, a_offsetUnitId, a_offsetGroupId)
 							end
 							
 							group_by_name[nm] = u              
-							u.groupId = u.groupId + a_offsetGroupId    
+							u.groupId = u.groupId + offsetGroupId  -- в groupId уже новый id  
 							if (maxGroupId < u.groupId) then
 								maxGroupId = u.groupId		
 							end			
@@ -2302,7 +2316,7 @@ function createStaticTemplateObjects(a_tmpl, a_offsetUnitId, a_offsetGroupId)
 							local namesUnits ={}
 							for s,r in ipairs(u.units) do
 								if me_db.unit_by_type[r.type] then
-									r.unitId = r.unitId + a_offsetUnitId
+									r.unitId = r.unitId + offsetUnitId -- в unitId уже новый id  
 									if maxUnitId < r.unitId then
 										maxUnitId = r.unitId
 									end
@@ -2345,7 +2359,7 @@ function createStaticTemplateObjects(a_tmpl, a_offsetUnitId, a_offsetGroupId)
 								create_group_objects(u);
 								for _tmp, wpt in pairs(u.route.points) do  
 									func(wpt, 'name', wpt.name, "WptName", locTbl) 
-									if u.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+									if base.MapWindow.isShowHidden(u) == true then
 										set_waypoint_map_object(wpt)
 									end
 								end
@@ -4232,7 +4246,7 @@ function update_target_zone(target)
 		zone.points = createCirclePoints(x, y, radius)
 	end
   
-	if target.boss.boss.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+	if base.MapWindow.isShowHidden(target.boss.boss) == true then
 		MapWindow.removeUserObjects({zone})
 		MapWindow.addUserObjects({zone})
 	end
@@ -4471,7 +4485,7 @@ function updateTopdownViewArguments(a_unit)
 end
 
 function addPicModel(group, unit, object, unitDef)
-	if unitDef.topdown_view_model ~= false and (group.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true)) and object.picModel == nil and MeSettings.getShowModels() == true then
+	if unitDef.topdown_view_model ~= false and (base.MapWindow.isShowHidden(group) == true) and object.picModel == nil and MeSettings.getShowModels() == true then
 		local shape = U.getShape(unitDef)			
 		if base.test_topdown_view_models == true and shape then
 			local x = 0
@@ -4891,7 +4905,7 @@ function set_waypoint_map_object(wpt)
         group.mapObjects.route.numbers[i].title = name
     end
    
-    if group.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+    if base.MapWindow.isShowHidden(group) == true then
 		MapWindow.removeUserObjects({obj})
 		MapWindow.addUserObjects({obj})
 	end
@@ -4933,7 +4947,7 @@ function set_target_name(target, name)
 	target.name = nm
 	local obj = group.mapObjects.route.targetNumbers[wpt.index][target.index]
 	obj.title = nm or ''
-	if target.boss.boss.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+	if base.MapWindow.isShowHidden(target.boss.boss) == true then
 		MapWindow.removeUserObjects({obj})
 		MapWindow.addUserObjects({obj})
 	end 
@@ -4966,83 +4980,85 @@ end
 -------------------------------------------------------------------------------
 -- Ставит заданную точку маршрута на ближайшую дорогу.
 function move_waypoint_to_road(wpt, a_typeRoad)
- -- print('----------------------------------------')
-  --print('move_waypoint_to_road')
-  --print('Terrain.getClosestPointOnRoads. wpt.x, wpt.y:', a_typeRoad, wpt.x, wpt.y)
-  local x, y 
-  if Terrain.getClosestPointOnRoads then
-    x, y = Terrain.getClosestPointOnRoads(a_typeRoad, wpt.x, wpt.y)
-  elseif a_typeRoad == "roads" then
-    x, y = Terrain.FindNearestPoint(wpt.x, wpt.y, 40000.0)
-  end
-  --print(' ---x,y--:', x, y)
+	-- print('----------------------------------------')
+	--print('move_waypoint_to_road')
+	--print('Terrain.getClosestPointOnRoads. wpt.x, wpt.y:', a_typeRoad, wpt.x, wpt.y)
+	local x, y 
+	if Terrain.getClosestPointOnRoads then
+		x, y = Terrain.getClosestPointOnRoads(a_typeRoad, wpt.x, wpt.y)
+	elseif a_typeRoad == "roads" then
+		x, y = Terrain.FindNearestPoint(wpt.x, wpt.y, 40000.0)
+	end
+	--print(' ---x,y--:', x, y)
 
-  if x then
-    MapWindow.move_waypoint(wpt.boss, wpt.index, x, y)
-  end
+	if x then
+		MapWindow.move_waypoint(wpt.boss, wpt.index, x, y)
+	end
   
-  local points = wpt.boss.route.points
-  --print("wpt.index=", wpt.index)
-  if wpt.index > 1 and points[wpt.index-1].type.action == 'On Road' then
-    local path = FindOptimalPath('roads', points[wpt.index-1].x, points[wpt.index-1].y, x, y)
-	--U.traverseTable(path)
-    if path and #path > 0 then
-      wpt.boss.mapObjects.route.line.points[wpt.index-1] = path
-      local s = {}
-      for i=1,#path do
-        table.insert(s, {x=path[i].x, y=path[i].y})
-      end
-      wpt.boss.route.spans[wpt.index-1] = s
-      -- MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
-      -- MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
-    end
-  end
+	local points = wpt.boss.route.points
+	--print("wpt.index=", wpt.index)
+	if wpt.index > 1 and points[wpt.index-1].type.action == 'On Road' then
+		local path = FindOptimalPath('roads', points[wpt.index-1].x, points[wpt.index-1].y, x, y)
+		--U.traverseTable(path)
+		if path and #path > 0 then
+			wpt.boss.mapObjects.route.line.points[wpt.index-1] = path
+			local s = {}
+			for i=1,#path do
+				table.insert(s, {x=path[i].x, y=path[i].y})
+			end
+			wpt.boss.route.spans[wpt.index-1] = s
+			-- MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
+			-- MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
+		end
+	end
   
-  if wpt.index < #points and points[wpt.index+1].type.action == 'On Road' then
-    local path = FindOptimalPath('roads', x, y, points[wpt.index+1].x, points[wpt.index+1].y)
-    if path and #path > 0 then
-      wpt.boss.mapObjects.route.line.points[wpt.index] = path
-      local s = {}
-      for i=1,#path do
-        table.insert(s, {x=path[i].x, y=path[i].y})
-      end
-      wpt.boss.route.spans[wpt.index] = s
-    end
-  end
+	if wpt.index < #points and points[wpt.index+1].type.action == 'On Road' then
+		local path = FindOptimalPath('roads', x, y, points[wpt.index+1].x, points[wpt.index+1].y)
+		if path and #path > 0 then
+			wpt.boss.mapObjects.route.line.points[wpt.index] = path
+			local s = {}
+			for i=1,#path do
+				table.insert(s, {x=path[i].x, y=path[i].y})
+			end
+			wpt.boss.route.spans[wpt.index] = s
+		end
+	end
   
-  if wpt.index > 1 and points[wpt.index-1].type.action == 'On Railroads' then
-    local path = FindOptimalPath('railroads', points[wpt.index-1].x, points[wpt.index-1].y, x, y)
-	--U.traverseTable(path)
-    if path and #path > 0 then
-      wpt.boss.mapObjects.route.line.points[wpt.index-1] = path
-      local s = {}
-      for i=1,#path do
-        table.insert(s, {x=path[i].x, y=path[i].y})
-      end
-      wpt.boss.route.spans[wpt.index-1] = s
-      -- MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
-      -- MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
-    end
-  end
+	if wpt.index > 1 and points[wpt.index-1].type.action == 'On Railroads' then
+		local path = FindOptimalPath('railroads', points[wpt.index-1].x, points[wpt.index-1].y, x, y)
+		--U.traverseTable(path)
+		if path and #path > 0 then
+			wpt.boss.mapObjects.route.line.points[wpt.index-1] = path
+			local s = {}
+			for i=1,#path do
+				table.insert(s, {x=path[i].x, y=path[i].y})
+			end
+			wpt.boss.route.spans[wpt.index-1] = s
+			-- MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
+			-- MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
+		end
+	end
   
-  if wpt.index < #points and points[wpt.index+1].type.action == 'On Railroads' then
-    local path = FindOptimalPath('railroads', x, y, points[wpt.index+1].x, points[wpt.index+1].y)
-    if path and #path > 0 then
-      wpt.boss.mapObjects.route.line.points[wpt.index] = path
-      local s = {}
-      for i=1,#path do
-        table.insert(s, {x=path[i].x, y=path[i].y})
-      end
-      wpt.boss.route.spans[wpt.index] = s
-    end
-  end
+	if wpt.index < #points and points[wpt.index+1].type.action == 'On Railroads' then
+		local path = FindOptimalPath('railroads', x, y, points[wpt.index+1].x, points[wpt.index+1].y)
+		if path and #path > 0 then
+			wpt.boss.mapObjects.route.line.points[wpt.index] = path
+			local s = {}
+			for i=1,#path do
+				table.insert(s, {x=path[i].x, y=path[i].y})
+			end
+			wpt.boss.route.spans[wpt.index] = s
+		end
+	end
   
-  build_route_line(wpt.boss)
-  if wpt.boss.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
-	  MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
-	  MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
-  end
-  panel_summary.update()
+	build_route_line(wpt.boss)
+	if (base.MapWindow.isShowHidden(wpt.boss) == true) then
+		MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
+		MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
+	end
+   
+	updateHeading(wpt.boss)
+	panel_summary.update()
 end
 
 -------------------------------------------------------------------------------
@@ -5076,7 +5092,7 @@ function make_waypoint_offroad(wpt)
         build_route_line(wpt.boss)  
         
         -- wpt.boss.mapObjects.route.line.points[wpt.index-1] = {{x=p.x, y=p.y}, {x=wpt.x, y=wpt.y}}
-		if wpt.boss.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+		if (base.MapWindow.isShowHidden(wpt.boss) == true) then
 			MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
 			MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})	
 		end
@@ -5094,7 +5110,7 @@ function make_waypoint_offroad(wpt)
         build_route_line(wpt.boss)  
         
         --wpt.boss.mapObjects.route.line.points[wpt.index] = {{x=wpt.x, y=wpt.y}, {x=p.x, y=p.y}}
-		if wpt.boss.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true) then
+		if (base.MapWindow.isShowHidden(wpt.boss) == true) then
 			MapWindow.removeUserObjects({wpt.boss.mapObjects.route.line})
 			MapWindow.addUserObjects({wpt.boss.mapObjects.route.line})
 		end	
@@ -5826,7 +5842,7 @@ function remove_target(target, doNotUpdateMap)
 			numbers[i].title = base.tostring(i) 
 		end
 	end
-	if not doNotUpdateMap and (target.boss.boss.hidden ~= true or (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true)) then
+	if not doNotUpdateMap and (base.MapWindow.isShowHidden(target.boss.boss) == true) then
 		MapWindow.removeUserObjects(numbers)
 		MapWindow.addUserObjects(numbers)
 	end
@@ -6292,7 +6308,7 @@ function scale_group_map_objects(group, scale, objects, toRemove)
 		end
 	end]]
 	
-	if (group.hidden and not (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true)) or (group.hiddenOnPlanner == true and  base.isPlannerMission() == true) then
+	if (base.MapWindow.isShowHidden(group) == false) or (group.hiddenOnPlanner == true and  base.isPlannerMission() == true) then
 		return
 	end
 
@@ -6300,26 +6316,26 @@ function scale_group_map_objects(group, scale, objects, toRemove)
   
   -- Юниты в первой точке маршрута
   for i=2,#units do -- просматриваем все юниты начиная со второго,т.к. первый - точка маршрута со значком юнита
-    local r = false; -- признак наличия зоны
-    local unit = group.units[i];
-    local udb = me_db.unit_by_type[unit.type]
-    base.assert(udb, unit.type .. "!unit_by_type[]")
-    if (udb.DetectionRange and (udb.DetectionRange > 0)) 
-      or (udb.ThreatRange and (udb.ThreatRange > 0))
-      or (udb.ThreatRangeMin and (udb.ThreatRangeMin > 0))
-	  then
-      r = true;  -- какая-то зона есть
-    end
+ --  local r = false; -- признак наличия зоны
+ --   local unit = group.units[i];
+ --  local udb = me_db.unit_by_type[unit.type]
+ --   base.assert(udb, unit.type .. "!unit_by_type[]")
+ --   if (udb.DetectionRange and (udb.DetectionRange > 0)) 
+ --     or (udb.ThreatRange and (udb.ThreatRange > 0))
+ --     or (udb.ThreatRangeMin and (udb.ThreatRangeMin > 0))
+ --	  then
+ --     r = true;  -- какая-то зона есть
+ --   end
     
-    if r or 'ship' == group.type then -- есть зона или корабль, рисуем по любому на всех масштабах
+ --   if r or 'ship' == group.type then -- есть зона или корабль, рисуем по любому на всех масштабах
       table.insert(objects, units[i])
-    else -- зоны нет, рисуем в зав-ти от масштаба
-      if UNITS_SCALE >= scale then
-          table.insert(objects, units[i])
-      else
-          table.insert(toRemove, units[i])
-      end
-    end;
+ --  else -- зоны нет, рисуем в зав-ти от масштаба
+ --    if UNITS_SCALE >= scale then
+ --         table.insert(objects, units[i])
+ --     else
+ --         table.insert(toRemove, units[i])
+ --     end
+ --   end
   end
   
   if group.mapObjects.route then
@@ -6609,9 +6625,11 @@ end
 -- картографических объектов группы, чтобы эти изменения отобразились на карте.
 function update_group_map_objects(group) 
     -- группа скрыта, нечего обновлять
-    if (group.hidden and not (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true)) or group_by_id[group.groupId] == nil  then 
-        return
-    end
+	if group and group.boss then
+		if (base.MapWindow.isShowHidden(group) == false) or group_by_id[group.groupId] == nil  then 
+			return
+		end
+	end
 	
     local scale = MapWindow.getScale()
     local toRemove = {}
@@ -6719,23 +6737,23 @@ function update_group_map_objects(group)
 												  --рисуем первую точку траектории со значком юнита               
 				local unitSymbol = group.mapObjects.units[i] -- юнит
 				table.insert(toRemove, unitSymbol); 
-				local hasZone = false; -- есть ли у юнита зона (ПВО, радар)
-				local unit = unitSymbol.userObject; 
-				local udb = me_db.unit_by_type[unit.type] -- юнит из базы данных
-				base.assert(udb, unit.type .. "!unit_by_type[]")
-				if (udb.DetectionRange and (udb.DetectionRange > 0)) 
-					or (udb.ThreatRange and (udb.ThreatRange > 0)) then
-					hasZone = true; -- у юнита есть какая-то зона
-				end
-				if hasZone or 'ship' == group.type  then -- если есть зона или корабль, рисуем юнит всегда на любом масштабе
+			--	local hasZone = false; -- есть ли у юнита зона (ПВО, радар)
+			--	local unit = unitSymbol.userObject; 
+			--	local udb = me_db.unit_by_type[unit.type] -- юнит из базы данных
+			--	base.assert(udb, unit.type .. "!unit_by_type[]")
+			--	if (udb.DetectionRange and (udb.DetectionRange > 0)) 
+			--		or (udb.ThreatRange and (udb.ThreatRange > 0)) then
+			--		hasZone = true; -- у юнита есть какая-то зона
+			--	end
+			--	if hasZone or 'ship' == group.type  then -- если есть зона или корабль, рисуем юнит всегда на любом масштабе
 					table.insert(toCreate, unitSymbol);
-				else -- зоны нет, рисуем в зав-ти от масштаба карты
-					if UNITS_SCALE >= scale then
-						table.insert(toCreate, unitSymbol);
+			--	else -- зоны нет, рисуем в зав-ти от масштаба карты
+			--		if UNITS_SCALE >= scale then
+			--			table.insert(toCreate, unitSymbol);
 						-- addAll(toRemove, group.mapObjects.units, true)
 						-- addAll(toCreate, group.mapObjects.units, true)
-					end;
-				end;
+			--		end;
+			--	end;
 			end
 			if group.type ~= 'static' then
 				for i,unit in ipairs(group.units) do 
@@ -6755,10 +6773,6 @@ end
 -------------------------------------------------------------------------------
 -- run mission
 function runMission(params, returnScreen) 
-    if base.LOFAC == true then 
-        returnScreen = 'LOFAC';
-    end;
-
     local trackFile =  base.tempDataDir .. base.trackFileName;   
 
     if (params.command ~= '--prepare') then
@@ -7587,7 +7601,7 @@ end
 -------------------------------------------------------------------------------
 --Обновляем надписи Waypoints
 function updateTitleWaypoints(group)
-    if (group == nil or (group.hidden == true and not (base.MapWindow.isShowHidden() == true and base.isPlannerMission() ~= true))) then 
+    if (group == nil or (base.MapWindow.isShowHidden(group) == false)) then 
         return
     end
     local objects = {}

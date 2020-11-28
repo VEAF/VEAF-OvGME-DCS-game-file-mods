@@ -7,8 +7,7 @@ Commandes supplémentaires prêtes à être associées à des interrupteurs à 2
 Pour le AV8B Harrier.
 
 --------------------------------------------
--- Tested with DCS World 2.5.6.49314      --
--- Should work with DCS World 2.5.6.52196 --
+-- Should work with DCS World 2.5.6.58125 --
 --------------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.

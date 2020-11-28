@@ -7,7 +7,7 @@ Commandes supplémentaires prêtes à être associées à des interrupteurs à 2
 Pour le F/A-18C Hornet.
 
 --------------------------------------------
--- Tested with DCS World 2.5.6.52196      --
+-- Tested with DCS World 2.5.6.58125      --
 --------------------------------------------
 
 Made by Zip, may contain work from other people of the DCS forum.
