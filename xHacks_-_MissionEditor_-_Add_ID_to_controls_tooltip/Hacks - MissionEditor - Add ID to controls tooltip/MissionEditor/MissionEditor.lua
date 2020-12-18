@@ -10,6 +10,7 @@ test_topdown_view_models = true
 --test_localizationMG = true
 --test_dyn_missions = true
 --test_DataCartridge = true
+--test_requiredUnits = true
 
 guiBindPath = './dxgui/bind/?.lua;' .. 
               './dxgui/loader/?.lua;' .. 
@@ -59,62 +60,6 @@ if not guiVariant then
 	end 
 end
 
-
-
-
-  
-function loadTypeOfSale()
-    local ValidTypes =
-    {
-        ED          = "ED", 
-        STEAM       = "STEAM", 
-        GAMEFLY     = "GAMEFLY",
-        GAMEFLY_UK  = "GAMEFLY_UK",
-        KOCHMEDIA   = "KOCHMEDIA",
-        DCSPRO      = "DCSPRO",
-        PREVIEW     = "PREVIEW",
-    }
-    local result = {type = "ED", enableModulesManager = true, enableTrainingLinks = true}
-    local typesSales
-
-    local file = io.open("Config/retail.cfg", 'r')
-
-    if file then
-        typesSales = file:read('*line')
-        file:close()
-    end
-
-    if typesSales ~= nil and ValidTypes[typesSales] ~= nil then
-        result.type = typesSales
-    else
-        result.type = "ED"        
-    end
-
-    if result.type ~= "ED" then
-        result.enableModulesManager = false
-    end 
-
-    if result.type ~= "ED" 
-        and result.type ~= "GAMEFLY" 
-        and result.type ~= "GAMEFLY_UK"
-        and result.type ~= "KOCHMEDIA" then
-        result.enableTrainingLinks = false
-    end 
-
-    if result.type == "DCSPRO" then
-        result.noNews = true
-        result.noOffline = true
-    end
-
-    if result.type == "PREVIEW" then
-        result.noOffline = true
-    end
-
-    return result
-end
-
-__TYPEOFSALES__  = loadTypeOfSale()    
-
 local realMissionName
 
 START_PARAMS.command    = '--quit'
@@ -127,11 +72,6 @@ watchTrackFileName      = '_LastMissionTrack.trk'
 
 initTer 				= false
 
---START_PARAMS.returnScreen = 'LOFAC' -- TEST
-
-LOFAC = ('LOFAC' == START_PARAMS.returnScreen)
-
---LOFAC = true -- TEST
 
 DEBUG = true
 
@@ -150,6 +90,7 @@ end
 lfs = require('lfs')  -- Lua File System
 local T = require('tools')
 local ImageSearchPath = require('image_search_path')
+local ProductType = require('me_ProductType') 
 
 absolutPath			= lfs.currentdir()
 missionDir			= lfs.writedir() .. 'Missions/'
@@ -237,7 +178,7 @@ local function createGUI()
  
   local locale = i18n.getLocale()
   
-  if LOFAC then
+  if ProductType.getType() == "LOFAC" then
       if locale == 'ru' then 
         Gui.SetBackground('./MissionEditor/themes/main/images/lofac/loading-window_RU.png')
         Gui.SetWindowText('СПО-НОПП')
@@ -248,6 +189,9 @@ local function createGUI()
       ImageSearchPath.pushPath(imagesPath .. '/lofac')
   elseif guiVariant == "MAC" then
 	  Gui.SetBackground('MAC_Gui/MAC_Data/Background/StartImageMAC.bmp"', true)
+  elseif ProductType.getType() == "MCS" then 
+	  Gui.SetBackground('./MissionEditor/images/loading-window.png', true)
+	  Gui.SetWindowText('Mission Combat Simulator')	
   else
 	  Gui.SetBackground('./MissionEditor/themes/main/images/loading-window.png', true)
 	  Gui.SetWindowText('Digital Combat Simulator')
@@ -377,6 +321,7 @@ CoalitionUtils.setController(CoalitionController)
 CoalitionData.setController(CoalitionController)
 CoalitionData.setDefaultCoalitions()
 CoalitionPanel.setController(CoalitionController)
+
 
 MapWindow = require('me_map_window')
 menubar = require('me_menubar')
@@ -651,10 +596,9 @@ print("---- openReturnScreen=",START_PARAMS.returnScreen)
 
     music.start()   
     if '' == START_PARAMS.returnScreen then 
-        if LOFAC == true then	
-			panel_auth.openAutorization(menubar.setAutorization)
-            startMEforLOFAC() 
-        else
+		if ProductType.getType() == "MCS" or ProductType.getType() == "LOFAC" then
+			mmw.showMissionEditor()
+		else
             mmw.show(true)
 			MapWindow.initMapAfterSim()
 			panel_auth.openAutorization(mmw.setAutorization)
@@ -686,14 +630,6 @@ print("---- openReturnScreen=",START_PARAMS.returnScreen)
 		module_mission.create_new_mission()
 		MapWindow.show(true)
 		panel_record_avi.show(true)
-    elseif 'LOFAC' == START_PARAMS.returnScreen  then
-        if START_PARAMS.missionPath ~= '' then
-            panel_debriefing.returnScreen = START_PARAMS.returnScreen
-            panel_debriefing.show(true)
-        else
-			panel_auth.openAutorization(menubar.setAutorization)
-            startMEforLOFAC()            
-        end
     elseif 'LoadAndBriefing' == START_PARAMS.returnScreen  then
         local path = START_PARAMS.missionPath  
         START_PARAMS.returnScreen = ""
@@ -715,22 +651,23 @@ print("---- openReturnScreen=",START_PARAMS.returnScreen)
             end
         end)
     elseif 'quit' == START_PARAMS.returnScreen  then    
-  
+
     else
-        panel_debriefing.returnScreen = START_PARAMS.returnScreen
+		if ProductType.getType() == "LOFAC" then
+			panel_debriefing.returnScreen = 'editor'
+		elseif ProductType.getType() == "MCS"  then
+			if 'campaign' == START_PARAMS.returnScreen then
+				panel_debriefing.returnScreen = 'campaign'
+			else
+				panel_debriefing.returnScreen = 'editor'
+			end
+		else
+			panel_debriefing.returnScreen = START_PARAMS.returnScreen
+		end
         panel_debriefing.show(true)
     end
 end
 
-function startMEforLOFAC()
-	TheatreOfWarData.selectTheatreOfWar('Caucasus')
-    if MapWindow.initTerrain(true) == true then
-        module_mission.create_new_mission()
-		MapWindow.show(true)
-    else
-        print("---NOT TERRAIN---")
-    end
-end
 
 function loadingFirstTime()
     loading()
@@ -785,11 +722,9 @@ UpdateManager.add(music.update)
 function restartME()
     START_PARAMS.command = '--restart'
     START_PARAMS.missionPath = ''
---    if LOFAC == true then
- --       START_PARAMS.returnScreen = 'LOFAC'
- --   else
-        START_PARAMS.returnScreen = ''
- --   end
+
+    START_PARAMS.returnScreen = ''
+
     MISSION_PATH = ''
     Gui.doQuit()    
 end
@@ -829,7 +764,9 @@ function Gui.doQuit()
 	
 	if MapWindow.getVisible() == true then
 		MapWindow.show(false)
-	end    
+	end
+	
+	require('utils_common').saveMissionTheatreCache()
 	
 	--START_PARAMS.command = '--quit'	
 	__EMBEDDED__.doAction()
@@ -930,6 +867,8 @@ Gui.SetupApplicationOnActivateCallback()
 Gui.SetActivateCallback(onWindowFocused)
 
 StartProgressBar.kill()
+
+require('utils_common').loadMissionTheatreCache()
 
 if guiVariant == "MAC" then
 	mmwWeb = require('web_MainMenu')

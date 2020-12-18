@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."RWR/"
 dofile(my_path.."RWR_definitions.lua")
@@ -79,33 +79,19 @@ for i = 0, 15 do
 	text_RWR_Tr01.controllers 		    = {{"RWR_Code", i, 0.125}}
 	Add_RWR_Element(text_RWR_Tr01)
 	
-	local text_RWR_Tr01A			        = create_rwr_textured_box(738, 384, 792, 433)       -- ( 742, 394, 790, 418)
-	text_RWR_Tr01A.name				        = "text_RWR_Tr" .. string.format("%02d", i) .. "A"
-	text_RWR_Tr01A.init_pos			      = {0, 0, 0}                                     -- {0.0, 3.5, 0}
-	text_RWR_Tr01A.parent_element	    = "text_RWR_Tr" .. string.format("%02d", i)
-	text_RWR_Tr01A.controllers		    = {{"RWR_AIR", i}}
-	Add_RWR_Element(text_RWR_Tr01A)
+	local text_RWR_Tr01				        = create_rwr_textured_box( 752, 355, 778, 380)
+	text_RWR_Tr01.name				        = "text_RWR_Tr" .. string.format("%02d", i) .. "L"
+	text_RWR_Tr01.init_pos			      = {0, -3.5, 0}
+	text_RWR_Tr01.parent_element	    = "text_RWR_Tr" .. string.format("%02d", i)
+	text_RWR_Tr01.controllers		      = {{"RWR_LCKD", i}}
+	Add_RWR_Element(text_RWR_Tr01)
 	
-	local text_RWR_Tr01G			        = create_rwr_textured_box(738, 273, 792, 319)      -- (744, 275, 788, 319)
-	text_RWR_Tr01G.name				        = "text_RWR_Tr" .. string.format("%02d", i) .. "G"
-	text_RWR_Tr01G.init_pos			      = {0, 0, 0}                                        -- {0, 0, 0}
-	text_RWR_Tr01G.parent_element	    = "text_RWR_Tr" .. string.format("%02d", i)
-	text_RWR_Tr01G.controllers		    = {{"RWR_GRD", i}}
-	Add_RWR_Element(text_RWR_Tr01G)
-	
-	local text_RWR_Tr01M			        = create_rwr_textured_box(738, 327, 792, 384)     -- ( 736, 327, 796, 387)
-	text_RWR_Tr01M.name				        = "text_RWR_Tr" .. string.format("%02d", i) .. "M"
-	text_RWR_Tr01M.init_pos			      = {0, 0, 0}                                       -- {0, 0, 0}
-	text_RWR_Tr01M.parent_element	    = "text_RWR_Tr" .. string.format("%02d", i)
-	text_RWR_Tr01M.controllers		    = {{"RWR_WPN", i}}
-	Add_RWR_Element(text_RWR_Tr01M)
-	
-	local text_RWR_Tr01L			        = create_rwr_textured_box(738, 433, 792, 486)      -- ( 736, 429, 800, 494)
-	text_RWR_Tr01L.name				        = "text_RWR_Tr" .. string.format("%02d", i) .. "L"
-	text_RWR_Tr01L.init_pos			      = {0, 0, 0}                                        -- {0, 0, 0}
-	text_RWR_Tr01L.parent_element	    = "text_RWR_Tr" .. string.format("%02d", i)
-	text_RWR_Tr01L.controllers		    = {{"RWR_LCKD", i}}
-	Add_RWR_Element(text_RWR_Tr01L)
+	local text_RWR_Tr01				        = create_rwr_textured_box( 752, 329, 778, 355)
+	text_RWR_Tr01.name				        = "text_RWR_Tr" .. string.format("%02d", i) .. "G"
+	text_RWR_Tr01.init_pos			      = {0, 3.5, 0}
+	text_RWR_Tr01.parent_element	    = "text_RWR_Tr" .. string.format("%02d", i)
+	text_RWR_Tr01.controllers		      = {{"RWR_LNCH", i}}
+	Add_RWR_Element(text_RWR_Tr01)
 end
 
 for i = 1, 10 do

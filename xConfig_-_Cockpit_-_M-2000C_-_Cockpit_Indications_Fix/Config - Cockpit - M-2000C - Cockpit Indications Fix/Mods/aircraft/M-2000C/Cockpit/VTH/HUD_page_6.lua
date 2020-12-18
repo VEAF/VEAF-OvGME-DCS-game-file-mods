@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -21,7 +21,7 @@ local  vth_fpm_ccip         = CreateElement "ceSimple"
 vth_fpm_ccip.name           = "vth_fpm_ccip"
 vth_fpm_ccip.init_pos       = {0,0,0}
 vth_fpm_ccip.parent_element = FOV_center2.name
-vth_fpm_ccip.controllers    = {{"hud_fpm"}, {"hud_svz", 0.6}, {"hud_svy", 0.6}}
+vth_fpm_ccip.controllers    = {{"hud_fpm_vis"}, {"hud_fpm_pos", 0.6}}
 AddHUDElement(vth_fpm_ccip)
 
 -- Aircraft Data

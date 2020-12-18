@@ -3,7 +3,7 @@ Lowers the precision of the IA gunners.
 Diminue la précision des tirs (canon, armes de petit calibre) de l'IA
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.52196 --
+-- Tested with DCS World 2.5.6.59398 --
 ---------------------------------------
 
 Not my work.

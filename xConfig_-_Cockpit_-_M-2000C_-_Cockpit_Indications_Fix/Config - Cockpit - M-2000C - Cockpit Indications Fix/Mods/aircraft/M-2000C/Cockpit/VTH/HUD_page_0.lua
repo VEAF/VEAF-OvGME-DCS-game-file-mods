@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -112,13 +112,13 @@ AddHUDElement(txt_hautgr_L)
 local takeoff_pitch           = create_vth_textured_box(20, 80, 192, 110)         -- ( 20, 80, 190, 110)
 takeoff_pitch.name            = "takeoff_caret"
 takeoff_pitch.init_pos        = {0, -130, 0}
-takeoff_pitch.controllers     = {{"vis_wdown"}}
+takeoff_pitch.controllers     = {{"hud_no_ins"}, {"vis_wdown"}}
 AddHUDElement(takeoff_pitch)
 
 local JxAccel_box             = create_vth_textured_box(290, 232, 401, 283)       -- (290, 230, 400, 285)
 JxAccel_box.name              = "JxAccel_box"
 JxAccel_box.init_pos          = {0.0, 50.0, 0.0}
-JxAccel_box.controllers       = {{"vis_wdown"}}
+JxAccel_box.controllers       = {{"hud_no_ins"}, {"vis_wdown"}}
 AddHUDElement(JxAccel_box)
 
 local JxAccel_txt             = CreateElement "ceStringPoly"
@@ -128,7 +128,7 @@ JxAccel_txt.init_pos          = {0.0, 49.8, 0.0}                                
 JxAccel_txt.alignment         = "CenterCenter"
 JxAccel_txt.formats           = {"%01.2f"}
 JxAccel_txt.stringdefs        = font_size_default                                 -- {0.006,0.006}
-JxAccel_txt.controllers       = {{"vis_wdown"}, {"txt_xaccel",0}}
+JxAccel_txt.controllers       = {{"hud_no_ins"}, {"vis_wdown"}, {"txt_xaccel",0}}
 AddHUDElement(JxAccel_txt)
 
 -- NAV Mode Elements
@@ -139,7 +139,7 @@ wp_dist11NM.init_pos          = {113.5, 62.0, 0.0}                              
 wp_dist11NM.alignment         = "RightTop"
 wp_dist11NM.formats           = {"%1.fN%2d"}                                      -- {"%1.f N %02d"}
 wp_dist11NM.stringdefs        = font_size_default                                 -- {0.006,0.006}
-wp_dist11NM.controllers       = {{"wp_dist11NM"}}
+wp_dist11NM.controllers       = {{"hud_no_ins"}, {"wp_dist11NM"}}
 AddHUDElement(wp_dist11NM)
 
 local wp_dist10NM             = CreateElement "ceStringPoly"
@@ -149,7 +149,7 @@ wp_dist10NM.init_pos          = {113.5, 62.0, 0.0}                              
 wp_dist10NM.alignment         = "RightTop"
 wp_dist10NM.formats           = {"%1.1fN%2d"}                                     -- {"%1.1f N %02d"}
 wp_dist10NM.stringdefs        = font_size_default                                 -- {0.006,0.006}
-wp_dist10NM.controllers       = {{"wp_dist10NM"}}
+wp_dist10NM.controllers       = {{"hud_no_ins"}, {"wp_dist10NM"}}
 AddHUDElement(wp_dist10NM)
 
 local wp_dist_offset          = CreateElement "ceStringPoly"
@@ -159,7 +159,7 @@ wp_dist_offset.init_pos       = {119.8, 62.0, 0.0}                              
 wp_dist_offset.alignment      = "RightTop"
 wp_dist_offset.value          = "*"
 wp_dist_offset.stringdefs     = font_size_default                                 -- {0.006,0.006}
-wp_dist_offset.controllers    = {{"wp_but_offset"}}
+wp_dist_offset.controllers    = {{"hud_no_ins"}, {"wp_but_offset"}}
 AddHUDElement(wp_dist_offset)
 
 -- DEBUG: TO BE DELETED

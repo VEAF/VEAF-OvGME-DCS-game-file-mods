@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -60,14 +60,14 @@ Add(tape_end)
 local  hdg_ind                    = create_vth_textured_box(209, 76, 220, 107)    -- (210, 75, 218, 107)
 hdg_ind.name                      = "hdg_ind"
 hdg_ind.init_pos                  = {0, 118, 0}                                   -- {0, 110, 0}
-hdg_ind.controllers               = {{"vis_alleg"}}
+hdg_ind.controllers               = {{"hud_ins_aux"}, {"vis_alleg"}}
 AddHUDElement(hdg_ind)
 
 -- HUD Center
 local Pitch_Ladder_center         = CreateElement "ceSimple"
 Pitch_Ladder_center.name          = "Pitch_Ladder_center"
 Pitch_Ladder_center.init_pos      = vth_base_init_pos
-Pitch_Ladder_center.controllers   = {{"bound_by_circle", TFOV_radius * GetScale()}}
+Pitch_Ladder_center.controllers   = {{"hud_no_ins"}, {"bound_by_circle", TFOV_radius * GetScale()}}
 AddHUDElement(Pitch_Ladder_center)
 
 -- Pitch Ladder
@@ -335,14 +335,14 @@ local  vth_fpm                    = create_vth_textured_box(358, 18, 469, 66)   
 vth_fpm.name                      = "vth_fpm"
 vth_fpm.init_pos                  = {0,1.5,0}
 vth_fpm.parent_element            = VTH_center.name
-vth_fpm.controllers               = {{"hud_fpm"}, {"hud_svz", 0.6}, {"hud_svy", 0.6}}
+vth_fpm.controllers               = {{"hud_no_ins"}, {"hud_fpm_vis"}, {"hud_fpm_pos", 0.6}}
 AddHUDElement(vth_fpm)
 
 local Accel_Z                     = create_vth_textured_box(478, 21, 795, 51)     -- ( 480, 20,795, 50)
 Accel_Z.name                      = "Accel_Z"
 Accel_Z.init_pos                  = {0,0,0}
 Accel_Z.parent_element            = vth_fpm.name
-Accel_Z.controllers               = {{"vis_alleg"}, {"hud_acc_z", 2.0}}
+Accel_Z.controllers               = {{"hud_no_ins"}, {"vis_alleg"}, {"hud_acc_z", 2.0}}
 AddHUDElement(Accel_Z)
 
 -- NAV
@@ -350,7 +350,7 @@ local wp_SpeedGuide               = create_vth_textured_box(235, 70, 506, 129)  
 wp_SpeedGuide.name                = "wp_SpeedGuide"
 wp_SpeedGuide.init_pos            = {0.0, 0.0, 0.0}
 wp_SpeedGuide.parent_element      = Accel_Z.name
-wp_SpeedGuide.controllers         = {{"wp_SpeedGuide", 0.8}}
+wp_SpeedGuide.controllers         = {{"hud_no_ins"}, {"wp_SpeedGuide", 0.8}}
 AddHUDElement(wp_SpeedGuide)
 
 local wp_RouteGuide               = create_vth_textured_box(886, 82, 967, 151)    -- ( 886, 82, 967, 152)
@@ -378,19 +378,19 @@ local BUT_reticule                =  create_vth_textured_box(525, 57, 583, 114) 
 BUT_reticule.name                 = "BUT_reticule"
 BUT_reticule.init_pos             = {0,0,0}
 BUT_reticule.parent_element       = VTH_center.name
-BUT_reticule.controllers          = {{"wp_but_reticle"}}
+BUT_reticule.controllers          = {{"hud_no_ins"}, {"wp_but_reticle"}}
 AddHUDElement(BUT_reticule)
 
 local route_bearing               = create_vth_textured_box(805, 21, 834, 52)     -- ( 807, 22, 832,51)
 route_bearing.name                = "route_bearing"
 route_bearing.init_pos            = {0,118,0}                                     -- {0,110,0}
-route_bearing.controllers         = {{"vis_alleg"}, {"route_bearing", 0.28}}      -- {{"vis_alleg"}, {"route_bearing", 0.555}}
+route_bearing.controllers         = {{"hud_no_ins"}, {"vis_alleg"}, {"route_bearing", 0.28}}      -- {{"hud_no_ins"}, {"vis_alleg"}, {"route_bearing", 0.555}}
 AddHUDElement(route_bearing)
 
 local AP_route_bearing            = create_vth_textured_box(845, 21, 874, 52)     -- ( 847, 22, 872,51)
 AP_route_bearing.name             = "AP_route_bearing"
 AP_route_bearing.init_pos         = {0,118,0}                                     -- {0,110,0}
-AP_route_bearing.controllers      = {{"vis_alleg"}, {"AP_route_bearing", 0.28}}   -- {{"vis_alleg"}, {"AP_route_bearing", 0.555}}
+AP_route_bearing.controllers      = {{"hud_no_ins"}, {"vis_alleg"}, {"AP_route_bearing", 0.28}}   -- {{"hud_no_ins"}, {"vis_alleg"}, {"AP_route_bearing", 0.555}}
 AddHUDElement(AP_route_bearing) 
 
 local AP_route_bearing_val          = CreateElement "ceStringPoly"
@@ -401,7 +401,7 @@ AP_route_bearing_val.alignment      = "CenterCenter"
 AP_route_bearing_val.formats        = {"%03d"}
 AP_route_bearing_val.stringdefs     = font_size_default                           -- {0.004,0.004}
 AP_route_bearing_val.parent_element = AP_route_bearing.name
-AP_route_bearing_val.controllers    = {{"vis_alleg"}, {"AP_route_bearing_val"}}
+AP_route_bearing_val.controllers    = {{"hud_no_ins"}, {"vis_alleg"}, {"AP_route_bearing_val"}}
 AddHUDElement(AP_route_bearing_val)
 
 local AP_fpm                      = CreateElement "ceStringPoly"
@@ -412,7 +412,7 @@ AP_fpm.parent_element             = vth_fpm.name
 AP_fpm.alignment                  = "CenterCenter"
 AP_fpm.value                      = "*"
 AP_fpm.stringdefs                 = {0.013,0.013}                                 -- {0.007,0.007}
-AP_fpm.controllers                = {{"vis_alleg"}, {"AP_fpm", 0.6}}
+AP_fpm.controllers                = {{"hud_no_ins"}, {"vis_alleg"}, {"AP_fpm", 0.6}}
 AddHUDElement(AP_fpm)
 
 -- INS Radar Update
@@ -420,7 +420,7 @@ local UNI_rdr_update_ret          = create_vth_textured_box(455, 226, 504, 283) 
 UNI_rdr_update_ret.name           = "UNI_rdr_update_ret"
 UNI_rdr_update_ret.init_pos       = {0,0,0}                                       -- {0,0,0}
 UNI_rdr_update_ret.parent_element = VTH_center.name
-UNI_rdr_update_ret.controllers    = {{"hud_roll" , 1.0}, {"uni_rdr_obl_ret", 5.0}}
+UNI_rdr_update_ret.controllers    = {{"hud_no_ins"}, {"hud_roll" , 1.0}, {"uni_rdr_obl_ret", 5.0}}
 AddHUDElement(UNI_rdr_update_ret)
 
 local UNI_rdr_update_val          = CreateElement "ceStringPoly"
@@ -430,7 +430,7 @@ UNI_rdr_update_val.init_pos       = {120.0, 20.0, 0.0}                          
 UNI_rdr_update_val.alignment      = "RightTop"
 UNI_rdr_update_val.formats        = {"%1.1f KM"}
 UNI_rdr_update_val.stringdefs     = font_size_default                              -- {0.006,0.006}
-UNI_rdr_update_val.controllers    = {{"uni_rdr_obl_val"}}
+UNI_rdr_update_val.controllers    = {{"hud_no_ins"}, {"uni_rdr_obl_val"}}
 AddHUDElement(UNI_rdr_update_val)
 
 local UNI_rdr_update_nul          = CreateElement "ceStringPoly"
@@ -440,21 +440,21 @@ UNI_rdr_update_nul.init_pos       = {120.0, 20.0, 0.0}                          
 UNI_rdr_update_nul.alignment      = "RightTop"
 UNI_rdr_update_nul.value          = "**** KM"
 UNI_rdr_update_nul.stringdefs     = font_size_default                             -- {0.006,0.006}
-UNI_rdr_update_nul.controllers    = {{"uni_rdr_obl_nul"}}
+UNI_rdr_update_nul.controllers    = {{"hud_no_ins"}, {"uni_rdr_obl_nul"}}
 AddHUDElement(UNI_rdr_update_nul)
 
 -- RADAR
 local rdr_rng_bar                 = create_vth_textured_box(890, 305, 917, 619)   -- ( 890, 340, 932, 550)
 rdr_rng_bar.name                  = "rdr_rng_bar"
 rdr_rng_bar.init_pos              = {100, -38, 0}                                  -- {90, -65, 0}
-rdr_rng_bar.controllers           = {{"vis_radar_tgt"}}
+rdr_rng_bar.controllers           = {{"hud_no_ins"}, {"hud_aa_mode"}, {"vis_radar_tgt"}}
 AddHUDElement(rdr_rng_bar)
 
 local rdr_elevation_bar           = create_vth_textured_box(103, 1009, 753, 1015)  -- ( 104, 1010, 752, 1015)
 rdr_elevation_bar.name            = "rdr_elevation_bar"
 rdr_elevation_bar.init_pos        = {0, 0, 0}
 rdr_elevation_bar.parent_element  = Pitch_Ladder_center.name
-rdr_elevation_bar.controllers     = {{"hud_roll" ,1.0}, {"vis_radar_elevation_bar", 0.0}}
+rdr_elevation_bar.controllers     = {{"hud_no_ins"}, {"hud_aa_mode"}, {"hud_roll" ,1.0}, {"vis_radar_elevation_bar", 0.0}}
 AddHUDElement(rdr_elevation_bar)
 
 local rdr_aam_rmax                = create_vth_textured_box(920, 599, 950, 605)   -- ( 900, 557, 932, 564)
@@ -467,21 +467,21 @@ AddHUDElement(rdr_aam_rmax)
 local rdr_aam_rnez                = create_vth_textured_box(920, 611, 950, 619)   -- ( 428, 46, 467, 49)
 rdr_aam_rnez.name                 = "rdr_aam_rnez"
 rdr_aam_rnez.init_pos             = {-6.5, 54.0, 0}                               -- {-6.0, 36.0, 0}
-rdr_aam_rnez.controllers          = {{"aam_rnez"}}
+rdr_aam_rnez.controllers          = {{"hud_aa_mode"}, {"aam_rnez"}}
 rdr_aam_rnez.parent_element       = rdr_rng_bar.name
 AddHUDElement(rdr_aam_rnez)
 
 local rdr_aam_rmin                = create_vth_textured_box(920, 599, 950, 605)   -- ( 900, 557, 932, 564)
 rdr_aam_rmin.name                 = "rdr_aam_rmin"
 rdr_aam_rmin.init_pos             = {-6.5, 54.0, 0}                               -- {-5.0, 36.0, 0}
-rdr_aam_rmin.controllers          = {{"aam_rmin"}}
+rdr_aam_rmin.controllers          = {{"hud_aa_mode"}, {"aam_rmin"}}
 rdr_aam_rmin.parent_element       = rdr_rng_bar.name
 AddHUDElement(rdr_aam_rmin)
 
 local rdr_tgtrng                  = create_vth_textured_box(933, 565, 950, 596)   -- ( 988, 74, 1019, 110)
 rdr_tgtrng.name                   = "rdr_tgtrng"
 rdr_tgtrng.init_pos               = {2.0, 54.0, 0}                                -- {3.0, 36.0, 0}
-rdr_tgtrng.controllers            = {{"radar_tgt_rng", 1}}
+rdr_tgtrng.controllers            = {{"hud_aa_mode"}, {"radar_tgt_rng", 1}}
 rdr_tgtrng.parent_element         = rdr_rng_bar.name
 AddHUDElement(rdr_tgtrng)
 
@@ -492,7 +492,7 @@ txt_rdr_tgtrng.init_pos           = {3.5, 0.0}                                  
 txt_rdr_tgtrng.alignment          = "LeftCenter"
 txt_rdr_tgtrng.formats            = {"%1.f"}
 txt_rdr_tgtrng.stringdefs         = font_size_default                             -- {0.006,0.006}
-txt_rdr_tgtrng.controllers        = {{"txt_rdr_tgt_rng_10nm"}}
+txt_rdr_tgtrng.controllers        = {{"hud_aa_mode"}, {"txt_rdr_tgt_rng_10nm"}}
 txt_rdr_tgtrng.parent_element     = rdr_tgtrng.name
 AddHUDElement(txt_rdr_tgtrng)
 
@@ -503,7 +503,7 @@ txt_rdr_tgtrng2.init_pos          = {3.5, 0.0}                                  
 txt_rdr_tgtrng2.alignment         = "LeftCenter"
 txt_rdr_tgtrng2.formats           = {"%1.1f"}
 txt_rdr_tgtrng2.stringdefs        = font_size_default                             -- {0.006,0.006}
-txt_rdr_tgtrng2.controllers       = {{"txt_rdr_tgt_rng_01nm",0}}
+txt_rdr_tgtrng2.controllers       = {{"hud_aa_mode"}, {"txt_rdr_tgt_rng_01nm",0}}
 txt_rdr_tgtrng2.parent_element    = rdr_tgtrng.name
 AddHUDElement(txt_rdr_tgtrng2)
 
@@ -515,27 +515,27 @@ txt_rdr_tgtcvel.init_pos          = {86, 15, 0}                                 
 txt_rdr_tgtcvel.alignment         = "RightCenter"
 txt_rdr_tgtcvel.formats           = {"%01.f"}
 txt_rdr_tgtcvel.stringdefs        = font_size_default                             -- {0.006,0.006}
-txt_rdr_tgtcvel.controllers       = {{"vis_radar_tgt"}, {"radar_tgt_cvel"}}
+txt_rdr_tgtcvel.controllers       = {{"hud_no_ins"}, {"hud_aa_mode"}, {"vis_radar_tgt"}, {"radar_tgt_cvel"}}
 AddHUDElement(txt_rdr_tgtcvel)
 
 local rdr_tgtcvel_box             = create_vth_textured_box(290, 232, 400, 283)   -- (290, 230, 400, 285)
 rdr_tgtcvel_box.name              = "rdr_tgtcvel_box"
 rdr_tgtcvel_box.init_pos          = {70, 15.5, 0}                                 -- {63, -25, 0}
-rdr_tgtcvel_box.controllers       = {{"vis_radar_tgt"}}
+rdr_tgtcvel_box.controllers       = {{"hud_no_ins"}, {"hud_aa_mode"}, {"vis_radar_tgt"}}
 AddHUDElement(rdr_tgtcvel_box)
 
 local rdr_tgtbox                  = create_vth_textured_box(886, 76, 968, 158)    -- ( 887, 77, 967, 157)
 rdr_tgtbox.name                   = "rdr_tgtbox"
 rdr_tgtbox.init_pos               = {0, 0, 0}
 rdr_tgtbox.parent_element         = VTH_center.name
-rdr_tgtbox.controllers            = {{"radar_tgt_box", 0.87}}
+rdr_tgtbox.controllers            = {{"hud_no_ins"}, {"hud_aa_mode"}, {"radar_tgt_box", 0.87}}
 AddHUDElement(rdr_tgtbox)
 
 local rdr_tgtbox_oob              = create_vth_textured_box(886, 162, 968, 244)   -- ( 887, 163, 967, 243)
 rdr_tgtbox_oob.name               = "rdr_tgtbox_oob"
 rdr_tgtbox_oob.init_pos           = {0, 0, 0}
 rdr_tgtbox_oob.parent_element     = VTH_center.name
-rdr_tgtbox_oob.controllers        = {{"radar_tgt_box", 0.87}, {"bound_by_circle", RFOV_radius * GetScale()}}
+rdr_tgtbox_oob.controllers        = {{"hud_no_ins"}, {"hud_aa_mode"}, {"radar_tgt_box", 0.87}, {"bound_by_circle", RFOV_radius * GetScale()}}
 AddHUDElement(rdr_tgtbox_oob)
 
 local rdr_tgt_iff_status          = CreateElement "ceStringPoly"
@@ -546,7 +546,7 @@ rdr_tgt_iff_status.alignment      = "CenterCenter"
 rdr_tgt_iff_status.formats        = {"%s"}
 rdr_tgt_iff_status.stringdefs     = font_size_default                             -- {0.006,0.006}
 rdr_tgt_iff_status.parent_element = rdr_tgtbox.name
-rdr_tgt_iff_status.controllers    = {{"radar_tgt_iff_status"}}
+rdr_tgt_iff_status.controllers    = {{"hud_aa_mode"}, {"radar_tgt_iff_status"}}
 AddHUDElement(rdr_tgt_iff_status)
 
 local txt_tgt_b_angle             = CreateElement "ceStringPoly"
@@ -556,20 +556,20 @@ txt_tgt_b_angle.init_pos          = {0.0, -36.0, 0.0}                           
 txt_tgt_b_angle.alignment         = "CenterCenter"
 txt_tgt_b_angle.formats           = {"%1.f"}
 txt_tgt_b_angle.stringdefs        = font_size_default                             -- {0.006,0.006}
-txt_tgt_b_angle.controllers       = {{"radar_tgt_b_angle"}}
+txt_tgt_b_angle.controllers       = {{"hud_no_ins"}, {"hud_aa_mode"}, {"radar_tgt_b_angle"}}
 AddHUDElement(txt_tgt_b_angle)
 
 local air_intercept_ring          = create_vth_textured_box(30, 659, 171, 800)    -- ( 15, 627, 189, 802)
 air_intercept_ring.name           = "air_intercept_ring"
 air_intercept_ring.init_pos       = {0, -4, 0}                                    -- {0, 0, 0}
-air_intercept_ring.controllers    = {{"radar_tgt_od"}}
+air_intercept_ring.controllers    = {{"hud_no_ins"}, {"hud_aa_mode"}, {"radar_tgt_od"}}
 AddHUDElement(air_intercept_ring)
 
 local AAM_Tracking_Guide          = create_vth_textured_box(813, 952, 838, 975)   -- ( 813, 952, 838, 976)
 AAM_Tracking_Guide.name           = "AAM_Tracking_Guide"
 AAM_Tracking_Guide.init_pos       = {0, 0, 0}
 AAM_Tracking_Guide.parent_element = VTH_center.name
-AAM_Tracking_Guide.controllers    = {{"radar_tgt_od_cue"}, {"bound_by_circle", TFOV_radius * GetScale()}}
+AAM_Tracking_Guide.controllers    = {{"hud_no_ins"}, {"hud_aa_mode"}, {"radar_tgt_od_cue"}, {"bound_by_circle", TFOV_radius * GetScale()}}
 AddHUDElement(AAM_Tracking_Guide)
 
 -- MAGIC II
@@ -591,14 +591,14 @@ local Magic_Slave             = create_vth_textured_box(44, 838, 147, 934)      
 Magic_Slave.name              = "Magic_Slave"
 Magic_Slave.init_pos          = {0, 0, 0}
 Magic_Slave.parent_element    = VTH_center.name
-Magic_Slave.controllers       = {{"vis_magic_r", 0.6}}
+Magic_Slave.controllers       = {{"hud_no_ins"}, {"vis_magic_r", 0.6}}
 AddHUDElement(Magic_Slave)
 
 local	Magic_Slave_OOB					= create_vth_textured_box(172, 838, 275, 934)       -- (162, 822, 252, 928)
 Magic_Slave_OOB.name			    = "Magic_Slave_OOB"
 Magic_Slave_OOB.init_pos		  = {0, 0, 0}
 Magic_Slave_OOB.parent_element	= VTH_center.name
-Magic_Slave_OOB.controllers		= {{"vis_magic_r", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
+Magic_Slave_OOB.controllers		= {{"hud_no_ins"}, {"vis_magic_r", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
 AddHUDElement(Magic_Slave_OOB)
 
 -- MAV

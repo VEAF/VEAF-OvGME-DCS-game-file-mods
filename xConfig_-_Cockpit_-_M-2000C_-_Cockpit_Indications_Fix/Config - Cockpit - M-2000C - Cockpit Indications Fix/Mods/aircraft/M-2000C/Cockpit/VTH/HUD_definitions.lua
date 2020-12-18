@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."elements_defs.lua")
 

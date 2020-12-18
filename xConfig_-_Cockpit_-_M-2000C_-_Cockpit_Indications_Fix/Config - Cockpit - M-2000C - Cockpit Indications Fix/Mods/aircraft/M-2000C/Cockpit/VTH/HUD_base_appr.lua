@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -53,6 +53,7 @@ Add(tape_end)
 local  hdg_ind                  = create_vth_textured_box(209, 76, 220, 107)      -- (210, 75, 218, 107)
 hdg_ind.name                    = "hdg_ind"
 hdg_ind.init_pos                = {0,6,0}                                         -- {0,15,0}
+hdg_ind.controllers             = {{"hud_ins_aux"}}
 AddHUDElement(hdg_ind)
 
 -- HUD Center
@@ -63,263 +64,263 @@ Pitch_Ladder_center.controllers   = {{"bound_by_circle", TFOV_radius * GetScale(
 AddHUDElement(Pitch_Ladder_center)
 
 -- Pitch Ladder
-local  pl_p90_line                = create_vth_textured_box( 19, 592, 442, 622)   -- ( 10, 600, 440, 625)
+local  pl_p90_line                = create_vth_textured_box( 19, 592, 442, 622, nil, 4905)   -- ( 10, 600, 440, 625, nil, 4905)
 pl_p90_line.name                  = "pl_p90_line"
 pl_p90_line.init_pos              = {0,0,0}
 pl_p90_line.parent_element        = Pitch_Ladder_center.name
-pl_p90_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -90.0}}
+pl_p90_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p90_line)
 
-local  pl_p85_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p85_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 4090)     -- ( 8, 25, 352, 38, nil, 4090)
 pl_p85_line.name                  = "pl_p85_line"
 pl_p85_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p85_line.parent_element        = Pitch_Ladder_center.name
-pl_p85_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -85.0}}
+pl_p85_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p85_line)
 
-local  pl_p80_line                = create_vth_textured_box( 19, 562, 442, 592)   -- ( 10, 570, 440, 595)
+local  pl_p80_line                = create_vth_textured_box( 19, 562, 442, 592, nil, 4395)   -- ( 10, 570, 440, 595, nil, 4395)
 pl_p80_line.name                  = "pl_p80_line"
 pl_p80_line.init_pos              = {0,0,0}
 pl_p80_line.parent_element        = Pitch_Ladder_center.name
-pl_p80_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -80.0}}
+pl_p80_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p80_line)
 
-local  pl_p75_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p75_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 3605)     -- ( 8, 25, 352, 38, nil, 3605)
 pl_p75_line.name                  = "pl_p75_line"
 pl_p75_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p75_line.parent_element        = Pitch_Ladder_center.name
-pl_p75_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -75.0}}
+pl_p75_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p75_line)
 
-local  pl_p70_line                = create_vth_textured_box( 19, 532, 442, 562)   -- ( 10, 535, 440, 560)
+local  pl_p70_line                = create_vth_textured_box( 19, 532, 442, 562, nil, 3885)   -- ( 10, 535, 440, 560, nil, 3885)
 pl_p70_line.name                  = "pl_p70_line"
 pl_p70_line.init_pos              = {0,0,0}
 pl_p70_line.parent_element        = Pitch_Ladder_center.name
-pl_p70_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -70.0}}
+pl_p70_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p70_line)
 
-local  pl_p65_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p65_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 3120)     -- ( 8, 25, 352, 38, nil, 3120)
 pl_p65_line.name                  = "pl_p65_line"
 pl_p65_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p65_line.parent_element        = Pitch_Ladder_center.name
-pl_p65_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -65.0}}
+pl_p65_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p65_line)
 
-local  pl_p60_line                = create_vth_textured_box( 19, 502, 442, 532)   -- ( 10, 505, 440, 530)
+local  pl_p60_line                = create_vth_textured_box( 19, 502, 442, 532, nil, 3375)   -- ( 10, 505, 440, 530, nil, 3375)
 pl_p60_line.name                  = "pl_p60_line"
 pl_p60_line.init_pos              = {0,0,0}
 pl_p60_line.parent_element        = Pitch_Ladder_center.name
-pl_p60_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -60.0}}
+pl_p60_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p60_line)
 
-local  pl_p55_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p55_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 2635)     -- ( 8, 25, 352, 38, nil, 2635)
 pl_p55_line.name                  = "pl_p55_line"
 pl_p55_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p55_line.parent_element        = Pitch_Ladder_center.name
-pl_p55_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -55.0}}
+pl_p55_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p55_line)
 
-local  pl_p50_line                = create_vth_textured_box( 19, 472, 442, 502)   -- ( 10, 470, 440, 495)
+local  pl_p50_line                = create_vth_textured_box( 19, 472, 442, 502, nil, 2865)   -- ( 10, 470, 440, 495, nil, 2865)
 pl_p50_line.name                  = "pl_p50_line"
 pl_p50_line.init_pos              = {0,0,0}
 pl_p50_line.parent_element        = Pitch_Ladder_center.name
-pl_p50_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -50.0}}
+pl_p50_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p50_line)
 
-local  pl_p45_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p45_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 2150)     -- ( 8, 25, 352, 38, nil, 2150)
 pl_p45_line.name                  = "pl_p45_line"
 pl_p45_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p45_line.parent_element        = Pitch_Ladder_center.name
-pl_p45_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -45.0}}
+pl_p45_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p45_line)
 
-local  pl_p40_line                = create_vth_textured_box( 19, 442, 442, 472)   -- ( 10, 440, 440, 465)
+local  pl_p40_line                = create_vth_textured_box( 19, 442, 442, 472, nil, 2350)   -- ( 10, 440, 440, 465, nil, 2350)
 pl_p40_line.name                  = "pl_p40_line"
 pl_p40_line.init_pos              = {0,0,0}
 pl_p40_line.parent_element        = Pitch_Ladder_center.name
-pl_p40_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -40.0}}
+pl_p40_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p40_line)
 
-local  pl_p35_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p35_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 1690)     -- ( 8, 25, 352, 38, nil, 1690)
 pl_p35_line.name                  = "pl_p35_line"
 pl_p35_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p35_line.parent_element        = Pitch_Ladder_center.name
-pl_p35_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -35.0}}
+pl_p35_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p35_line)
 
-local  pl_p30_line                = create_vth_textured_box( 19, 412, 442, 442)   -- ( 10, 410, 440, 435)
+local  pl_p30_line                = create_vth_textured_box( 19, 412, 442, 442, nil, 1840)   -- ( 10, 410, 440, 435, nil, 1840)
 pl_p30_line.name                  = "pl_p30_line"
 pl_p30_line.init_pos              = {0,0,0}
 pl_p30_line.parent_element        = Pitch_Ladder_center.name
-pl_p30_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -30.0}}
+pl_p30_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p30_line)
 
-local  pl_p25_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p25_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 1200)     -- ( 8, 25, 352, 38, nil, 1200)
 pl_p25_line.name                  = "pl_p25_line"
 pl_p25_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p25_line.parent_element        = Pitch_Ladder_center.name
-pl_p25_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -25.0}}
+pl_p25_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p25_line)
 
-local  pl_p20_line                = create_vth_textured_box( 19, 382, 442, 412)   -- ( 10, 380, 440, 405)
+local  pl_p20_line                = create_vth_textured_box( 19, 382, 442, 412, nil, 1340)   -- ( 10, 380, 440, 405, nil, 1340)
 pl_p20_line.name                  = "pl_p20_line"
 pl_p20_line.init_pos              = {0,0,0}
 pl_p20_line.parent_element        = Pitch_Ladder_center.name
-pl_p20_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -20.0}}
+pl_p20_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p20_line)
 
-local  pl_p15_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p15_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 735)     -- ( 8, 25, 352, 38, nil, 735)
 pl_p15_line.name                  = "pl_p15_line"
 pl_p15_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p15_line.parent_element        = Pitch_Ladder_center.name
-pl_p15_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -15.0}}
+pl_p15_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p15_line)
 
-local  pl_p10_line                = create_vth_textured_box( 19, 352, 442, 382)   -- ( 10, 350, 440, 375)
+local  pl_p10_line                = create_vth_textured_box( 19, 352, 442, 382, nil, 820)   -- ( 10, 350, 440, 375, nil, 820)
 pl_p10_line.name                  = "pl_p10_line"
 pl_p10_line.init_pos              = {0,0,0}
 pl_p10_line.parent_element        = Pitch_Ladder_center.name
-pl_p10_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -10.0}}
+pl_p10_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p10_line)
 
-local  pl_p05_line                = create_vth_textured_box( 13, 24, 356, 38)     -- ( 8, 25, 352, 38)
+local  pl_p05_line                = create_vth_textured_box( 13, 24, 356, 38, nil, 255)     -- ( 8, 25, 352, 38, nil, 255)
 pl_p05_line.name                  = "pl_p05_line"
 pl_p05_line.init_pos              = {0,0,0}                                       -- {0, -2, 0}
 pl_p05_line.parent_element        = Pitch_Ladder_center.name
-pl_p05_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", -5.0}}
+pl_p05_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_p05_line)
 
-local  pl_hor_line                = create_vth_textured_box(0, 6, 2048, 12)       -- ( 0, 5, 2048, 12)
+local  pl_hor_line                = create_vth_textured_box(0, 6, 2048, 12, nil, 8)       -- ( 0, 5, 2048, 12, nil, 8)
 pl_hor_line.name                  = "pl_hor_line"
 pl_hor_line.init_pos              = {0,0,0}
 pl_hor_line.parent_element        = Pitch_Ladder_center.name
-pl_hor_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev_horiz", 0.0}}
+pl_hor_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_hor_line)
 
-local  pl_m05_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m05_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -200)     -- ( 8, 44, 352, 62, nil, -200)
 pl_m05_line.name                  = "pl_m05_line"
 pl_m05_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m05_line.parent_element        = Pitch_Ladder_center.name
-pl_m05_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 5.0}}
+pl_m05_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m05_line)
 
-local  pl_m10_line                = create_vth_textured_box( 450, 352, 873, 382) -- ( 455, 345, 870, 375)
+local  pl_m10_line                = create_vth_textured_box( 450, 352, 873, 382, nil, -130) -- ( 455, 345, 870, 375, nil, -130)
 pl_m10_line.name                  = "pl_m10_line"
 pl_m10_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m10_line.parent_element        = Pitch_Ladder_center.name
-pl_m10_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 10.0}}
+pl_m10_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m10_line)
 
-local  pl_m15_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m15_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -670)     -- ( 8, 44, 352, 62, nil, -670)
 pl_m15_line.name                  = "pl_m15_line"
 pl_m15_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m15_line.parent_element        = Pitch_Ladder_center.name
-pl_m15_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 15.0}}
+pl_m15_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m15_line)
 
-local  pl_m20_line                = create_vth_textured_box( 450, 382, 873, 412)  -- ( 455, 380, 870, 405)
+local  pl_m20_line                = create_vth_textured_box( 450, 382, 873, 412, nil, -575)  -- ( 455, 380, 870, 405, nil, -575)
 pl_m20_line.name                  = "pl_m20_line"
 pl_m20_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m20_line.parent_element        = Pitch_Ladder_center.name
-pl_m20_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 20.0}}
+pl_m20_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m20_line)
 
-local  pl_m25_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m25_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -1155)     -- ( 8, 44, 352, 62, nil, -1155)
 pl_m25_line.name                  = "pl_m25_line"
 pl_m25_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m25_line.parent_element        = Pitch_Ladder_center.name
-pl_m25_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 25.0}}
+pl_m25_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m25_line)
 
-local  pl_m30_line                = create_vth_textured_box( 450, 412, 873, 442)  -- ( 455, 410, 870, 435)
+local  pl_m30_line                = create_vth_textured_box( 450, 412, 873, 442, nil, -1020)  -- ( 455, 410, 870, 435, nil, -1020)
 pl_m30_line.name                  = "pl_m30_line"
 pl_m30_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m30_line.parent_element        = Pitch_Ladder_center.name
-pl_m30_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 30.0}}
+pl_m30_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m30_line)
 
-local  pl_m35_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m35_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -1640)     -- ( 8, 44, 352, 62, nil, -1640)
 pl_m35_line.name                  = "pl_m35_line"
 pl_m35_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m35_line.parent_element        = Pitch_Ladder_center.name
-pl_m35_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 35.0}}
+pl_m35_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m35_line)
 
-local  pl_m40_line                = create_vth_textured_box( 450, 442, 873, 472)  -- ( 455, 440, 870, 465)
+local  pl_m40_line                = create_vth_textured_box( 450, 442, 873, 472, nil, -1475)  -- ( 455, 440, 870, 465, nil, -1475)
 pl_m40_line.name                  = "pl_m40_line"
 pl_m40_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m40_line.parent_element        = Pitch_Ladder_center.name
-pl_m40_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 40.0}}
+pl_m40_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m40_line)
 
-local  pl_m45_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m45_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -2130)     -- ( 8, 44, 352, 62, nil, -2130)
 pl_m45_line.name                  = "pl_m45_line"
 pl_m45_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m45_line.parent_element        = Pitch_Ladder_center.name
-pl_m45_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 45.0}}
+pl_m45_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m45_line)
 
-local  pl_m50_line                = create_vth_textured_box( 450, 472, 873, 502)  -- ( 455, 470, 870, 495)
+local  pl_m50_line                = create_vth_textured_box( 450, 472, 873, 502, nil, -1920)  -- ( 455, 470, 870, 495, nil, -1920)
 pl_m50_line.name                  = "pl_m50_line"
 pl_m50_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m50_line.parent_element        = Pitch_Ladder_center.name
-pl_m50_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 50.0}}
+pl_m50_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m50_line)
 
-local  pl_m55_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m55_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -2610)     -- ( 8, 44, 352, 62, nil, -2610)
 pl_m55_line.name                  = "pl_m55_line"
 pl_m55_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m55_line.parent_element        = Pitch_Ladder_center.name
-pl_m55_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 55.0}}
+pl_m55_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m55_line)
 
-local  pl_m60_line                = create_vth_textured_box( 450, 502, 873, 532)  -- ( 455, 500, 870, 525)
+local  pl_m60_line                = create_vth_textured_box( 450, 502, 873, 532, nil, -2355)  -- ( 455, 500, 870, 525, nil, -2355)
 pl_m60_line.name                  = "pl_m60_line"
 pl_m60_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m60_line.parent_element        = Pitch_Ladder_center.name
-pl_m60_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 60.0}}
+pl_m60_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m60_line)
 
-local  pl_m65_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m65_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -3095)     -- ( 8, 44, 352, 62, nil, -3095)
 pl_m65_line.name                  = "pl_m65_line"
 pl_m65_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m65_line.parent_element        = Pitch_Ladder_center.name
-pl_m65_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 65.0}}
+pl_m65_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m65_line)
 
-local  pl_m70_line                = create_vth_textured_box( 450, 532, 873, 562)  -- ( 455, 530, 870, 555)
+local  pl_m70_line                = create_vth_textured_box( 450, 532, 873, 562, nil, -2800)  -- ( 455, 530, 870, 555, nil, -2800)
 pl_m70_line.name                  = "pl_m70_line"
 pl_m70_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m70_line.parent_element        = Pitch_Ladder_center.name
-pl_m70_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 70.0}}
+pl_m70_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m70_line)
 
-local  pl_m75_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m75_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -3580)     -- ( 8, 44, 352, 62, nil, -3580)
 pl_m75_line.name                  = "pl_m75_line"
 pl_m75_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m75_line.parent_element        = Pitch_Ladder_center.name
-pl_m75_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 75.0}}
+pl_m75_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m75_line)
 
-local  pl_m80_line                = create_vth_textured_box( 450, 562, 873, 592)  -- ( 455, 560, 870, 585)
+local  pl_m80_line                = create_vth_textured_box( 450, 562, 873, 592, nil, -3245)  -- ( 455, 560, 870, 585, nil, -3245)
 pl_m80_line.name                  = "pl_m80_line"
 pl_m80_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m80_line.parent_element        = Pitch_Ladder_center.name
-pl_m80_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 80.0}}
+pl_m80_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m80_line)
 
-local  pl_m85_line                = create_vth_textured_box( 13, 45, 356, 60)     -- ( 8, 44, 352, 62)
+local  pl_m85_line                = create_vth_textured_box( 13, 45, 356, 60, nil, -4065)     -- ( 8, 44, 352, 62, nil, -4065)
 pl_m85_line.name                  = "pl_m85_line"
 pl_m85_line.init_pos              = {0,0,0}                                       -- {0, -3, 0}
 pl_m85_line.parent_element        = Pitch_Ladder_center.name
-pl_m85_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 85.0}}
+pl_m85_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m85_line)
 
-local  pl_m90_line                = create_vth_textured_box( 450, 592, 873, 622)  -- ( 455, 595, 870, 621)
+local  pl_m90_line                = create_vth_textured_box( 450, 592, 873, 622, nil, -3690)  -- ( 455, 595, 870, 621, nil, -3690)
 pl_m90_line.name                  = "pl_m90_line"
 pl_m90_line.init_pos              = {0,0,0}                                       -- {0, -4, 0}
 pl_m90_line.parent_element        = Pitch_Ladder_center.name
-pl_m90_line.controllers           = {{"hud_roll" ,1.0}, {"hud_elev", 90.0}}
+pl_m90_line.controllers           = {{"hud_roll" ,1.0}, {"hud_pitch",-0.6}}
 AddHUDElement(pl_m90_line)
 
 

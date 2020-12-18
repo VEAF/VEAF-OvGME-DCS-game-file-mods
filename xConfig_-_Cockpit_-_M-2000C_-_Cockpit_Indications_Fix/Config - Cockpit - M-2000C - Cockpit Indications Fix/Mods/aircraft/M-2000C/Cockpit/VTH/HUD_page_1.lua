@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -238,7 +238,7 @@ local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)     
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
 aoa_symbol.init_pos           = {-115.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
-aoa_symbol.controllers	      = {{"AOA_in_HUD"}}
+aoa_symbol.controllers	      = {{"hud_no_ins"}, {"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
 local txt_AOA                 = CreateElement "ceStringPoly"
@@ -248,7 +248,7 @@ txt_AOA.init_pos              = {-88.0, -1.0}                                   
 txt_AOA.alignment             = "RightTop"
 txt_AOA.formats               = {"%01.1f"}
 txt_AOA.stringdefs            = font_size_default                                 -- {0.006,0.006}
-txt_AOA.controllers           = {{"AOA_in_HUD"}, {"txt_AOA"}}
+txt_AOA.controllers           = {{"hud_no_ins"}, {"AOA_in_HUD"}, {"txt_AOA"}}
 AddHUDElement(txt_AOA)
 
 -- BOTTOM DATA
@@ -332,19 +332,19 @@ AddHUDElement(txt_g_ammo_R)
 local Ret_AA_CCM_Boresight          = create_vth_textured_box(515, 131, 718, 334) -- ( 530, 130,715,315)
 Ret_AA_CCM_Boresight.name           = "Ret_AA_CCM_Boresight"
 Ret_AA_CCM_Boresight.init_pos       = {0, 92, 0}                                  -- {0, 90, 0}
-Ret_AA_CCM_Boresight.controllers    = {{"aa_cam_bore"}}
+Ret_AA_CCM_Boresight.controllers    = {{"hud_aa_mode"}, {"aa_cam_bore"}}
 AddHUDElement(Ret_AA_CCM_Boresight)
 
 local Ret_AA_CCM_VScan              = create_vth_textured_box(774, 632, 804, 987) -- ( 774, 632, 807, 988)
 Ret_AA_CCM_VScan.name               = "Ret_AA_CCM_VScan"
 Ret_AA_CCM_VScan.init_pos           = {0, 15, 0}
-Ret_AA_CCM_VScan.controllers        = {{"aa_cam_vscan"}}
+Ret_AA_CCM_VScan.controllers        = {{"hud_aa_mode"}, {"aa_cam_vscan"}}
 AddHUDElement(Ret_AA_CCM_VScan)
 
 local Ret_AA_CCM_HScan              = create_vth_textured_box(771, 990, 1016, 1020) -- ( 771, 990, 1018, 1023)
 Ret_AA_CCM_HScan.name               = "Ret_AA_CCM_HScan"
 Ret_AA_CCM_HScan.init_pos           = {0, 80, 0}
-Ret_AA_CCM_HScan.controllers        = {{"aa_cam_hscan"}}
+Ret_AA_CCM_HScan.controllers        = {{"hud_aa_mode"}, {"aa_cam_hscan"}}
 AddHUDElement(Ret_AA_CCM_HScan)
 
 local AA_CCM_Text_SMode             = CreateElement "ceStringPoly"
@@ -356,7 +356,7 @@ AA_CCM_Text_SMode.init_pos          = {114.0, 73.0}                             
 AA_CCM_Text_SMode.alignment         = "RightTop"                                  -- "LeftCenter"
 AA_CCM_Text_SMode.formats           = {"%s"}
 AA_CCM_Text_SMode.stringdefs        = font_size_default                           -- {0.006,0.006}
-AA_CCM_Text_SMode.controllers       = {{"aa_cam_text_smode"}}
+AA_CCM_Text_SMode.controllers       = {{"hud_aa_mode"}, {"aa_cam_text_smode"}}
 AddHUDElement(AA_CCM_Text_SMode)
 
 -- WEAPONS CUES
@@ -400,7 +400,7 @@ feds_line_snake.name                = "feds_line_snake"
 feds_line_snake.material            = vth_line_material
 feds_line_snake.width               = 0.8                                         -- 0.8
 feds_line_snake.parent_element      = FOV_center.name
-feds_line_snake.controllers         = {{"aa_gs_snake_vis"}, {"aa_gs_snake"}}
+feds_line_snake.controllers         = {{"hud_no_ins"}, {"aa_gs_snake_vis"}, {"aa_gs_snake"}}
 AddHUDElement(feds_line_snake)
 
 local GS_Aperture_1a                = CreateElement "ceSimpleLineObject"
@@ -409,7 +409,7 @@ GS_Aperture_1a.material             = vth_line_material
 GS_Aperture_1a.width                = 0.8                                         -- 0.8
 GS_Aperture_1a.init_pos             = {0, 0, 0}
 GS_Aperture_1a.parent_element       = FOV_center.name
-GS_Aperture_1a.controllers          = {{"aa_gs_snake_vis"}, {"aa_gs_snake_p1"}}
+GS_Aperture_1a.controllers          = {{"hud_no_ins"}, {"aa_gs_snake_vis"}, {"aa_gs_snake_p1"}}
 AddHUDElement(GS_Aperture_1a)
 
 local GS_Aperture_1b                = CreateElement "ceSimpleLineObject"
@@ -425,7 +425,7 @@ local GS_Gun_Radar_Cross            = create_vth_textured_box(721, 139, 873, 291
 GS_Gun_Radar_Cross.name             = "GS_Gun_Radar_Cross"
 GS_Gun_Radar_Cross.init_pos         = {0, 0, 0}
 GS_Gun_Radar_Cross.parent_element   = FOV_center.name
-GS_Gun_Radar_Cross.controllers      = {{"aa_gs_snake_vis"}, {"aa_gs_cross"}}
+GS_Gun_Radar_Cross.controllers      = {{"hud_no_ins"}, {"aa_gs_snake_vis"}, {"aa_gs_cross"}}
 AddHUDElement(GS_Gun_Radar_Cross)
 
 local GS_Radar_Cross_Range          = CreateElement "ceSimpleLineObject"
@@ -434,7 +434,7 @@ GS_Radar_Cross_Range.material       = vth_line_material
 GS_Radar_Cross_Range.width          = 0.8                                       -- 0.8
 GS_Radar_Cross_Range.init_pos       = {0, 0, 0}
 GS_Radar_Cross_Range.parent_element = GS_Gun_Radar_Cross.name
-GS_Radar_Cross_Range.controllers    = {{"aa_gs_snake_vis"}, {"aa_gs_range"}}
+GS_Radar_Cross_Range.controllers    = {{"hud_no_ins"}, {"aa_gs_snake_vis"}, {"aa_gs_range"}}
 AddHUDElement(GS_Radar_Cross_Range)
 
 -- Missiles

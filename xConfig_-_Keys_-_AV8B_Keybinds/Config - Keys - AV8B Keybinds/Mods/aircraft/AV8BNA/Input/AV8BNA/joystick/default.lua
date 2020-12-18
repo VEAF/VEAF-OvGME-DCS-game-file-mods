@@ -6,14 +6,15 @@ dofile(cockpit.."command_defs.lua")
 join(res.keyCommands,{
 
     -- Joystick switch abstractions (Example, ON else OFF)
-    {down = fcs_commands.Switch_FLAP_SELECT,    up = fcs_commands.Switch_FLAP_SELECT,   cockpit_device_id=devices.VREST,            value_down=1.0, value_up=0.5,   name= _('Flaps CRUISE else AUTO'),  category=_('Joystick Switch Abstractions')},
-    {down = fcs_commands.Switch_FLAP_SELECT,    up = fcs_commands.Switch_FLAP_SELECT,   cockpit_device_id=devices.VREST,            value_down=0.0, value_up=0.5,   name= _('Flaps STOL else AUTO'),    category=_('Joystick Switch Abstractions')},    
-    {down = fcs_commands.Switch_ANTISKID,       up = fcs_commands.Switch_ANTISKID,      cockpit_device_id=devices.FLIGHTCONTROLS,   value_down=0.0, value_up=0.5,   name= _('Anti-Skid NWS else ON'),   category=_('Joystick Switch Abstractions')},
-    {down = smc_commands.Switch_Master_Arm,     up = smc_commands.Switch_Master_Arm,    cockpit_device_id=devices.SMC,              value_down=1.0, value_up=0.0,   name= _('MasterArm ON else OFF'),   category=_('Joystick Switch Abstractions')},
-    {down = engine_commands.Switch_H20,         up = engine_commands.Switch_H20,        cockpit_device_id=devices.DECS,             value_down=1.0, value_up=0.5,   name= _('H2O TO else OFF'),         category=_('Joystick Switch Abstractions')},
-    {down = engine_commands.Switch_H20,         up = engine_commands.Switch_H20,        cockpit_device_id=devices.DECS,             value_down=0.0, value_up=0.5,   name= _('H2O LN else OFF'),         category=_('Joystick Switch Abstractions')},        
-    {down = iCommandPlaneGearUp,                up = iCommandPlaneGearDown,     																					name = _('Landing Gear UP else DOWN'),  category = _('Joystick Switch Abstractions')},
-    
+    {down = fcs_commands.Switch_FLAP_SELECT,    up = fcs_commands.Switch_FLAP_SELECT,   cockpit_device_id=devices.VREST,            value_down=1.0, value_up=0.5,   name = _('Flaps CRUISE else AUTO'),				category = _('Joystick Switch Abstractions')},
+    {down = fcs_commands.Switch_FLAP_SELECT,    up = fcs_commands.Switch_FLAP_SELECT,   cockpit_device_id=devices.VREST,            value_down=0.0, value_up=0.5,   name = _('Flaps STOL else AUTO'),				category = _('Joystick Switch Abstractions')},    
+    {down = fcs_commands.Switch_ANTISKID,       up = fcs_commands.Switch_ANTISKID,      cockpit_device_id=devices.FLIGHTCONTROLS,   value_down=0.0, value_up=0.5,   name = _('Anti-Skid NWS else ON'),				category = _('Joystick Switch Abstractions')},
+    {down = smc_commands.Switch_Master_Arm,     up = smc_commands.Switch_Master_Arm,    cockpit_device_id=devices.SMC,              value_down=1.0, value_up=0.0,   name = _('MasterArm ON else OFF'),				category = _('Joystick Switch Abstractions')},
+    {down = engine_commands.Switch_H20,         up = engine_commands.Switch_H20,        cockpit_device_id=devices.DECS,             value_down=1.0, value_up=0.5,   name = _('H2O TO else OFF'),					category = _('Joystick Switch Abstractions')},
+    {down = engine_commands.Switch_H20,         up = engine_commands.Switch_H20,        cockpit_device_id=devices.DECS,             value_down=0.0, value_up=0.5,   name = _('H2O LN else OFF'),					category = _('Joystick Switch Abstractions')},        
+    {down = iCommandPlaneGearUp,                up = iCommandPlaneGearDown,     																					name = _('Landing Gear UP else DOWN'),			category = _('Joystick Switch Abstractions')},
+    {down = fcs_commands.Handle_PARKING_BRAKE,  up = fcs_commands.Handle_PARKING_BRAKE, cockpit_device_id=devices.FLIGHTCONTROLS,	value_down=1.0, value_up=0.0,	name = _('Parking Brake Lever OFF else ON'),	category = _('Joystick Switch Abstractions')},
+	
 	-- Toggle Switches
 	{down = fcs_commands.Switch_FLAP_SELECT, up = fcs_commands.Switch_FLAP_SELECT, cockpit_device_id = devices.VREST, value_down = 1, value_up = 0.5, name = _('Flaps CRUISE/AUTO Three Position'), category = { _('Toggle Switches'), _('VSTOL Controls'), _('Landing Gear/Flaps Control Panel')}},
 	{down = fcs_commands.Switch_FLAP_SELECT, up = fcs_commands.Switch_FLAP_SELECT, cockpit_device_id = devices.VREST, value_down = 0, value_up = 0.5, name = _('Flaps STOVL/AUTO Three Position'), category = { _('Toggle Switches'), _('VSTOL Controls'), _('Landing Gear/Flaps Control Panel')}},
@@ -104,6 +105,18 @@ join(res.keyCommands,{
 	{down = iCommandPlane_ABRIS_BT_4,		name = _('HUD Altitude Selector'),						category = _('HUD Control')},
 	{pressed = iCommandHUDBrightnessUp,		up = iCommandHUDTest_up,	name = _('HUD On - Brightness Increase'),	category = _('HUD Control')},
 	{pressed = iCommandHUDBrightnessDown,	up = iCommandHUDTest_up,	name = _('HUD Brightness Decrease - Off'),	category = _('HUD Control')},
+	{down = hud_commands.RejectSwitch,					cockpit_device_id = devices.HUDCONTROL, value_down = 0.0, name = _('HUD Reject Switch NORM'), category = _('HUD Control')},
+	{down = hud_commands.RejectSwitch,					cockpit_device_id = devices.HUDCONTROL, value_down = 0.5, name = _('HUD Reject Switch REJ1'), category = _('HUD Control')},
+	{down = hud_commands.RejectSwitch,					cockpit_device_id = devices.HUDCONTROL, value_down = 1.0, name = _('HUD Reject Switch REJ2'), category = _('HUD Control')},
+	{down = hud_commands.RejectSwitch_REJ1_TOGGLE,		cockpit_device_id = devices.HUDCONTROL, value_down = 0.0, name = _('HUD Reject Switch REJ1/NORM'), category = _('HUD Control')},
+	{down = hud_commands.RejectSwitch_REJ2_TOGGLE,		cockpit_device_id = devices.HUDCONTROL, value_down = 0.0, name = _('HUD Reject Switch REJ2/NORM'), category = _('HUD Control')},
+	{down = hud_commands.DisplayModeSwitch,				cockpit_device_id = devices.HUDCONTROL, value_down = 0.0, name = _('HUD Display Mode DAY'), category = _('HUD Control')},
+	{down = hud_commands.DisplayModeSwitch,				cockpit_device_id = devices.HUDCONTROL, value_down = 0.5, name = _('HUD Display Mode AUTO'), category = _('HUD Control')},
+	{down = hud_commands.DisplayModeSwitch,				cockpit_device_id = devices.HUDCONTROL, value_down = 1.0, name = _('HUD Display Mode NIGHT'), category = _('HUD Control')},
+	{down = hud_commands.DisplayModeSwitch_NIGHT_TOGGLE,cockpit_device_id = devices.HUDCONTROL, value_down = 0, name = _('HUD Display Mode NIGHT/AUTO'), category = _('HUD Control')},
+	{down = hud_commands.DisplayModeSwitch_DAY_TOGGLE,	cockpit_device_id = devices.HUDCONTROL, value_down = 0, name = _('HUD Display Mode DAY/AUTO'), category = _('HUD Control')},
+	{down = hud_commands.AltitudeSelector,				cockpit_device_id = devices.HUDCONTROL, value_down = 0, name = _('HUD Altitude Selector BARO'), category = _('HUD Control')},
+	{down = hud_commands.AltitudeSelector,				cockpit_device_id = devices.HUDCONTROL, value_down = 1, name = _('HUD Altitude Selector RDR'), category = _('HUD Control')}, 
 	
 	-- VSTOL Controls
 	{down = iCommandPlane_ABRIS_Axis_Increase,			name = _('Flaps Mode Up (STOL - AUTO - CRUISE)'),	category = _('VSTOL Controls')},
@@ -133,8 +146,8 @@ join(res.keyCommands,{
 	{pressed = iCommandThrottleDecrease,					up = iCommandThrottleStop,			name = _('Throttle DOWN'),			category = _('Flight Control')},
 	{pressed = iCommandPlaneCollectiveIncrease,				up = iCommandPlaneCollectiveStop,	name = _('Nozzle Rotation UP'),		category = _('Flight Control')},
 	{pressed = iCommandPlaneCollectiveDecrease,				up = iCommandPlaneCollectiveStop,	name = _('Nozzle Rotation DOWN'),	category = _('Flight Control')},
-	{pressed = iCommandHelicopter_CollectiveStopper_Up,		up = iCommandPlaneCollectiveStop,	name = _('STO STOP UP'),			category = _('Flight Control')},
-	{pressed = iCommandHelicopter_CollectiveStopper_Down,	up = iCommandPlaneCollectiveStop,	name = _('STO STOP DOWN'),			category = _('Flight Control')},
+	{down = iCommandHelicopter_CollectiveStopper_Up,		up = iCommandPlaneCollectiveStop,	name = _('STO STOP UP'),			category = _('Flight Control')},
+	{down = iCommandHelicopter_CollectiveStopper_Down,	    up = iCommandPlaneCollectiveStop,	name = _('STO STOP DOWN'),			category = _('Flight Control')},
 	{pressed = iCommandPlaneTrimLeftRudder,					up = iCommandPlaneTrimStop,			name = _('Trim RUDDER LEFT'),		category = _('Flight Control')},
 	{pressed = iCommandPlaneTrimRightRudder,				up = iCommandPlaneTrimStop,			name = _('Trim RUDDER RIGHT'),		category = _('Flight Control')},
 	{down = iCommandADI_Test,																	name = _('Backup ADI Cage Toggle'),			category = _('Flight Control')},	
@@ -187,6 +200,7 @@ join(res.keyCommands,{
 	{down = fcs_commands.Switch_ANTISKID_NWS_TOGGLE,cockpit_device_id = devices.FLIGHTCONTROLS, value_down = 0, name = _('Anti-skid NWS/ON Toggle'), category = _('Hydraulic & Mechanical')},
 	
 	-- Engine & Fuel
+	{down = iCommandPlaneHook,  			        name = _('Air Refueling Probe Toggle IN/OUT'),		category = _('Engine & Fuel')},
 	{down = iCommandThrottle1Stop,			        name = _('Fuel Shutoff Lever lock release'),		category = _('Engine & Fuel')},
     {down = engine_commands.Switch_LIDS,	        cockpit_device_id = devices.VREST, value_down = 0, name = _('LIDS Switch NORM'),		        category = _('Engine & Fuel')},
     {down = engine_commands.Switch_LIDS,	        cockpit_device_id = devices.VREST, value_down = 1, name = _('LIDS Switch RETRACT'),		        category = _('Engine & Fuel')},
@@ -263,12 +277,14 @@ join(res.keyCommands,{
 	{down = iCommandToggleMirrors,					name = _('Mirrors TOGGLE'),				category = _('Pilot & Seat Controls')},
     {down = iCommandPlaneEject,						name = _('Eject (3 times)'),			category = _('Pilot & Seat Controls')},	
 	{down = iCommandCockpitShowPilotOnOff,  		name = _('Hide/Show Pilot Body'),		category = _('Pilot & Seat Controls')},
-	{down = iCommandPlaneCircuitBreaker_10, 		name = _('Hide/Show Control Stick'),	category = _('Pilot & Seat Controls')},
-	{down = iCommandPlaneCircuitBreaker_11,			name = _('Hide/Show Throttle'),			category = _('Pilot & Seat Controls')},
+	{down = iCommandPlaneCircuitBreaker_10, 		name = _('Hide/Show Stick and Throttle'),	category = _('Pilot & Seat Controls')},	
 	{down = iCommandViewNightVisionGogglesOn,		name = _('Helmet Visor/NVG Toggle'),	category = _('Pilot & Seat Controls')},
 	{															down = iCommandPlaneModeFI0,				name = _('Switch the Helmet Visor for NVG and viceversa'),	category = _('Pilot & Seat Controls')},
 	{															down = iCommandPlane_Helmet_Brightess_Up,	name = _('NVG Brightness Up'),			category = _('Pilot & Seat Controls')},
 	{															down = iCommandPlane_Helmet_Brightess_Down,	name = _('NVG Brightness Down'),		category = _('Pilot & Seat Controls')},
+	{down =  msc_commands.Seat_SFTY_LVR_TOGGLE, cockpit_device_id = devices.MSC, value_down = 0, name = _("Seat Ground Safety Lever"),  category = _('Pilot & Seat Controls')},
+	{down =  msc_commands.Seat_SFTY_LVR, cockpit_device_id = devices.MSC, value_down = 0, name = _("Seat Ground Safety Lever Up"),  category = _('Pilot & Seat Controls')},
+	{down =  msc_commands.Seat_SFTY_LVR, cockpit_device_id = devices.MSC, value_down = 1, name = _("Seat Ground Safety Lever Down"),  category = _('Pilot & Seat Controls')},
 	
 	-- HOTAS
 	-- Stick
@@ -425,6 +441,10 @@ join(res.keyCommands,{
 	{down = iCommandPlaneNav_PB7,					name = _('Station 7 Pushbutton'),					category = _('Armament Control')},
 	{down = iCommandPlaneNav_PB8,					name = _('IR Cooling control'),						category = _('Armament Control')},
 	
+	{down = smc_commands.Switch_IR_COOL,		cockpit_device_id = devices.SMC, value_down = 1, name = _("Ground IR Cooling ON"), category = _('Armament Control')},
+	{down = smc_commands.Switch_IR_COOL,		cockpit_device_id = devices.SMC, value_down = 0, name = _("Ground IR Cooling OFF"), category = _('Armament Control')},
+	{down = smc_commands.Switch_IR_COOL_TOGGLE, cockpit_device_id = devices.SMC, value_down = 0, name = _("Ground IR Cooling Toggle"), category = _('Armament Control')},
+	
 	{down = iCommandPlaneJettisonFuelTanks,			name = _('Emergency Jettison Pushbutton'),			category = _('Armament Control')},
 	{combos = {{key = 'T'}}, down = iCommandPlaneWingtipSmokeOnOff, name = _('Smoke'),                  category = _('Armament Control')}, 
 	
@@ -562,11 +582,26 @@ join(res.keyCommands,{
 	{down = ext_light_commands.Switch_AUX_LT,				cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Auxiliary (Taxi) Light OFF'), category = _('Exterior Lights')},
 	{down = ext_light_commands.Switch_EXT_LT_NORM_TOGGLE,	cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Exterior Lights Master Switch NORM/OFF'), category = _('Exterior Lights')}, 
 	{down = ext_light_commands.Switch_EXT_LT_NVG_TOGGLE,	cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Exterior Lights Master Switch NVG/OFF'), category = _('Exterior Lights')},
+	{down = ext_light_commands.Switch_EXT_LT_NORM, cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Exterior Lights Master Switch NORM'), category = _('Exterior Lights')}, 
+  {down = ext_light_commands.Switch_EXT_LT_NVG,  cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Exterior Lights Master Switch NVG'), category = _('Exterior Lights')},
 	{down = ext_light_commands.Switch_LANDING_LT,			cockpit_device_id = devices.LTEXT, value_down = 0.5, name = _('Landing Light HVR'), category = _('Exterior Lights')},
 	{down = ext_light_commands.Switch_LANDING_LT,			cockpit_device_id = devices.LTEXT, value_down = 1.0, name = _('Landing Light APP'), category = _('Exterior Lights')},
 	{down = ext_light_commands.Switch_LANDING_LT,			cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Landing Light OFF'), category = _('Exterior Lights')},
 	{down = ext_light_commands.Switch_LANDING_LT_APP_TOGGLE,cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Landing Light APP/OFF'), category = _('Exterior Lights')},
 	{down = ext_light_commands.Switch_LANDING_LT_HVR_TOGGLE,cockpit_device_id = devices.LTEXT, value_down = 0, name = _('Landing Light HVR/OFF'), category = _('Exterior Lights')},
+	
+	
+	-- Ground Adjustment (Kneeboard)
+	{down = iCommandPlaneCircuitBreaker_21,		value_down = 1,	name = _('Change Top Front Left ECM Dispenser Load (Chaff/Flares)'),	category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_22,		value_down = 1,	name = _('Change Top Front Right ECM Dispenser Load (Chaff/Flares)'),	category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_23,		value_down = 1,	name = _('Change Top Rear Left ECM Dispenser Load (Chaff/Flares)'),		category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_24,		value_down = 1,	name = _('Change Top Rear Right ECM Dispenser Load (Chaff/Flares)'),	category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_25,		value_down = 1,	name = _('Change Bottom Left ECM Dispenser Load (Chaff/Flares)'),		category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_26,		value_down = 1,	name = _('Change Bottom Right ECM Dispenser Load (Chaff/Flares)'),		category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_29,		value_down = 1,	name = _('AN/AVS-9 NVG Case (Load/Unload)'),							category = {_('Ground Adjustments')}},
+	{down = iCommandPlaneCircuitBreaker_30,		value_down = 1,	name = _('Change FF Rocket Fire Mode (Single/Ripple)'),					category = {_('Ground Adjustments')}},
+	{down = iCommandPlane_HARS_SyncButton,		value_down = 1,	name = _('Check MAP for Target Locations'),								category = {_('Ground Adjustments')}},
+	{down = iCommandPlane_SPU9_radio_change,	value_down = 1,	name = _('Change Mission Route Map Page'),								category = {_('Ground Adjustments')}},
 	
 	-- Cheat
 	{down = iCommandEnginesStart,			name = _('Start Procedure'),		category = _('Keyboard Macros')},

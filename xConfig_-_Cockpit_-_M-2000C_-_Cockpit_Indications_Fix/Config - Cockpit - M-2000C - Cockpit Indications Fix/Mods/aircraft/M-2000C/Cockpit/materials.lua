@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.81 (10/01/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."Fonts/symbols_locale.lua")
 dofile(LockOn_Options.common_script_path.."Fonts/fonts_cmn.lua")
@@ -74,6 +74,71 @@ function create_font_description(TEX_PATH, TEX_RES, GLYPH_W, GLYPH_H, CUST_DOT_W
        [46]  = {62, GLYPH_W, GLYPH_H}, -- >
        [47]  = {111, GLYPH_W, GLYPH_H}, -- o
        [48]  = {94 , GLYPH_W, GLYPH_H}  -- ^
+    }
+  }
+  
+  return font_desc
+  
+end
+
+
+-- SPECIAL Font description creation function FOR RWR added for  M-2000C Cockpit Indications Fix
+function create_RWR_font_description(TEX_PATH, TEX_RES, GLYPH_W, GLYPH_H)
+
+  local font_desc  = {
+    texture     = LockOn_Options.script_path.."Resources/IndicationTextures/"..TEX_PATH, 
+    size        = {7, 7},
+    resolution  = {TEX_RES, TEX_RES},
+    default     = {GLYPH_W, GLYPH_H},
+    chars	    = {
+       [1]   = {32, GLYPH_W, GLYPH_H}, -- [space]
+       [2]   = {42, GLYPH_W, GLYPH_H}, -- *
+       [3]   = {43, GLYPH_W, GLYPH_H}, -- +
+       [4]   = {45, GLYPH_W, GLYPH_H}, -- -
+       [5]   = {59, GLYPH_W, GLYPH_H}, -- ; -- Specific to RWR Fontmap
+       [6]   = {46, GLYPH_W, GLYPH_H}, -- .
+       [7]   = {48, GLYPH_W, GLYPH_H}, -- 0
+       [8]   = {49, GLYPH_W, GLYPH_H}, -- 1
+       [9]   = {50, GLYPH_W, GLYPH_H}, -- 2
+       [10]  = {51, GLYPH_W, GLYPH_H}, -- 3
+       [11]  = {52, GLYPH_W, GLYPH_H}, -- 4
+       [12]  = {53, GLYPH_W, GLYPH_H}, -- 5
+       [13]  = {54, GLYPH_W, GLYPH_H}, -- 6
+       [14]  = {55, GLYPH_W, GLYPH_H}, -- 7
+       [15]  = {56, GLYPH_W, GLYPH_H}, -- 8
+       [16]  = {57, GLYPH_W, GLYPH_H}, -- 9
+       [17]  = {58, GLYPH_W, GLYPH_H}, -- :
+       [18]  = {65, GLYPH_W, GLYPH_H}, -- A
+       [19]  = {66, GLYPH_W, GLYPH_H}, -- B
+       [20]  = {67, GLYPH_W, GLYPH_H}, -- C
+       [21]  = {68, GLYPH_W, GLYPH_H}, -- D
+       [22]  = {69, GLYPH_W, GLYPH_H}, -- E
+       [23]  = {70, GLYPH_W, GLYPH_H}, -- F
+       [24]  = {71, GLYPH_W, GLYPH_H}, -- G
+       [25]  = {72, GLYPH_W, GLYPH_H}, -- H
+       [26]  = {73, GLYPH_W, GLYPH_H}, -- I
+       [27]  = {74, GLYPH_W, GLYPH_H}, -- J
+       [28]  = {75, GLYPH_W, GLYPH_H}, -- K
+       [29]  = {76, GLYPH_W, GLYPH_H}, -- L
+       [30]  = {77, GLYPH_W, GLYPH_H}, -- M
+       [31]  = {78, GLYPH_W, GLYPH_H}, -- N
+       [32]  = {79, GLYPH_W, GLYPH_H}, -- O
+       [33]  = {80, GLYPH_W, GLYPH_H}, -- P
+       [34]  = {81, GLYPH_W, GLYPH_H}, -- Q
+       [35]  = {82, GLYPH_W, GLYPH_H}, -- R
+       [36]  = {83, GLYPH_W, GLYPH_H}, -- S
+       [37]  = {84, GLYPH_W, GLYPH_H}, -- T
+       [38]  = {85, GLYPH_W, GLYPH_H}, -- U
+       [39]  = {86, GLYPH_W, GLYPH_H}, -- V
+       [40]  = {87, GLYPH_W, GLYPH_H}, -- W
+       [41]  = {88, GLYPH_W, GLYPH_H}, -- X
+       [42]  = {89, GLYPH_W, GLYPH_H}, -- Y
+       [43]  = {90, GLYPH_W, GLYPH_H}, -- Z
+       [44]  = {60, GLYPH_W, GLYPH_H}, -- <  -- Specific to RWR Fontmap
+       [45]  = {62, GLYPH_W, GLYPH_H}, -- =  -- Specific to RWR Fontmap
+       [46]  = {61, GLYPH_W, GLYPH_H}, -- >  -- Specific to RWR Fontmap
+       [47]  = {63, GLYPH_W, GLYPH_H}, -- ?  -- Specific to RWR Fontmap
+       [48]  = {64, GLYPH_W, GLYPH_H} -- ^  -- Specific to RWR Fontmap
     }
   }
   
@@ -180,9 +245,8 @@ fontdescription["VTH_font"]         = create_font_description("font_HUD_M2KC.dds
 -- be used for large HUD text
 fontdescription["VTH_font_big"]     = create_font_description("font_HUD_big_M2KC.dds", 512, 44, 72, 25)
 
--- RWR font definition modified for M-2000C Cockpit Indications Fix, now a dedicated 
--- 256x256 texture is used as fontmap.
-fontdescription["RWR_font"]         = create_font_description("font_RWR_M2KC.dds", 256, 22, 38, nil)
+-- RWR font definition modified for M-2000C Cockpit Indications Fix, has a specific char Mapping
+fontdescription["SERVAL_font"]      = create_RWR_font_description("font_RWR_M2KC.dds", 256, 22, 38)
 
 fontdescription["VTB_font"]         = create_font_description("font_VTB_M2KC.dds", 256, 24, 38, 13)
 
@@ -220,7 +284,7 @@ fonts["pcn_gauge_font"]				= {fontdescription["PCN_font"], 10, materials["LCD_GR
 fonts["pcn_gauge_rfont"]			= {fontdescription["PCN_font"], 10, materials["LCD_RED"]}   -- changed from LCD_font to PCN_font
 
 -- SERVAL
-fonts["rwr_indication_font"]		= {fontdescription["RWR_font"], 10, materials["RWR_GREEN"]} -- {fontdescription["VTH_font"], 10, materials["GREENBOX_GREEN"]}
+fonts["rwr_indication_font"]		= {fontdescription["SERVAL_font"], 10, materials["RWR_GREEN"]} -- {fontdescription["VTH_font"], 10, materials["GREENBOX_GREEN"]}
 
 -- RADIO
 fonts["COM_gauge_font"]				  = {fontdescription["LCD_font"], 10, materials["LCD_GREEN"]}

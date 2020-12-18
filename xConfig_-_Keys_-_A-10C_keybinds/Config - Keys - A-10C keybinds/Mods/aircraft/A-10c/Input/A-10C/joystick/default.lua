@@ -854,8 +854,8 @@ keyCommands = {
 {down = iCommandPlane_AAP_SteerPt_FLTPLAN, 				name = _('AAP Steer Point FLT PLAN'), category = _('AAP')},
 {down = iCommandPlane_AAP_SteerPt_MARK, 				name = _('AAP Steer Point MARK'), category = _('AAP')},
 {down = iCommandPlane_AAP_SteerPt_MISSION, 				name = _('AAP Steer Point MISSION'), category = _('AAP')},
-{down = iCommandPlane_AAP_SteerSw_Up, up=iCommandPlane_AAP_SteerSw_Up, name = _('AAP STEER Switch Up'), category = _('AAP')},
-{down = iCommandPlane_AAP_SteerSw_Down, up=iCommandPlane_AAP_SteerSw_Down, name = _('AAP STEER Switch Down'), category = _('AAP')},
+{down = 3002, up = 3002, cockpit_device_id = 22, value_down = 1.0,	value_up = 0.0, name = _('AAP STEER Switch Up'), category = _('AAP')},
+{down = 3003, up = 3003, cockpit_device_id = 22, value_down = -1.0,	value_up = 0.0, name = _('AAP STEER Switch Down'), category = _('AAP')},
 
 -- TACAN Control Panel
 {down = iCommandPlane_TACAN_Mode_Off, 					name = _('TACAN Mode Select OFF'), category = _('TACAN Control Panel')},

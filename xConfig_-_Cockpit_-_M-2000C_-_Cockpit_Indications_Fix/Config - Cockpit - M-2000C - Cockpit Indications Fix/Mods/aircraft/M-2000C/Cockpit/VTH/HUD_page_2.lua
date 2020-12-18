@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -21,7 +21,7 @@ local  vth_fpm_ccip         = CreateElement "ceSimple"
 vth_fpm_ccip.name           = "vth_fpm_ccip"
 vth_fpm_ccip.init_pos       = {0,0,0}
 vth_fpm_ccip.parent_element = FOV_center2.name
-vth_fpm_ccip.controllers    = {{"hud_fpm"}, {"hud_svz", 0.6}, {"hud_svy", 0.6}}
+vth_fpm_ccip.controllers    = {{"hud_fpm_vis"}, {"hud_fpm_pos", 0.6}}
 AddHUDElement(vth_fpm_ccip)
 
 -- Aircraft Data
@@ -137,7 +137,7 @@ txt_gmeter.init_pos           = {-88.0, 9.0}                                    
 txt_gmeter.alignment          = "RightTop"
 txt_gmeter.formats            = {"%01.1f"}
 txt_gmeter.stringdefs         = font_size_default                                 -- {0.006,0.006}
-txt_gmeter.controllers        = {{"txt_gmeter",0}}
+txt_gmeter.controllers        = {{"hud_no_ins"}, {"txt_gmeter",0}}
 AddHUDElement(txt_gmeter)
 
 local txt_GMeter_L            = CreateElement "ceStringPoly"
@@ -147,13 +147,14 @@ txt_GMeter_L.init_pos         = {-87.0, 9.0, 0.0}                               
 txt_GMeter_L.alignment        = "LeftTop"
 txt_GMeter_L.stringdefs       = font_size_default                                 -- {0.006,0.006}
 txt_GMeter_L.value            = "G"
+txt_GMeter_L.controllers 	    = {{"hud_no_ins"}}
 AddHUDElement(txt_GMeter_L)
 
 local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)       -- ( 967, 293, 997, 320)
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
 aoa_symbol.init_pos           = {-115.0, -6.0}                                    -- {-80.0 ,-25.0, 0.0}
-aoa_symbol.controllers	      = {{"AOA_in_HUD"}}
+aoa_symbol.controllers	      = {{"hud_no_ins"}, {"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
 local txt_AOA                 = CreateElement "ceStringPoly"
@@ -163,7 +164,7 @@ txt_AOA.init_pos              = {-88.0, -1.0}                                   
 txt_AOA.alignment             = "RightTop"
 txt_AOA.formats               = {"%01.1f"}
 txt_AOA.stringdefs            = font_size_default                                 -- {0.006,0.006}
-txt_AOA.controllers           = {{"AOA_in_HUD"}, {"txt_AOA"}}
+txt_AOA.controllers           = {{"hud_no_ins"}, {"AOA_in_HUD"}, {"txt_AOA"}}
 AddHUDElement(txt_AOA)
 
 -- RIGHT
@@ -174,7 +175,7 @@ txt_grd_rng.init_pos          = {120.0, 20.0, 0.0}                              
 txt_grd_rng.alignment         = "RightTop"
 txt_grd_rng.formats           = {"%1.1f KM"}
 txt_grd_rng.stringdefs        = font_size_default                                 -- {0.006,0.006}
-txt_grd_rng.controllers       = {{"txt_g_range"}}
+txt_grd_rng.controllers       = {{"hud_no_ins"}, {"txt_g_range"}}
 AddHUDElement(txt_grd_rng)
 
 local txt_grd_rng_ob          = CreateElement "ceStringPoly"
@@ -184,7 +185,7 @@ txt_grd_rng_ob.init_pos       = {120.0, 20.0, 0.0}                              
 txt_grd_rng_ob.alignment      = "RightTop"
 txt_grd_rng_ob.value          = "**** KM" 
 txt_grd_rng_ob.stringdefs     = font_size_default                                 -- {0.006,0.006}
-txt_grd_rng_ob.controllers    = {{"vis_gun_rng"}}
+txt_grd_rng_ob.controllers    = {{"hud_no_ins"}, {"vis_gun_rng"}}
 AddHUDElement(txt_grd_rng_ob)
 
 local txt_grd_rng_nr          = CreateElement "ceStringPoly"
@@ -194,7 +195,7 @@ txt_grd_rng_nr.init_pos       = {120.0, 20.0, 0.0}                              
 txt_grd_rng_nr.alignment      = "RightTop"
 txt_grd_rng_nr.value          = "KM"
 txt_grd_rng_nr.stringdefs     = font_size_default                                 -- {0.006,0.006}
-txt_grd_rng_nr.controllers    = {{"vis_gun_no_rng"}}
+txt_grd_rng_nr.controllers    = {{"hud_no_ins"}, {"vis_gun_no_rng"}}
 AddHUDElement(txt_grd_rng_nr)
 
 -- BOTTOM DATA

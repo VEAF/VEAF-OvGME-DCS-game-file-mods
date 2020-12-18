@@ -11,7 +11,7 @@ Toutes ces nouvelles commandes sont dans le module "UI Layer", rangées dans les
 On peut les affecter à n'importe quelle touche du clavier ou bouton d'un joystick.
 
 --------------------------------------------
--- Tested with DCS World 2.5.6.53756      --
+-- Tested with DCS World 2.5.6.59398      --
 --------------------------------------------
 
 Made by Zip.

@@ -9,7 +9,7 @@ If a unit name ends with #n where n is an numeral, then the ME will simply incre
 Else, the new mechanism is used (replacing the unit name with a new name based on the group name, completely ignoring the unit name)
 
 --------------------------------------------
--- Tested with DCS World 2.5.6.58125      --
+-- Tested with DCS World 2.5.6.59398      --
 --------------------------------------------
 
 Made by Zip.

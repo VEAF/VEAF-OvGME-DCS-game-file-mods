@@ -3,7 +3,7 @@ This mod provides slightly dirty windows and removes all baked reflections on so
 Retrait des reflets et salissure légère des vitres dans le Ka-50.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.45915 --
+-- Tested with DCS World 2.5.6.59398 --
 ---------------------------------------
 
 By Devrim (https://www.digitalcombatsimulator.com/en/files/602926/)

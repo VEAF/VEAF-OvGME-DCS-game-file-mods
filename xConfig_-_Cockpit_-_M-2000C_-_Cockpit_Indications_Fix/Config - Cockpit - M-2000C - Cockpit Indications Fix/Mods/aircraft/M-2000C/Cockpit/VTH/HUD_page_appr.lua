@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.8 (06/17/2020) for DCS World 2.5.6.49798 (05/29/2020)
+-- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -41,7 +41,7 @@ local aoa_symbol              = create_vth_textured_box(932, 291, 961, 317)     
 aoa_symbol.name               = "aoa_symbol"
 aoa_symbol.alignment          = "LeftTop"                                         -- ADDED
 aoa_symbol.init_pos           = {-115.0, -26.0}                                   -- {-112.0 ,6.0, 0.0}
-aoa_symbol.controllers        = {{"AOA_in_HUD"}}
+aoa_symbol.controllers        = {{"hud_no_ins"}, {"AOA_in_HUD"}}
 AddHUDElement(aoa_symbol)
 
 local txt_AOA                 = CreateElement "ceStringPoly"
@@ -51,7 +51,7 @@ txt_AOA.init_pos              = {-88.0, -21.0}                                  
 txt_AOA.alignment             = "RightTop"
 txt_AOA.formats               = {"%01.1f"}
 txt_AOA.stringdefs            = font_size_default                                 -- {0.006,0.006}
-txt_AOA.controllers           = {{"AOA_in_HUD"}, {"txt_AOA"}}
+txt_AOA.controllers           = {{"hud_no_ins"}, {"AOA_in_HUD"}, {"txt_AOA"}}
 AddHUDElement(txt_AOA)
 
 
@@ -132,14 +132,14 @@ local  vth_fpm                    = create_vth_textured_box(358, 18, 469, 66)   
 vth_fpm.name                      = "vth_fpm"
 vth_fpm.init_pos                  = {0,1.5,0}
 vth_fpm.parent_element            = VTH_center.name
-vth_fpm.controllers               = {{"hud_fpm"}, {"hud_svz", 0.6}, {"hud_svy", 0.6}}
+vth_fpm.controllers               = {{"hud_no_ins"}, {"hud_fpm_pos", 0.6}}
 AddHUDElement(vth_fpm)
 
 local Accel_Z                     = create_vth_textured_box(478, 21, 795, 51)     -- ( 480, 20,795, 50)
 Accel_Z.name                      = "Accel_Z"
 Accel_Z.init_pos                  = {0,0,0}
 Accel_Z.parent_element            = vth_fpm.name
-Accel_Z.controllers               = {{"vis_alleg"}, {"hud_acc_z", 2.0}}
+Accel_Z.controllers               = {{"hud_acc_z", 2.0}}
 AddHUDElement(Accel_Z)
 
 local AP_fpm                      = CreateElement "ceStringPoly"
@@ -157,7 +157,7 @@ AddHUDElement(AP_fpm)
 local JxAccel_box             = create_vth_textured_box(290, 232, 400, 283)       -- (290, 230, 400, 285)
 JxAccel_box.name              = "JxAccel_box"
 JxAccel_box.init_pos          = {0.0, 50.0, 0.0}
-JxAccel_box.controllers       = {{"vis_wdown"}}
+JxAccel_box.controllers       = {{"hud_no_ins"}, {"vis_wdown"}}
 AddHUDElement(JxAccel_box)
 
 local JxAccel_txt             = CreateElement "ceStringPoly"
@@ -167,7 +167,7 @@ JxAccel_txt.init_pos          = {0.0, 49.8, 0.0}                                
 JxAccel_txt.alignment         = "CenterCenter"
 JxAccel_txt.formats           = {"%01.2f"}
 JxAccel_txt.stringdefs        = font_size_default                                 -- {0.006,0.006}
-JxAccel_txt.controllers       = {{"vis_wdown"}, {"txt_xaccel",0}}
+JxAccel_txt.controllers       = {{"hud_no_ins"}, {"vis_wdown"}, {"txt_xaccel",0}}
 AddHUDElement(JxAccel_txt)
 
 -- AOA
@@ -283,7 +283,7 @@ wp_dist11NM.init_pos          = {113.5, 62.0, 0.0}                              
 wp_dist11NM.alignment         = "RightTop"
 wp_dist11NM.formats           = {"%1.fN%2d"}                                      -- {"%1.f N %02d"}
 wp_dist11NM.stringdefs        = font_size_default                                 -- {0.006,0.006}
-wp_dist11NM.controllers       = {{"wp_dist11NM",0}}
+wp_dist11NM.controllers       = {{"hud_no_ins"}, {"wp_dist11NM",0}}
 AddHUDElement(wp_dist11NM)
 
 local wp_dist10NM             = CreateElement "ceStringPoly"
@@ -293,7 +293,7 @@ wp_dist10NM.init_pos          = {113.5, 62.0, 0.0}                              
 wp_dist10NM.alignment         = "RightTop"
 wp_dist10NM.formats           = {"%1.1fN%2d"}                                     -- {"%1.1f N %02d"}
 wp_dist10NM.stringdefs        = font_size_default                                 -- {0.006,0.006}
-wp_dist10NM.controllers       = {{"wp_dist10NM",0}}
+wp_dist10NM.controllers       = {{"hud_no_ins"}, {"wp_dist10NM",0}}
 AddHUDElement(wp_dist10NM)
 
 local wp_trackerror_to          = create_vth_textured_box(881, 17, 918, 61, nil, 59) -- ( 883, 19, 916, 60, nil, 60)
@@ -311,14 +311,14 @@ synthetic_runway.material       = vth_line_material                             
 synthetic_runway.init_pos       = {0,0,0}
 synthetic_runway.width          = 0.8                                            -- 0.8
 synthetic_runway.parent_element = VTH_center.name
-synthetic_runway.controllers    = {{"appr_synth_rwy"}}
+synthetic_runway.controllers    = {{"hud_no_ins"}, {"appr_synth_rwy"}}
 AddHUDElement(synthetic_runway)
 
 -- Weight On Wheels Elements
 local takeoff_pitch             = create_vth_textured_box(20, 80, 193, 110)       -- ( 20, 80, 190, 110)
 takeoff_pitch.name              = "takeoff_caret"
 takeoff_pitch.init_pos          = {0, -130, 0}                                    -- {0, -130, 0}
-takeoff_pitch.controllers       = {{"vis_wdown"}}
+takeoff_pitch.controllers       = {{"hud_no_ins"}, {"vis_wdown"}}
 AddHUDElement(takeoff_pitch)
 
 -- DEBUG

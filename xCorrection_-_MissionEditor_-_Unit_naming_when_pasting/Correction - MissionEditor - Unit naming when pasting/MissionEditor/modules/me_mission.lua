@@ -2582,6 +2582,22 @@ function addCountryToCoalition(coalition, countryId)
 	countryCoalition[countryName] = coalition
 end
 
+function moveCountryToCoalition(a_country, a_coalition)
+
+	--удаляем из старой коалиции
+	for k,country in base.pairs(a_country.boss.country) do
+		if country.id == a_country.id then
+			base.table.remove(a_country.boss.country, k)
+		end
+	end
+		
+	--добавляем страну в новую копалицию
+	base.table.insert(a_coalition.country, a_country)
+	
+	a_country.boss = a_coalition
+	countryCoalition[a_country.name] = a_coalition
+end
+
 function createCoalition(coalitionName)
 	local coalition = { 
 		airports	    = {},
@@ -4367,7 +4383,7 @@ function insert_unit(group, type, skill, index, name_, x, y, heading_, a_categor
     unit.callsign = panel_aircraft.getNewCallsign(unit);--vd.callsign;
   end
   
-  table.insert(group.units, unit)
+  table.insert(group.units, index, unit)
   unit_by_name[unit.name] = unit
   unit_by_id[unit.unitId] = unit
   
@@ -4623,8 +4639,9 @@ function remove_unit(unit)
 	-- а также зоны обнаружения/досягаемости.
 
 	for i=unit.index,#group.units do
-	group.units[i].index = i
+		group.units[i].index = i
 	end
+	
 	base.panel_units_list.update()
 end
 
@@ -4740,6 +4757,10 @@ function insert_waypoint(group, index, type, x, y, alt, speed, name, a_formation
 	table.insert(group.mapObjects.route.points, wpt.index, symbol)
 	local text = create_waypoint_text(wpt)
 	table.insert(group.mapObjects.route.numbers, wpt.index, text)
+	if wpt.index == 1 and group.type ~= 'static' then
+		local textFirst = create_waypoint_textFirst(wpt)
+		group.mapObjects.route.numberFirst = textFirst
+	end
 	--  целевые зоны 
 	table.insert(group.mapObjects.route.targets, wpt.index, {})
 	table.insert(group.mapObjects.route.targetLines, wpt.index, {})
@@ -5631,6 +5652,34 @@ end
 
 -------------------------------------------------------------------------------
 --
+function create_waypoint_textFirst(wpt)
+	local scale = MapWindow.getScale()
+	local coeff = scale/100000
+	local group = wpt.boss
+	local name = "1"
+
+	currentKey = currentKey+1
+
+	local tx, ty = MapWindow.getMapSize(25, 5)
+	local classKey = "T0000000524"
+	local id = currentKey
+	local x = wpt.x - tx
+	local y = wpt.y - ty
+	local title = name
+	local color = nil
+	local angle = 0
+
+	local text = MapWindow.createTIT(classKey, id, x, y, title, color, angle)
+
+	text.currColor = {1,1,1}
+
+	mapObjects[text.id] = text
+
+	return text
+end
+
+-------------------------------------------------------------------------------
+--
 function create_INUFixPoint_text(pt)
   local group = pt.boss
   local name = base.tostring(pt.index)
@@ -6163,7 +6212,11 @@ function create_group_map_objects(group, noUpdateHeading)
 			local symbol = create_waypoint_symbol(wpt)
 			table.insert(group.mapObjects.route.points, wpt.index, symbol)
 			local text = create_waypoint_text(wpt)
-			table.insert(group.mapObjects.route.numbers, wpt.index, text)      
+			table.insert(group.mapObjects.route.numbers, wpt.index, text)
+			if wpt.index == 1 and group.type ~= 'static' then			
+				local textFirst = create_waypoint_textFirst(wpt)
+				group.mapObjects.route.numberFirst = textFirst
+			end
 			if wpt.targets and (#wpt.targets > 0) then
 			  local targets = wpt.targets
 			  for j=1,#targets do
@@ -6374,6 +6427,13 @@ function scale_group_map_objects(group, scale, objects, toRemove)
         end
       end
     end
+	
+	if group.mapObjects.route.numberFirst then
+		local tx, ty = MapWindow.getMapSize(25, 5)
+		group.mapObjects.route.numberFirst.x = group.route.points[1].x - tx
+		group.mapObjects.route.numberFirst.y = group.route.points[1].y - ty
+		table.insert(objects, group.mapObjects.route.numberFirst)
+	end
   end
   
   if group.mapObjects.INUFixPoints_numbers and (group == MapWindow.selectedGroup) then
@@ -6500,6 +6560,9 @@ function remove_group_map_objects(group)
     for i,v in pairs(group.mapObjects.route.numbers) do
       table.insert(objects, v)
     end
+	
+	table.insert(objects, group.mapObjects.route.numberFirst)
+	
     for i,v in pairs(group.mapObjects.route.targets) do
       for j,u in pairs(v) do
 --        print(u.key)
@@ -6651,9 +6714,11 @@ function update_group_map_objects(group)
             table.insert(toCreate, group.mapObjects.route.line)
         end
         addAll(toRemove, group.mapObjects.route.points)
-        addAll(toRemove, group.mapObjects.route.numbers)		
+        addAll(toRemove, group.mapObjects.route.numbers)
+		addAll(toRemove, {group.mapObjects.route.numberFirst})		
         addAll(toCreate, group.mapObjects.route.points)
-        addAll(toCreate, group.mapObjects.route.numbers)		
+        addAll(toCreate, group.mapObjects.route.numbers)	
+		addAll(toCreate, {group.mapObjects.route.numberFirst})			
 		
         if group.mapObjects.INUFixPoints then
             addAll(toRemove, group.mapObjects.INUFixPoints)
@@ -6767,6 +6832,13 @@ function update_group_map_objects(group)
 
     MapWindow.removeUserObjects(toRemove)
     MapWindow.addUserObjects(toCreate)
+end
+
+function update_groups_colors() 
+	for k,group in base.pairs(group_by_id) do
+		group.color = group.boss.boss.color		
+		update_group_map_objects(group)
+	end
 end
 
 
