@@ -3,84 +3,11 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
 dofile(my_path.."VTB_page_0.lua")
-
--- Radar Grids
--- PPI
-vtb_rdr_grid_ppi                    = create_vtb_grid_0_box(62, 23, 962, 823)     -- ( 0,   0, 900, 800)
-vtb_rdr_grid_ppi.name               = "vtb_rdr_grid_ppi"
-vtb_rdr_grid_ppi.init_pos           = {0.0, 0.0, 0.0}
-vtb_rdr_grid_ppi.controllers        = {{"vis_grid_ppi"}}
-vtb_rdr_grid_ppi.additive_alpha     = true
-Add_VTB_Element(vtb_rdr_grid_ppi)
-
-vtb_rdr_az_60_ppi                   = create_vtb_grid_1_box(0, 19, 1024, 220, nil, 809) -- ( 0, 0, 900, 143)
-vtb_rdr_az_60_ppi.name              = "vtb_rdr_az_60_ppi"
-vtb_rdr_az_60_ppi.init_pos          = {0.0, -0.7, 0.0}                            -- {0.0, 0.6, 0.0}
-vtb_rdr_az_60_ppi.controllers       = {{"vis_grid_60_ppi"}}
-vtb_rdr_az_60_ppi.additive_alpha    = true
-Add_VTB_Element(vtb_rdr_az_60_ppi)
-
-vtb_rdr_az_30_ppi                   = create_vtb_grid_1_box(62, 229, 962, 341, nil, 1019) -- ( 0, 150, 809, 262, nil, 942)
-vtb_rdr_az_30_ppi.name              = "vtb_rdr_az_30_ppi"
-vtb_rdr_az_30_ppi.init_pos          = {0.0, -0.7, 0.0}
-vtb_rdr_az_30_ppi.controllers       = {{"vis_grid_30_ppi"}}
-vtb_rdr_az_30_ppi.additive_alpha    = true
-Add_VTB_Element(vtb_rdr_az_30_ppi)
-
-vtb_rdr_az_15_ppi                   = create_vtb_grid_1_box(62, 359, 962, 392, nil, 1149) -- ( 0, 281, 424, 287, nil, 1068)
-vtb_rdr_az_15_ppi.name              = "vtb_rdr_az_15_ppi"
-vtb_rdr_az_15_ppi.init_pos          = {0.0, -0.7, 0.0}
-vtb_rdr_az_15_ppi.controllers       = {{"vis_grid_15_ppi"}}
-vtb_rdr_az_15_ppi.additive_alpha    = true
-Add_VTB_Element(vtb_rdr_az_15_ppi)
-
-vtb_rdr_az_stt_ppi                  = create_vtb_grid_1_box(62, 419, 962, 445, nil, 1209) -- ( 160, 281, 265, 287, nil, 1068)
-vtb_rdr_az_stt_ppi.name             = "vtb_rdr_az_stt_ppi"
-vtb_rdr_az_stt_ppi.init_pos         = {0.0, -0.7, 0.0}
-vtb_rdr_az_stt_ppi.controllers      = {{"vis_grid_stt_ppi"}}
-vtb_rdr_az_stt_ppi.additive_alpha   = true
-Add_VTB_Element(vtb_rdr_az_stt_ppi)
-
--- B-Scope
-vtb_rdr_grid_bmode                  = create_vtb_grid_1_box(62, 710, 962, 750)    -- ( 3, 352, 903, 385)
-vtb_rdr_grid_bmode.name             = "vtb_rdr_grid_bmode"
-vtb_rdr_grid_bmode.init_pos         = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
-vtb_rdr_grid_bmode.controllers      = {{"vis_grid_bmode"}}
-vtb_rdr_grid_bmode.additive_alpha   = true
-Add_VTB_Element(vtb_rdr_grid_bmode)
-
-vtb_rdr_az_60_bmode                 = create_vtb_grid_1_box(0, 520, 1024, 550)    -- ( 3, 396, 903, 450)
-vtb_rdr_az_60_bmode.name            = "vtb_rdr_az_60_bmode"
-vtb_rdr_az_60_bmode.init_pos        = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
-vtb_rdr_az_60_bmode.controllers     = {{"vis_grid_60_b"}}
-vtb_rdr_az_60_bmode.additive_alpha  = true
-Add_VTB_Element(vtb_rdr_az_60_bmode)
-
-vtb_rdr_az_30_bmode                 = create_vtb_grid_1_box(62, 570, 962, 600)    -- ( 3, 455, 456, 509)
-vtb_rdr_az_30_bmode.name            = "vtb_rdr_az_30_bmode"
-vtb_rdr_az_30_bmode.init_pos        = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
-vtb_rdr_az_30_bmode.controllers     = {{"vis_grid_30_b"}}
-vtb_rdr_az_30_bmode.additive_alpha  = true
-Add_VTB_Element(vtb_rdr_az_30_bmode)
-
-vtb_rdr_az_15_bmode                 = create_vtb_grid_1_box(62, 620, 962, 650)    -- ( 564, 455, 792, 509)
-vtb_rdr_az_15_bmode.name            = "vtb_rdr_az_15_bmode"
-vtb_rdr_az_15_bmode.init_pos        = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
-vtb_rdr_az_15_bmode.controllers     = {{"vis_grid_15_b"}}
-vtb_rdr_az_15_bmode.additive_alpha  = true
-Add_VTB_Element(vtb_rdr_az_15_bmode)
-
-vtb_rdr_az_stt_bmode                = create_vtb_grid_1_box(62, 670, 962, 700)    -- ( 650, 455, 705, 465)
-vtb_rdr_az_stt_bmode.name           = "vtb_rdr_az_stt_bmode"
-vtb_rdr_az_stt_bmode.init_pos       = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
-vtb_rdr_az_stt_bmode.controllers    = {{"vis_grid_stt_b"}}
-vtb_rdr_az_stt_bmode.additive_alpha = true
-Add_VTB_Element(vtb_rdr_az_stt_bmode)
 
 -- Scales & Sweep
 vtb_rdr_sweep                       = create_vtb_textured_box(1004, 6, 1014, 32,  nil, 750) -- (997, 8, 1003, 30, nil, 750)
@@ -584,9 +511,9 @@ vtb_rdr_pol_bore.controllers      = {{"vis_pol_bore"}}
 vtb_rdr_pol_bore.additive_alpha   = true
 Add_VTB_Element(vtb_rdr_pol_bore)
 
-vtb_rdr_pol_director				      = create_vtb_textured_box(822, 7, 849, 34)      -- (825, 8, 850, 33)
-vtb_rdr_pol_director.name			    = "vtb_rdr_pol_director"
-vtb_rdr_pol_director.init_pos		  = {0.0, 0.0, 0.0}
-vtb_rdr_pol_director.controllers	= {{"vis_pol_drct"}}
-vtb_rdr_pol_director.additive_alpha	= true
+vtb_rdr_pol_director              = create_vtb_textured_box(822, 7, 849, 34)      -- (825, 8, 850, 33)
+vtb_rdr_pol_director.name         = "vtb_rdr_pol_director"
+vtb_rdr_pol_director.init_pos     = {0.0, 0.0, 0.0}
+vtb_rdr_pol_director.controllers  = {{"vis_pol_drct"}}
+vtb_rdr_pol_director.additive_alpha = true
 Add_VTB_Element(vtb_rdr_pol_director)

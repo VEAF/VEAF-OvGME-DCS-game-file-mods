@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -673,7 +673,7 @@ vth_panne_TNV.init_pos            = {0, -100, 0}
 vth_panne_TNV.controllers         = {{"vis_vth_panne2"}}
 AddHUDElement(vth_panne_TNV)
 
-local vth_low_alt_warn            = create_vth_textured_box(6, 112, 89, 228)      -- ( 15, 114, 92, 227) -- => fleche haut
+local vth_low_alt_warn            = create_vth_textured_box(600, 630, 712, 821)   -- ( 600, 632, 711, 820) -- => fleche haut
 vth_low_alt_warn.name             = "vth_low_alt_warn"
 vth_low_alt_warn.init_pos         = {0, 0, 0}                                     -- {0, 0, 0}
 vth_low_alt_warn.controllers      = {{"vth_low_alt_warn"}}

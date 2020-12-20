@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -50,15 +50,99 @@ vtb_tape_end.collimated         = false
 vtb_tape_end.z_enabled          = false
 Add(vtb_tape_end)
 
-vtb_tape_idx                    = create_vtb_textured_box(1004, 6, 1015, 32)      -- ( 217, 0,227, 40)
+vtb_tape_idx                    = create_vtb_textured_box(1004, 6, 1015, 32)      -- create_vtb_hdg_box( 217, 0,227, 40)
 vtb_tape_idx.name               = "vtb_tape_idx"
-vtb_tape_idx.init_pos           = {0.03,-0.75,0}                                   -- {0.0,-0.7,0}
+vtb_tape_idx.init_pos           = {0.03,-0.75,0}                                  -- {0.0,-0.7,0}
 Add_VTB_Element(vtb_tape_idx)
+
+-- Radar Grids
+-- PPI
+vtb_rdr_grid_ppi                    = create_vtb_grid_0_box(62, 23, 962, 823)     -- ( 0,   0, 900, 800)
+vtb_rdr_grid_ppi.name               = "vtb_rdr_grid_ppi"
+vtb_rdr_grid_ppi.init_pos           = {0.0, 0.0, 0.0}
+vtb_rdr_grid_ppi.controllers        = {{"vis_grid_ppi"}}
+vtb_rdr_grid_ppi.additive_alpha     = true
+Add_VTB_Element(vtb_rdr_grid_ppi)
+
+vtb_rdr_az_60_ppi                   = create_vtb_grid_1_box(0, 19, 1024, 220, nil, 809) -- ( 0, 0, 900, 143)
+vtb_rdr_az_60_ppi.name              = "vtb_rdr_az_60_ppi"
+vtb_rdr_az_60_ppi.init_pos          = {0.0, -0.7, 0.0}                            -- {0.0, 0.6, 0.0}
+vtb_rdr_az_60_ppi.controllers       = {{"vis_grid_60_ppi"}}
+vtb_rdr_az_60_ppi.additive_alpha    = true
+Add_VTB_Element(vtb_rdr_az_60_ppi)
+
+vtb_rdr_az_30_ppi                   = create_vtb_grid_1_box(62, 229, 962, 341, nil, 1019) -- ( 0, 150, 809, 262, nil, 942)
+vtb_rdr_az_30_ppi.name              = "vtb_rdr_az_30_ppi"
+vtb_rdr_az_30_ppi.init_pos          = {0.0, -0.7, 0.0}
+vtb_rdr_az_30_ppi.controllers       = {{"vis_grid_30_ppi"}}
+vtb_rdr_az_30_ppi.additive_alpha    = true
+Add_VTB_Element(vtb_rdr_az_30_ppi)
+
+vtb_rdr_az_15_ppi                   = create_vtb_grid_1_box(62, 359, 962, 392, nil, 1149) -- ( 0, 281, 424, 287, nil, 1068)
+vtb_rdr_az_15_ppi.name              = "vtb_rdr_az_15_ppi"
+vtb_rdr_az_15_ppi.init_pos          = {0.0, -0.7, 0.0}
+vtb_rdr_az_15_ppi.controllers       = {{"vis_grid_15_ppi"}}
+vtb_rdr_az_15_ppi.additive_alpha    = true
+Add_VTB_Element(vtb_rdr_az_15_ppi)
+
+vtb_rdr_az_stt_ppi                  = create_vtb_grid_1_box(62, 419, 962, 445, nil, 1209) -- ( 160, 281, 265, 287, nil, 1068)
+vtb_rdr_az_stt_ppi.name             = "vtb_rdr_az_stt_ppi"
+vtb_rdr_az_stt_ppi.init_pos         = {0.0, -0.7, 0.0}
+vtb_rdr_az_stt_ppi.controllers      = {{"vis_grid_stt_ppi"}}
+vtb_rdr_az_stt_ppi.additive_alpha   = true
+Add_VTB_Element(vtb_rdr_az_stt_ppi)
+
+-- B-Scope
+vtb_rdr_grid_bmode                  = create_vtb_grid_1_box(62, 710, 962, 750)    -- ( 3, 352, 903, 385)
+vtb_rdr_grid_bmode.name             = "vtb_rdr_grid_bmode"
+vtb_rdr_grid_bmode.init_pos         = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
+vtb_rdr_grid_bmode.controllers      = {{"vis_grid_bmode"}}
+vtb_rdr_grid_bmode.additive_alpha   = true
+Add_VTB_Element(vtb_rdr_grid_bmode)
+
+vtb_rdr_az_60_bmode                 = create_vtb_grid_1_box(0, 520, 1024, 550)    -- ( 3, 396, 903, 450)
+vtb_rdr_az_60_bmode.name            = "vtb_rdr_az_60_bmode"
+vtb_rdr_az_60_bmode.init_pos        = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
+vtb_rdr_az_60_bmode.controllers     = {{"vis_grid_60_b"}}
+vtb_rdr_az_60_bmode.additive_alpha  = true
+Add_VTB_Element(vtb_rdr_az_60_bmode)
+
+vtb_rdr_az_30_bmode                 = create_vtb_grid_1_box(62, 570, 962, 600)    -- ( 3, 455, 456, 509)
+vtb_rdr_az_30_bmode.name            = "vtb_rdr_az_30_bmode"
+vtb_rdr_az_30_bmode.init_pos        = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
+vtb_rdr_az_30_bmode.controllers     = {{"vis_grid_30_b"}}
+vtb_rdr_az_30_bmode.additive_alpha  = true
+Add_VTB_Element(vtb_rdr_az_30_bmode)
+
+vtb_rdr_az_15_bmode                 = create_vtb_grid_1_box(62, 620, 962, 650)    -- ( 564, 455, 792, 509)
+vtb_rdr_az_15_bmode.name            = "vtb_rdr_az_15_bmode"
+vtb_rdr_az_15_bmode.init_pos        = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
+vtb_rdr_az_15_bmode.controllers     = {{"vis_grid_15_b"}}
+vtb_rdr_az_15_bmode.additive_alpha  = true
+Add_VTB_Element(vtb_rdr_az_15_bmode)
+
+vtb_rdr_az_stt_bmode                = create_vtb_grid_1_box(62, 670, 962, 700)    -- ( 650, 455, 705, 465)
+vtb_rdr_az_stt_bmode.name           = "vtb_rdr_az_stt_bmode"
+vtb_rdr_az_stt_bmode.init_pos       = {0.0, 0.71, 0.0}                            -- {0.0, 0.68, 0.0}
+vtb_rdr_az_stt_bmode.controllers    = {{"vis_grid_stt_b"}}
+vtb_rdr_az_stt_bmode.additive_alpha = true
+Add_VTB_Element(vtb_rdr_az_stt_bmode)
+
+vtb_r_txt_rng                       = CreateElement "ceStringPoly"
+vtb_r_txt_rng.name                  = "vtb_r_txt_rng"
+vtb_r_txt_rng.material              = vtb_indication_font
+vtb_r_txt_rng.init_pos              = {0.06, 0.69, 0.0}                           -- {0.06, 0.66, 0.0}
+vtb_r_txt_rng.alignment             = "CenterCenter"
+vtb_r_txt_rng.formats               = {"%d"}
+vtb_r_txt_rng.stringdefs            = vtb_font_size_default                       -- {0.004,0.004}
+vtb_r_txt_rng.controllers           = {{"txt_radar_rng"}}
+Add_VTB_Element(vtb_r_txt_rng)
 
 -- Lubber Line
 local vtb_lubber_ind            = create_vtb_textured_box(636, 4, 677, 41)        -- (640, 5, 677, 38)
 vtb_lubber_ind.name             = "vtb_lubber_ind"
 vtb_lubber_ind.init_pos         = {0.03,-0.79,0}                                  -- {0,-0.8,0}
+vtb_lubber_ind.controllers      = {{"vtb_lubber_ind"}}	
 vtb_lubber_ind.additive_alpha   = true
 Add_VTB_Element(vtb_lubber_ind)
 
@@ -77,6 +161,22 @@ ac_vv_arrow.init_pos            = {0.0,-0.77,0}                                 
 ac_vv_arrow.controllers         = {{"vtb_ac_arrow"}}
 ac_vv_arrow.additive_alpha      = true
 Add_VTB_Element(ac_vv_arrow)
+
+-- RS Arrow
+local ac_rsvector               = CreateElement "ceSimpleLineObject"
+ac_rsvector.name                = "ac_rsvector"
+ac_rsvector.material            = vtb_line_material
+ac_rsvector.width               = 0.005
+ac_rsvector.init_pos            = {0, -0.65,0}
+ac_rsvector.controllers         = {{"vtb_rs_gsp"}}
+Add_VTB_Element(ac_rsvector)
+
+local ac_rs_arrow               = create_vtb_textured_box(686, 890 ,794, 988) -- (684, 905, 791, 999)
+ac_rs_arrow.name                = "ac_rs_arrow"
+ac_rs_arrow.init_pos            = {0, -0.1,0}
+ac_rs_arrow.controllers         = {{"vtb_rs_arrow"}}
+ac_rs_arrow.additive_alpha      = true
+Add_VTB_Element(ac_rs_arrow)
 
 -- ADI
 local vtb_roll_ind              = create_vtb_textured_box(71, 3, 391, 17)          -- (7, 9, 459, 13)
@@ -107,9 +207,9 @@ vtb_rdr_stby.controllers        = {{"vis_sil"}}
 vtb_rdr_stby.additive_alpha     = true
 Add_VTB_Element(vtb_rdr_stby)
 
-local vtb_rdr_pheat             = create_vtb_textured_box(314, 109, 343, 149)     -- (321, 107, 349, 148)
+local vtb_rdr_pheat             = create_vtb_textured_box(319, 115, 337, 141)     -- (296, 118, 315, 148)
 vtb_rdr_pheat.name              = "vtb_rdr_pheat"
-vtb_rdr_pheat.init_pos          = {0.0,-0.15, 0.0}
+vtb_rdr_pheat.init_pos          = {0.77, 0.7, 0.0}                                -- {0.8, 0.65, 0.0}
 vtb_rdr_pheat.controllers       = {{"vis_pheat"}}
 vtb_rdr_pheat.additive_alpha    = true
 Add_VTB_Element(vtb_rdr_pheat)
@@ -205,7 +305,7 @@ vtb_nav_wpr1.alignment          = "CenterCenter"
 vtb_nav_wpr1.formats            = {"%1.f/%03d"}
 vtb_nav_wpr1.stringdefs         = vtb_font_size_small                             -- {0.004,0.004}
 vtb_nav_wpr1.controllers        = {{"txt_nav_wpr1"}}
-Add_VTB_Element(vtb_nav_wpr1)
+--Add_VTB_Element(vtb_nav_wpr1)
 
 -- Waypoints
 local vtb_wp_1_pos              = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
@@ -373,122 +473,122 @@ rdr_TDC_alt_l.additive_alpha        = true
 Add_VTB_Element(rdr_TDC_alt_l)
 
 -- DO Track
-local	vtb_rdr_trk_DO						      = create_vtb_stt_textured_box(811, 99, 897, 181)      -- ( 825, 103, 891, 179)
-		vtb_rdr_trk_DO.name					      = "vtb_rdr_trk_DO"
-		vtb_rdr_trk_DO.init_pos				    = {0.0, -0.7, 0.0}
-		vtb_rdr_trk_DO.controllers			  = {{"rdr_track_DO_pos"}}
-		vtb_rdr_trk_DO.additive_alpha		  = true
+local vtb_rdr_trk_DO                = create_vtb_stt_textured_box(811, 99, 897, 181)  -- ( 825, 103, 891, 179)
+vtb_rdr_trk_DO.name                 = "vtb_rdr_trk_DO"
+vtb_rdr_trk_DO.init_pos             = {0.0, -0.7, 0.0}
+vtb_rdr_trk_DO.controllers          = {{"rdr_track_DO_pos"}}
+vtb_rdr_trk_DO.additive_alpha       = true
 Add_VTB_Element(vtb_rdr_trk_DO)
 
-local	vtb_rdr_trk_MDO						      = create_vtb_stt_textured_box(774, 41, 848, 92)      -- (785, 54, 835, 90)
-		vtb_rdr_trk_MDO.name				      = "vtb_rdr_trk_MDO"
-		vtb_rdr_trk_MDO.init_pos			    = {0.0, 0.0, 0.0}
-		vtb_rdr_trk_MDO.parent_element		= vtb_rdr_trk_DO.name
-		vtb_rdr_trk_MDO.controllers			  = {{"rdr_track_MDO_pos"}}
-		vtb_rdr_trk_MDO.additive_alpha		= true
+local vtb_rdr_trk_MDO               = create_vtb_stt_textured_box(774, 41, 848, 92)    -- (785, 54, 835, 90)
+vtb_rdr_trk_MDO.name                = "vtb_rdr_trk_MDO"
+vtb_rdr_trk_MDO.init_pos            = {0.0, 0.0, 0.0}
+vtb_rdr_trk_MDO.parent_element      = vtb_rdr_trk_DO.name
+vtb_rdr_trk_MDO.controllers         = {{"rdr_track_MDO_pos"}}
+vtb_rdr_trk_MDO.additive_alpha      = true
 Add_VTB_Element(vtb_rdr_trk_MDO)
 
-local	vtb_trk_DO_vvector					    = CreateElement "ceSimpleLineObject"
-		vtb_trk_DO_vvector.name				    = "vtb_trk_DO_vvector"
-		vtb_trk_DO_vvector.material   	  = vtb_line_material_DO
-		vtb_trk_DO_vvector.width       	  = 0.005                                    -- 0.005
-		vtb_trk_DO_vvector.init_pos			  = {0, -0.7, 0}                            -- {0, -0.7, 0} 
-		vtb_trk_DO_vvector.controllers    = {{"rdr_track_DO_th"}}
+local vtb_trk_DO_vvector            = CreateElement "ceSimpleLineObject"
+vtb_trk_DO_vvector.name             = "vtb_trk_DO_vvector"
+vtb_trk_DO_vvector.material         = vtb_line_material_DO
+vtb_trk_DO_vvector.width            = 0.005
+vtb_trk_DO_vvector.init_pos         = {0, -0.7, 0}
+vtb_trk_DO_vvector.controllers      = {{"rdr_track_DO_th"}}
 Add_VTB_Element(vtb_trk_DO_vvector)
 
-local	vtb_trk_DO_vv_arrow 				      = create_vtb_stt_textured_box(781, 3, 814, 36)  -- ( 789, 13, 809, 31)
-		vtb_trk_DO_vv_arrow.name			      = "vtb_trk_DO_vv_arrow"
-		vtb_trk_DO_vv_arrow.init_pos		    = {0,0,0}                              -- {0,0,0}
-		vtb_trk_DO_vv_arrow.parent_element	= vtb_trk_DO_vvector.name
-		vtb_trk_DO_vv_arrow.controllers  	  = {{"rdr_track_DO_ah"}}
-		vtb_trk_DO_vv_arrow.additive_alpha	= true
+local vtb_trk_DO_vv_arrow           = create_vtb_stt_textured_box(781, 3, 814, 36)      -- ( 789, 13, 809, 31)
+vtb_trk_DO_vv_arrow.name            = "vtb_trk_DO_vv_arrow"
+vtb_trk_DO_vv_arrow.init_pos        = {0,0,0}
+vtb_trk_DO_vv_arrow.parent_element  = vtb_trk_DO_vvector.name
+vtb_trk_DO_vv_arrow.controllers     = {{"rdr_track_DO_ah"}}
+vtb_trk_DO_vv_arrow.additive_alpha  = true
 Add_VTB_Element(vtb_trk_DO_vv_arrow)
 
-local	vtb_trk_DO_b_angle					    = CreateElement "ceStringPoly"
-		vtb_trk_DO_b_angle.name				    = "vtb_trk_DO_b_angle"
-		vtb_trk_DO_b_angle.material			  = vtb_stt_indication_font
-		vtb_trk_DO_b_angle.init_pos			  = {0.0, -0.75, 0.0}
-		vtb_trk_DO_b_angle.alignment		  = "CenterCenter"
-		vtb_trk_DO_b_angle.formats			  = {"%01.f"}
-		vtb_trk_DO_b_angle.stringdefs		  = vtb_font_size_default                     -- {0.004,0.004}
-		vtb_trk_DO_b_angle.controllers		= {{"rdr_track_DO_b_angle"}, {"rdr_track_DO_pos"}}
-		vtb_trk_DO_b_angle.additive_alpha	= true
+local vtb_trk_DO_b_angle            = CreateElement "ceStringPoly"
+vtb_trk_DO_b_angle.name             = "vtb_trk_DO_b_angle"
+vtb_trk_DO_b_angle.material         = vtb_stt_indication_font
+vtb_trk_DO_b_angle.init_pos         = {0.0, -0.75, 0.0}
+vtb_trk_DO_b_angle.alignment        = "CenterCenter"
+vtb_trk_DO_b_angle.formats          = {"%01.f"}
+vtb_trk_DO_b_angle.stringdefs       = vtb_font_size_default                     -- {0.004,0.004}
+vtb_trk_DO_b_angle.controllers      = {{"rdr_track_DO_b_angle"}, {"rdr_track_DO_pos"}}
+vtb_trk_DO_b_angle.additive_alpha   = true
 Add_VTB_Element(vtb_trk_DO_b_angle)
 
-local	vtb_trk_DO_sweep					      = create_vtb_stt_textured_box(993, 6, 1003, 745, nil, 745)     -- ( 997, 8, 1003, 745, nil, 745)
-		vtb_trk_DO_sweep.name				      = "vtb_trk_DO_sweep"
-		vtb_trk_DO_sweep.init_pos			    = {0.0,-0.7, 0.0}
-		vtb_trk_DO_sweep.controllers		  = {{"vtb_sweep_DO", 1.0}}
-		vtb_trk_DO_sweep.additive_alpha	  = true
+local vtb_trk_DO_sweep              = create_vtb_stt_textured_box(993, 6, 1003, 745, nil, 745)     -- ( 997, 8, 1003, 745, nil, 745)
+vtb_trk_DO_sweep.name               = "vtb_trk_DO_sweep"
+vtb_trk_DO_sweep.init_pos           = {0.0,-0.7, 0.0}
+vtb_trk_DO_sweep.controllers        = {{"vtb_sweep_DO", 1.0}}
+vtb_trk_DO_sweep.additive_alpha     = true
 Add_VTB_Element(vtb_trk_DO_sweep)
 
 -- DO Track Data
-local	vtb_r_txt_DO_abc				        = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_abc.name			        = "vtb_r_txt_DO_abc"
-		vtb_r_txt_DO_abc.material		      = vtb_stt_indication_font
-		vtb_r_txt_DO_abc.init_pos		      = {0.55, 0.83, 0.0}                              -- {0.6, 0.8, 0.0}
-		vtb_r_txt_DO_abc.alignment		    = "RightCenter"
-		vtb_r_txt_DO_abc.formats		      = {"%1.f"}
-		vtb_r_txt_DO_abc.stringdefs		    = vtb_font_size_default                          -- {0.004,0.004}
-		vtb_r_txt_DO_abc.controllers 	    = {{"vis_ddo"}, {"txt_DO_abc"}}
+local vtb_r_txt_DO_abc              = CreateElement "ceStringPoly"
+vtb_r_txt_DO_abc.name               = "vtb_r_txt_DO_abc"
+vtb_r_txt_DO_abc.material           = vtb_stt_indication_font
+vtb_r_txt_DO_abc.init_pos           = {0.55, 0.83, 0.0}                              -- {0.6, 0.8, 0.0}
+vtb_r_txt_DO_abc.alignment          = "RightCenter"
+vtb_r_txt_DO_abc.formats            = {"%1.f"}
+vtb_r_txt_DO_abc.stringdefs         = vtb_font_size_default                          -- {0.004,0.004}
+vtb_r_txt_DO_abc.controllers        = {{"vis_ddo"}, {"txt_DO_abc"}}
 Add_VTB_Element(vtb_r_txt_DO_abc)
 
-local	vtb_r_txt_DO_vrc_l				      = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_vrc_l.name			      = "vtb_r_txt_DO_vrc_l"
-		vtb_r_txt_DO_vrc_l.material		    = vtb_stt_indication_font
-		vtb_r_txt_DO_vrc_l.init_pos		    = {0.16, 0.825, 0.0}                             -- {0.26, 0.8, 0.0}
-		vtb_r_txt_DO_vrc_l.alignment	    = "LeftCenter"
-		vtb_r_txt_DO_vrc_l.value		      = "VR"
-		vtb_r_txt_DO_vrc_l.stringdefs	    = {0.003,0.003}
-		vtb_r_txt_DO_vrc_l.controllers	  = {{"vis_ddo"}}
+local vtb_r_txt_DO_vrc_l            = CreateElement "ceStringPoly"
+vtb_r_txt_DO_vrc_l.name             = "vtb_r_txt_DO_vrc_l"
+vtb_r_txt_DO_vrc_l.material         = vtb_stt_indication_font
+vtb_r_txt_DO_vrc_l.init_pos         = {0.16, 0.825, 0.0}                             -- {0.26, 0.8, 0.0}
+vtb_r_txt_DO_vrc_l.alignment        = "LeftCenter"
+vtb_r_txt_DO_vrc_l.value            = "VR"
+vtb_r_txt_DO_vrc_l.stringdefs       = {0.003,0.003}
+vtb_r_txt_DO_vrc_l.controllers      = {{"vis_ddo"}}
 Add_VTB_Element(vtb_r_txt_DO_vrc_l)
 
-local	vtb_r_txt_DO_vrc				        = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_vrc.name			        = "vtb_r_txt_DO_vrc"
-		vtb_r_txt_DO_vrc.material		      = vtb_stt_indication_font
-		vtb_r_txt_DO_vrc.init_pos		      = {0.15, 0.83, 0.0}                              -- {0.25, 0.8, 0.0}
-		vtb_r_txt_DO_vrc.alignment		    = "RightCenter"
-		vtb_r_txt_DO_vrc.formats		      = {"%1.f"}
-		vtb_r_txt_DO_vrc.stringdefs		    = vtb_font_size_default                           -- {0.004,0.004}
-		vtb_r_txt_DO_vrc.controllers 	    = {{"vis_ddo"}, {"txt_DO_vrc"}}
+local vtb_r_txt_DO_vrc              = CreateElement "ceStringPoly"
+vtb_r_txt_DO_vrc.name               = "vtb_r_txt_DO_vrc"
+vtb_r_txt_DO_vrc.material           = vtb_stt_indication_font
+vtb_r_txt_DO_vrc.init_pos           = {0.15, 0.83, 0.0}                              -- {0.25, 0.8, 0.0}
+vtb_r_txt_DO_vrc.alignment          = "RightCenter"
+vtb_r_txt_DO_vrc.formats            = {"%1.f"}
+vtb_r_txt_DO_vrc.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
+vtb_r_txt_DO_vrc.controllers        = {{"vis_ddo"}, {"txt_DO_vrc"}}
 Add_VTB_Element(vtb_r_txt_DO_vrc)
 
-local	vtb_r_txt_DO_rbc				        = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_rbc.name			        = "vtb_r_txt_DO_vrc"
-		vtb_r_txt_DO_rbc.material		      = vtb_stt_indication_font
-		vtb_r_txt_DO_rbc.init_pos		      = {-0.32, 0.83, 0.0}                             -- {-0.3, 0.8, 0.0}
-		vtb_r_txt_DO_rbc.alignment		    = "LeftCenter"
-		vtb_r_txt_DO_rbc.formats		      = {"%03.f"}
-		vtb_r_txt_DO_rbc.stringdefs		    = vtb_font_size_default                           -- {0.004,0.004}
-		vtb_r_txt_DO_rbc.controllers 	    = {{"vis_ddo"}, {"txt_DO_rbc"}}
+local vtb_r_txt_DO_rbc              = CreateElement "ceStringPoly"
+vtb_r_txt_DO_rbc.name               = "vtb_r_txt_DO_vrc"
+vtb_r_txt_DO_rbc.material           = vtb_stt_indication_font
+vtb_r_txt_DO_rbc.init_pos           = {-0.32, 0.83, 0.0}                             -- {-0.3, 0.8, 0.0}
+vtb_r_txt_DO_rbc.alignment          = "LeftCenter"
+vtb_r_txt_DO_rbc.formats            = {"%03.f"}
+vtb_r_txt_DO_rbc.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
+vtb_r_txt_DO_rbc.controllers        = {{"vis_ddo"}, {"txt_DO_rbc"}}
 Add_VTB_Element(vtb_r_txt_DO_rbc)
 
-local	vtb_r_txt_DO_rbc_l				      = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_rbc_l.name			      = "vtb_r_txt_DO_rbc_l"
-		vtb_r_txt_DO_rbc_l.material		    = vtb_stt_indication_font
-		vtb_r_txt_DO_rbc_l.init_pos		    = {-0.38, 0.825, 0.0}                           -- {-0.35, 0.8, 0.0}
-		vtb_r_txt_DO_rbc_l.alignment	    = "LeftCenter"
-		vtb_r_txt_DO_rbc_l.value		      = "RB"
-		vtb_r_txt_DO_rbc_l.stringdefs	    = {0.003,0.003}
-		vtb_r_txt_DO_rbc_l.controllers 	  = {{"vis_ddo"}}
+local vtb_r_txt_DO_rbc_l            = CreateElement "ceStringPoly"
+vtb_r_txt_DO_rbc_l.name             = "vtb_r_txt_DO_rbc_l"
+vtb_r_txt_DO_rbc_l.material         = vtb_stt_indication_font
+vtb_r_txt_DO_rbc_l.init_pos         = {-0.38, 0.825, 0.0}                           -- {-0.35, 0.8, 0.0}
+vtb_r_txt_DO_rbc_l.alignment        = "LeftCenter"
+vtb_r_txt_DO_rbc_l.value            = "RB"
+vtb_r_txt_DO_rbc_l.stringdefs       = {0.003,0.003}
+vtb_r_txt_DO_rbc_l.controllers      = {{"vis_ddo"}}
 Add_VTB_Element(vtb_r_txt_DO_rbc_l)
 
-local	vtb_r_txt_DO_mnc				        = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_mnc.name			        = "vtb_r_txt_DO_mnc"
-		vtb_r_txt_DO_mnc.material		      = vtb_stt_indication_font
-		vtb_r_txt_DO_mnc.init_pos		      = {-0.68, 0.83, 0.0}                              -- {-0.6, 0.8, 0.0}
-		vtb_r_txt_DO_mnc.alignment		    = "LeftCenter"
-		vtb_r_txt_DO_mnc.formats		      = {"%1.1f"}
-		vtb_r_txt_DO_mnc.stringdefs		    = vtb_font_size_default                           -- {0.004,0.004}
-		vtb_r_txt_DO_mnc.controllers 	    = {{"vis_ddo"}, {"txt_DO_mnc"}}
+local vtb_r_txt_DO_mnc              = CreateElement "ceStringPoly"
+vtb_r_txt_DO_mnc.name               = "vtb_r_txt_DO_mnc"
+vtb_r_txt_DO_mnc.material           = vtb_stt_indication_font
+vtb_r_txt_DO_mnc.init_pos           = {-0.68, 0.83, 0.0}                              -- {-0.6, 0.8, 0.0}
+vtb_r_txt_DO_mnc.alignment          = "LeftCenter"
+vtb_r_txt_DO_mnc.formats            = {"%1.1f"}
+vtb_r_txt_DO_mnc.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
+vtb_r_txt_DO_mnc.controllers        = {{"vis_ddo"}, {"txt_DO_mnc"}}
 Add_VTB_Element(vtb_r_txt_DO_mnc)
 
-local	vtb_r_txt_DO_RAZ				        = CreateElement "ceStringPoly"
-		vtb_r_txt_DO_RAZ.name			        = "vtb_r_txt_DO_RAZ"
-		vtb_r_txt_DO_RAZ.material		      = vtb_stt_indication_font
-		vtb_r_txt_DO_RAZ.init_pos		      = {-0.9, -0.82, 0.0}                              -- {-0.9, -0.95, 0.0}
-		vtb_r_txt_DO_RAZ.alignment		    = "LeftCenter"
-		vtb_r_txt_DO_RAZ.value			      = "RAZ"
-		vtb_r_txt_DO_RAZ.stringdefs		    = vtb_font_size_default                           -- {0.004,0.004}
-		vtb_r_txt_DO_RAZ.controllers 	    = {{"vis_ddo_RAZ"}}
+local vtb_r_txt_DO_RAZ              = CreateElement "ceStringPoly"
+vtb_r_txt_DO_RAZ.name               = "vtb_r_txt_DO_RAZ"
+vtb_r_txt_DO_RAZ.material           = vtb_stt_indication_font
+vtb_r_txt_DO_RAZ.init_pos           = {-0.9, -0.82, 0.0}                              -- {-0.9, -0.95, 0.0}
+vtb_r_txt_DO_RAZ.alignment          = "LeftCenter"
+vtb_r_txt_DO_RAZ.value              = "RAZ"
+vtb_r_txt_DO_RAZ.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
+vtb_r_txt_DO_RAZ.controllers        = {{"vis_ddo_RAZ"}}
 Add_VTB_Element(vtb_r_txt_DO_RAZ)

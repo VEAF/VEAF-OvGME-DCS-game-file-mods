@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -418,7 +418,7 @@ GS_Aperture_1b.material             = vth_line_material
 GS_Aperture_1b.width                = 0.8                                        -- 0.8
 GS_Aperture_1b.init_pos             = {0, 0, 0}
 GS_Aperture_1b.parent_element       = FOV_center.name
-GS_Aperture_1b.controllers          = {{"aa_gs_snake_vis"}, {"aa_gs_snake_p2"}}
+GS_Aperture_1b.controllers          = {{"hud_no_ins"}, {"aa_gs_snake_vis"}, {"aa_gs_snake_p2"}}
 AddHUDElement(GS_Aperture_1b)
 
 local GS_Gun_Radar_Cross            = create_vth_textured_box(721, 139, 873, 291) -- ( 722, 140, 873, 291)

@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -217,7 +217,7 @@ AddHUDElement(txt_omi_marker)
 local ILS_center              = CreateElement "ceSimple"
 ILS_center.name               = "ILS_center"
 ILS_center.init_pos           = vth_base_init_pos
-ILS_center.controllers        = {{"hud_roll" ,1.0}, {"hud_elev_horiz", -0.1}}
+ILS_center.controllers        = {{"hud_no_ins"}, {"hud_roll" ,1.0}, {"hud_elev_horiz", -0.1}}
 AddHUDElement(ILS_center)
 
 local ils_rw_marker           = create_vth_textured_box(210, 75, 219, 107)

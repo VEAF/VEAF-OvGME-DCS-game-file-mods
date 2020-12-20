@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.82 (10/05/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."elements_defs.lua")
 
@@ -28,11 +28,13 @@ symbol_pixels_y = 38                                                            
 --------- Materials ------------
 -- Heading Ruler
 vtb_hdg_material    	= "vtb_hdg_material"
+vtb_hdg_ar_material   = "vtb_hdg_ar_material"
 
 -- Grids
 vtb_Grid_0_material 	= "vtb_Grid_0_material"
 vtb_Grid_1_material 	= "vtb_Grid_1_material"
 vtb_Grid_2_material 	= "vtb_Grid_2_material"
+vtb_Grid_3_material   = "vtb_Grid_3_material"
 vtb_line_material		  = "vtb_line_material"
 vtb_line_material_DO	= "vtb_line_material_DO"
 
@@ -89,6 +91,7 @@ local dcy 		     = mils_per_pixel * (CENTER_Y - cy)
 local half_x 		 = 0.5 * W * mils_per_pixel
 local half_y 		 = 0.5 * H * mils_per_pixel
 
+vtb_hdg_text_size_y = 64 -- 72
 
 local object = CreateElement "ceTexPoly"
 	  object.material =  vtb_hdg_material
@@ -99,6 +102,35 @@ local object = CreateElement "ceTexPoly"
 	  object.tex_coords = vtb_hdg_texture_box(UL_X,UL_Y,W,H)
 	  object.indices	= box_indices
 	  return object
+end
+
+function create_vtb_hdg_ar_box(UL_X,UL_Y,DR_X,DR_Y,CENTER_X,CENTER_Y)
+
+local mils_per_pixel = vtb_hdg_scale
+local W          = DR_X - UL_X
+local H          = DR_Y - UL_Y
+local cx         = (UL_X + 0.5 * W)
+local cy         = (UL_Y + 0.5 * H)
+
+local CENTER_X     = CENTER_X or cx
+local CENTER_Y     = CENTER_Y or cy
+local dcx        = mils_per_pixel * (CENTER_X - cx)
+local dcy          = mils_per_pixel * (CENTER_Y - cy)
+
+local half_x     = 0.5 * W * mils_per_pixel
+local half_y     = 0.5 * H * mils_per_pixel
+
+vtb_hdg_text_size_y = 64 -- 50
+
+local object = CreateElement "ceTexPoly"
+    object.material =  vtb_hdg_ar_material
+    object.vertices =  {{-half_x - dcx, half_y + dcy},
+              { half_x - dcx, half_y + dcy},
+              { half_x - dcx,-half_y + dcy},
+              {-half_x - dcx,-half_y + dcy}}
+    object.tex_coords = vtb_hdg_texture_box(UL_X,UL_Y,W,H)
+    object.indices  = box_indices
+    return object
 end
 
 -- VTB Radar
@@ -215,7 +247,36 @@ local object = CreateElement "ceTexPoly"
 	  return object
 end
 
+function create_vtb_grid_3_box(UL_X,UL_Y,DR_X,DR_Y,CENTER_X,CENTER_Y)
+  
+  local mils_per_pixel = vtb_grid_scale
+  local W          = DR_X - UL_X
+  local H          = DR_Y - UL_Y
+  local cx         = (UL_X + 0.5 * W)
+  local cy         = (UL_Y + 0.5 * H)
+  
+  local CENTER_X     = CENTER_X or cx
+  local CENTER_Y     = CENTER_Y or cy
+  local dcx        = mils_per_pixel * (CENTER_X - cx)
+  local dcy          = mils_per_pixel * (CENTER_Y - cy)
+  
+  local half_x     = 0.5 * W * mils_per_pixel
+  local half_y     = 0.5 * H * mils_per_pixel
+  
+  
+  local object = CreateElement "ceTexPoly"
+    object.material =  vtb_Grid_3_material
+    object.vertices =  {{-half_x - dcx, half_y + dcy},
+              { half_x - dcx, half_y + dcy},
+              { half_x - dcx,-half_y + dcy},
+              {-half_x - dcx,-half_y + dcy}}
+    object.tex_coords = vtb_texture_box(UL_X,UL_Y,W,H)
+    object.indices    = box_indices
+    
+  return object
+end
 
+-- VTB Indicators
 function create_vtb_textured_box(UL_X,UL_Y,DR_X,DR_Y,CENTER_X,CENTER_Y)
 
 local mils_per_pixel = vtb_scale

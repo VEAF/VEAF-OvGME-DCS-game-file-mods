@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 1.81 (10/01/2020) for DCS World 2.5.6.55743 (09/30/2020)
+-- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
 -- -----------------------------------------------------------------------------
 dofile(LockOn_Options.common_script_path.."Fonts/symbols_locale.lua")
 dofile(LockOn_Options.common_script_path.."Fonts/fonts_cmn.lua")
@@ -210,11 +210,13 @@ textures["vth_line_material"]	= {nil, materials["VTH_GREEN_ATT"]} -- {nil, mater
 ---- VTB ----
 -- Heading Ruler
 textures["vtb_hdg_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/headingtape_vtb_M2KC.dds", materials["VTB_IND_COLOR"]} 
+textures["vtb_hdg_ar_material"]     = {LockOn_Options.script_path.."Resources/IndicationTextures/headingtape_vtb_AR_M2KC.dds", materials["VTB_IND_COLOR"]} 
 
 -- Grids
 textures["vtb_Grid_0_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_0.dds", materials["VTB_IND_COLOR"]}
 textures["vtb_Grid_1_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_1.dds", materials["VTB_IND_COLOR"]}
 textures["vtb_Grid_2_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Grid_2.dds", materials["VTB_IND_COLOR"]}
+textures["vtb_Grid_3_material"]   = {LockOn_Options.script_path.."Resources/IndicationTextures/M2KC_VTB_Cadr_AR.dds", materials["VTB_IND_COLOR"]}
 
 -- Symbols
 textures["vtb_ind_material"]      = {LockOn_Options.script_path.."Resources/IndicationTextures/Indication_VTB_M2KC.dds", materials["VTB_IND_COLOR"]}
