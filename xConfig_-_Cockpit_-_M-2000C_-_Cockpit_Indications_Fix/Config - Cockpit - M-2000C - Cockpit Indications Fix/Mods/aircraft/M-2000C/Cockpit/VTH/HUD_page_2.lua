@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
+-- Mod version  : 2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -262,26 +262,26 @@ Ret_CCRP_Sight_Cue.controllers    = {{"ag_ccrp_CUE", 0.8}}
 AddHUDElement(Ret_CCRP_Sight_Cue)
 
 -- CCRP IP
-local CCRP_IP_reticule            =  create_vth_textured_box(525, 57, 583, 114)   -- ( 526, 59, 581, 113)
-CCRP_IP_reticule.name             = "CCRP_IP_reticule"
-CCRP_IP_reticule.init_pos         = {0, 0, 0}
-CCRP_IP_reticule.parent_element   = FOV_center2.name
-CCRP_IP_reticule.controllers      = {{"ag_ccrp_IP_TGT"}}
-AddHUDElement(CCRP_IP_reticule)
+--local CCRP_IP_reticule            =  create_vth_textured_box(525, 57, 583, 114)   -- ( 526, 59, 581, 113)
+--CCRP_IP_reticule.name             = "CCRP_IP_reticule"
+--CCRP_IP_reticule.init_pos         = {0, 0, 0}
+--CCRP_IP_reticule.parent_element   = FOV_center2.name
+--CCRP_IP_reticule.controllers      = {{"ag_ccrp_IP_TGT"}}
+--AddHUDElement(CCRP_IP_reticule)
 
-local Ret_CCRP_IP_TRK_ERR         = create_vth_textured_box(806, 887, 1013, 894)  -- ( 808, 888, 1001, 892)
-Ret_CCRP_IP_TRK_ERR.name          = "Ret_CCRP_IP_TRK_ERR"
-Ret_CCRP_IP_TRK_ERR.init_pos      = {0, 0, 0}
-Ret_CCRP_IP_TRK_ERR.parent_element= vth_fpm_ccip.name
-Ret_CCRP_IP_TRK_ERR.controllers   = {{"ag_ccrp_IP_ERR", 0.8}}
-AddHUDElement(Ret_CCRP_IP_TRK_ERR)
+--local Ret_CCRP_IP_TRK_ERR         = create_vth_textured_box(806, 887, 1013, 894)  -- ( 808, 888, 1001, 892)
+--Ret_CCRP_IP_TRK_ERR.name          = "Ret_CCRP_IP_TRK_ERR"
+--Ret_CCRP_IP_TRK_ERR.init_pos      = {0, 0, 0}
+--Ret_CCRP_IP_TRK_ERR.parent_element= vth_fpm_ccip.name
+--Ret_CCRP_IP_TRK_ERR.controllers   = {{"ag_ccrp_IP_ERR", 0.8}}
+--AddHUDElement(Ret_CCRP_IP_TRK_ERR)
 
-local Ret_CCRP_IP_REL_Cue         = create_vth_textured_box(266, 212, 426, 219)   -- ( 268, 214, 372, 218)
-Ret_CCRP_IP_REL_Cue.name          = "Ret_CCRP_IP_REL_Cue"
-Ret_CCRP_IP_REL_Cue.init_pos      = {0, 0, 0}
-Ret_CCRP_IP_REL_Cue.parent_element= vth_fpm_ccip.name
-Ret_CCRP_IP_REL_Cue.controllers   = {{"ag_ccrp_IP_CUE", 0.8}}
-AddHUDElement(Ret_CCRP_IP_REL_Cue)
+--local Ret_CCRP_IP_REL_Cue         = create_vth_textured_box(266, 212, 426, 219)   -- ( 268, 214, 372, 218)
+--Ret_CCRP_IP_REL_Cue.name          = "Ret_CCRP_IP_REL_Cue"
+--Ret_CCRP_IP_REL_Cue.init_pos      = {0, 0, 0}
+--Ret_CCRP_IP_REL_Cue.parent_element= vth_fpm_ccip.name
+--Ret_CCRP_IP_REL_Cue.controllers   = {{"ag_ccrp_IP_CUE", 0.8}}
+--AddHUDElement(Ret_CCRP_IP_REL_Cue)
 
 -- CCIP
 local Ret_CCIP_Sight              = create_vth_textured_box(594, 71, 703, 107)    -- ( 596, 71, 700, 105)
@@ -294,7 +294,7 @@ AddHUDElement(Ret_CCIP_Sight)
 local Ret_CCIP_BFL                = CreateElement "ceSimpleLineObject"
 Ret_CCIP_BFL.name                 = "Ret_CCIP_BFL"
 Ret_CCIP_BFL.material             = vth_line_material
-Ret_CCIP_BFL.width                = 0.8                                           -- 0.8
+Ret_CCIP_BFL.width                = 0.8                                           -- 0.7
 Ret_CCIP_BFL.init_pos             = {0,0,0}                                       -- {0,0,0}
 Ret_CCIP_BFL.parent_element       = vth_fpm_ccip.name
 Ret_CCIP_BFL.controllers          = {{"ag_ccip_bfl", 0.8}}

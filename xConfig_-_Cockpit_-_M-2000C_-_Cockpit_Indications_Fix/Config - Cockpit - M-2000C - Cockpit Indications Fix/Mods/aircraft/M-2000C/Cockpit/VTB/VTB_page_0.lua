@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
+-- Mod version  : 2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -131,10 +131,10 @@ Add_VTB_Element(vtb_rdr_az_stt_bmode)
 vtb_r_txt_rng                       = CreateElement "ceStringPoly"
 vtb_r_txt_rng.name                  = "vtb_r_txt_rng"
 vtb_r_txt_rng.material              = vtb_indication_font
-vtb_r_txt_rng.init_pos              = {0.06, 0.69, 0.0}                           -- {0.06, 0.66, 0.0}
+vtb_r_txt_rng.init_pos              = {0.07, 0.67, 0.0}                           -- {0.0, 0.6, 0.0}
 vtb_r_txt_rng.alignment             = "CenterCenter"
 vtb_r_txt_rng.formats               = {"%d"}
-vtb_r_txt_rng.stringdefs            = vtb_font_size_default                       -- {0.004,0.004}
+vtb_r_txt_rng.stringdefs            = vtb_font_size_small                         -- {0.004,0.004}
 vtb_r_txt_rng.controllers           = {{"txt_radar_rng"}}
 Add_VTB_Element(vtb_r_txt_rng)
 
@@ -308,90 +308,25 @@ vtb_nav_wpr1.controllers        = {{"txt_nav_wpr1"}}
 --Add_VTB_Element(vtb_nav_wpr1)
 
 -- Waypoints
-local vtb_wp_1_pos              = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
-vtb_wp_1_pos.name               = "vtb_wp_1_pos"
-vtb_wp_1_pos.init_pos           = {0.0,-0.7, 0.0}
-vtb_wp_1_pos.controllers        = {{"wp01_pos"}}
-Add_VTB_Element(vtb_wp_1_pos)
+-- Waypoints
+for i=0,4 do
+  local	vtb_wp_i_pos            = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
+  vtb_wp_i_pos.name             = "vtb_wp_"..i.."_pos"
+  vtb_wp_i_pos.init_pos         = {0.0,-0.7, 0.0}
+  vtb_wp_i_pos.controllers      = {{"wp_pos", 1.0*i}}
+  Add_VTB_Element(vtb_wp_i_pos)
 
-local vtb_wp_1_lbl              = CreateElement "ceStringPoly"
-vtb_wp_1_lbl.name               = "vtb_wp_1_lbl"
-vtb_wp_1_lbl.material           = vtb_indication_font
-vtb_wp_1_lbl.init_pos           = {0.07,0.0, 0.0}
-vtb_wp_1_lbl.alignment          = "CenterCenter"
-vtb_wp_1_lbl.formats            = {"%d"}
-vtb_wp_1_lbl.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
-vtb_wp_1_lbl.parent_element     = vtb_wp_1_pos.name
-vtb_wp_1_lbl.controllers        = {{"wp01_lbl"}}
-Add_VTB_Element(vtb_wp_1_lbl)
-
-local vtb_wp_2_pos              = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
-vtb_wp_2_pos.name               = "vtb_wp_2_pos"
-vtb_wp_2_pos.init_pos           = {0.0,-0.7, 0.0}
-vtb_wp_2_pos.controllers        = {{"wp02_pos"}}
-Add_VTB_Element(vtb_wp_2_pos)
-
-local vtb_wp_2_lbl              = CreateElement "ceStringPoly"
-vtb_wp_2_lbl.name               = "vtb_wp_2_lbl"
-vtb_wp_2_lbl.material           = vtb_indication_font
-vtb_wp_2_lbl.init_pos           = {0.07,0.0, 0.0}
-vtb_wp_2_lbl.alignment          = "CenterCenter"
-vtb_wp_2_lbl.formats            = {"%d"}
-vtb_wp_2_lbl.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
-vtb_wp_2_lbl.parent_element     = vtb_wp_2_pos.name
-vtb_wp_2_lbl.controllers        = {{"wp02_lbl"}}
-Add_VTB_Element(vtb_wp_2_lbl)
-
-local vtb_wp_3_pos              = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
-vtb_wp_3_pos.name               = "vtb_wp_3_pos"
-vtb_wp_3_pos.init_pos           = {0.0,-0.7, 0.0}
-vtb_wp_3_pos.controllers        = {{"wp03_pos"}}
-Add_VTB_Element(vtb_wp_3_pos)
-
-local vtb_wp_3_lbl              = CreateElement "ceStringPoly"
-vtb_wp_3_lbl.name               = "vtb_wp_3_lbl"
-vtb_wp_3_lbl.material           = vtb_indication_font
-vtb_wp_3_lbl.init_pos           = {0.07,0.0, 0.0}
-vtb_wp_3_lbl.alignment          = "CenterCenter"
-vtb_wp_3_lbl.formats            = {"%d"}
-vtb_wp_3_lbl.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
-vtb_wp_3_lbl.parent_element     = vtb_wp_3_pos.name
-vtb_wp_3_lbl.controllers        = {{"wp03_lbl"}}
-Add_VTB_Element(vtb_wp_3_lbl)
-
-local vtb_wp_4_pos              = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
-vtb_wp_4_pos.name               = "vtb_wp_4_pos"
-vtb_wp_4_pos.init_pos           = {0.0,-0.7, 0.0}
-vtb_wp_4_pos.controllers        = {{"wp04_pos"}}
-Add_VTB_Element(vtb_wp_4_pos)
-
-local vtb_wp_4_lbl              = CreateElement "ceStringPoly"
-vtb_wp_4_lbl.name               = "vtb_wp_4_lbl"
-vtb_wp_4_lbl.material           = vtb_indication_font
-vtb_wp_4_lbl.init_pos           = {0.07,0.0, 0.0}
-vtb_wp_4_lbl.alignment          = "CenterCenter"
-vtb_wp_4_lbl.formats            = {"%d"}
-vtb_wp_4_lbl.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
-vtb_wp_4_lbl.parent_element     = vtb_wp_4_pos.name
-vtb_wp_4_lbl.controllers        = {{"wp04_lbl"}}
-Add_VTB_Element(vtb_wp_4_lbl)
-
-local vtb_wp_5_pos              = create_vtb_textured_box(23, 223, 58, 258)       -- (23, 221, 60, 258)
-vtb_wp_5_pos.name               = "vtb_wp_5_pos"
-vtb_wp_5_pos.init_pos           = {0.0,-0.7, 0.0}
-vtb_wp_5_pos.controllers        = {{"wp05_pos"}}
-Add_VTB_Element(vtb_wp_5_pos)
-
-local vtb_wp_5_lbl              = CreateElement "ceStringPoly"
-vtb_wp_5_lbl.name               = "vtb_wp_5_lbl"
-vtb_wp_5_lbl.material           = vtb_indication_font
-vtb_wp_5_lbl.init_pos           = {0.07,0.0, 0.0}
-vtb_wp_5_lbl.alignment          = "CenterCenter"
-vtb_wp_5_lbl.formats            = {"%d"}
-vtb_wp_5_lbl.stringdefs         = vtb_font_size_default                           -- {0.004,0.004}
-vtb_wp_5_lbl.parent_element     = vtb_wp_5_pos.name
-vtb_wp_5_lbl.controllers        = {{"wp05_lbl"}}
-Add_VTB_Element(vtb_wp_5_lbl)
+  local	vtb_wp_i_lbl            = CreateElement "ceStringPoly"
+  vtb_wp_i_lbl.name             = "vtb_wp_"..i.."_lbl"
+  vtb_wp_i_lbl.material         = vtb_indication_font
+  vtb_wp_i_lbl.init_pos         = {0.07,0.0, 0.0}
+  vtb_wp_i_lbl.alignment        = "CenterCenter"
+  vtb_wp_i_lbl.formats          = {"%d"}
+  vtb_wp_i_lbl.stringdefs       = vtb_font_size_default                           -- {0.004,0.004}
+  vtb_wp_i_lbl.parent_element   = vtb_wp_i_pos.name
+  vtb_wp_i_lbl.controllers      = {{"wp_lbl", 1.0*i}}
+  Add_VTB_Element(vtb_wp_i_lbl)
+end
 
 -- Radar lock mode
 vtb_r_txt_aalmod                = CreateElement "ceStringPoly"

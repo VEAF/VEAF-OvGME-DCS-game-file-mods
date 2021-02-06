@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
+-- Mod version  : 2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTB/"
 dofile(my_path.."VTB_definitions.lua")
@@ -144,15 +144,6 @@ Add_VTB_Element(vtb_rdr_IFF_bmode_15_mem)
 
 -- Info Messages
 -- Top
-vtb_r_txt_rng                 = CreateElement "ceStringPoly"
-vtb_r_txt_rng.name            = "vtb_r_txt_rng"
-vtb_r_txt_rng.material        = vtb_indication_font
-vtb_r_txt_rng.init_pos        = {0.07, 0.67, 0.0}                                  -- {0.0, 0.6, 0.0}
-vtb_r_txt_rng.alignment       = "CenterCenter"
-vtb_r_txt_rng.formats         = {"%d"}
-vtb_r_txt_rng.stringdefs      = vtb_font_size_small                                -- {0.004,0.004}
-vtb_r_txt_rng.controllers     = {{"txt_radar_rng"}}
-Add_VTB_Element(vtb_r_txt_rng)
 
 vtb_r_txt_aamod               = CreateElement "ceStringPoly"
 vtb_r_txt_aamod.name          = "vtb_r_txt_aamod"

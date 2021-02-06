@@ -3,7 +3,7 @@ ________________________________________________________________________________
                     Cockpit Indications Fix by Sedenion
                       for DCS Mirage 2000C by RAZBAM
 
-           v2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
+          v2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
 ________________________________________________________________________________
 
 
@@ -189,6 +189,16 @@ Modified files:
 Version History
 ________________________________________________________________________________
 
+v2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
+ - Echo changes of the 2.5.6.60966 release.
+
+v2.3.1 (2021-01-05) for DCS World 2.5.6.59625 (2020-12-25)
+ - Fix wrong texture coordonates for Waterline in HUD Approach Mode.
+ - Fix VTB double radar range indication.
+
+v2.3 (2020-12-29) for DCS World 2.5.6.59625 (2020-12-25)
+ - Repack of version 2.2 for 2.5.6.59625 release for Stable version.
+
 v2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
  - Adaptation and update to fit the 2.5.6.59398 release.
 
@@ -304,7 +314,7 @@ v1.0 (11/15/2019) for DCS World 2.5.5.39384 (11/13/2019)
 
 -- END OF DESCRIPTION ---------------------------------------------------------
 
-Open Mod Manager Package file for "M-2000C_-_Cockpit_Indications_Fix_v2.2" Mod.
+Open Mod Manager Package file for "M-2000C_-_Cockpit_Indications_Fix_v2.4" Mod.
 
 This Mod Package was created using Open Mod Manager and is intended to be
 installed using Open Mod Manager or any other compatible software.
@@ -312,7 +322,7 @@ installed using Open Mod Manager or any other compatible software.
 If you want to install this Mod manually, you will find the Mod files into
 the following folder : 
 
-  "M-2000C_-_Cockpit_Indications_Fix_v2.2"
+  "M-2000C_-_Cockpit_Indications_Fix_v2.4"
 
 Its content is respecting the destination folder tree and includes files to
 be overwritten or added :

@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
+-- Mod version  : 2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -327,13 +327,13 @@ AddHUDElement(pl_m90_line)
 local route_bearing               = create_vth_textured_box(805, 21, 834, 52)     -- ( 807, 22, 832,51)
 route_bearing.name                = "route_bearing"
 route_bearing.init_pos            = {0,6,0}                                       -- {0,15,0}
-route_bearing.controllers         = {{"vis_alleg"}, {"route_bearing", 0.28}}      -- {{"vis_alleg"}, {"route_bearing", 0.555}}
+route_bearing.controllers         = {{"vis_alleg"}, {"route_bearing", 0.555}}
 AddHUDElement(route_bearing)
 
 local AP_route_bearing            = create_vth_textured_box(845, 21, 874, 52)     -- ( 847, 22, 872,51)
 AP_route_bearing.name             = "AP_route_bearing"
 AP_route_bearing.init_pos         = {0,6,0}                                       -- {0,15,0}
-AP_route_bearing.controllers      = {{"vis_alleg"}, {"AP_route_bearing", 0.28}}   -- {{"vis_alleg"}, {"AP_route_bearing", 0.555}}
+AP_route_bearing.controllers      = {{"vis_alleg"}, {"AP_route_bearing", 0.555}}
 AddHUDElement(AP_route_bearing)
 
 local AP_route_bearing_val          = CreateElement "ceStringPoly"
@@ -349,7 +349,7 @@ AddHUDElement(AP_route_bearing_val)
 
 -- Optional Elements
 -- Waterline
-local Waterline                   = create_vth_textured_box(600, 675, 715, 705)   -- (900, 575, 1015, 605) => Texture blank
+local Waterline                   = create_vth_textured_box(900, 950, 1015, 980)   -- (900, 575, 1015, 605) => Texture blank
 Waterline.name                    = "Waterline"
 Waterline.init_pos                = {0,-23,0}
 Waterline.controllers             = {{"vis_alleg"}}

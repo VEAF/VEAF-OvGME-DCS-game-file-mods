@@ -12,6 +12,7 @@ join(res.keyCommands,{
 
 {down = control_commands.ApPitchAlt_EXT, up = control_commands.ApPitchAlt_EXT, cockpit_device_id = devices.CONTROL_INTERFACE, value_down =  1.0, value_up = -1.0,    name = _('Autopilot PITCH Switch ALT HOLD/OFF'), category = {_('Instrument Panel'), _('FLCS')}},
 {down = control_commands.ApPitchAtt_EXT, up = control_commands.ApPitchAlt_EXT, cockpit_device_id = devices.CONTROL_INTERFACE, value_down = -1.0,    value_up = -1.0, name = _('Autopilot PITCH Switch ATT HOLD/OFF'), category = {_('Instrument Panel'), _('FLCS')}},
+{down = hmcs_commands.IntKnob_AXIS, up = hmcs_commands.IntKnob_AXIS, cockpit_device_id = devices.HMCS, value_down =  1.0, value_up =  -1.0, name = _('HMCS SYMBOLOGY 2-Pos ON/OFF'), category = {_('Toggle Switches'),_('Left Auxiliary Console')}},
 
 ---------------------------------------------
 -- Cheat ------------------------------------

@@ -144,8 +144,8 @@ join_override(res.keyCommands,{
 {down = device_commands.FUELSYSTEM_WingExt_Trans, cockpit_device_id=devices.FUELSYSTEM, value_down = 0, name = _('Wing/External Transfer Auto'), category = _('Fuelsystem Control Panel')},
 {down = device_commands.FUELSYSTEM_WingExt_Trans, cockpit_device_id=devices.FUELSYSTEM, value_down = -1, name = _('Wing/External Transfer Off'), category = _('Fuelsystem Control Panel')},
 
-{down = device_commands.FUELSYSTEM_Dump,     up = device_commands.FUELSYSTEM_Dump, value_down = 1, value_up = -1, cockpit_device_id=devices.FUELSYSTEM, name = _('Fueldump Off, else Dump'), category = _('Fuelsystem Control Panel')},
-{down = device_commands.FUELSYSTEM_Dump,     up = device_commands.FUELSYSTEM_Dump, value_down = -1, value_up = 1, cockpit_device_id=devices.FUELSYSTEM, name = _('Fueldump Dump, else Off'), category = _('Fuelsystem Control Panel')},
+{down = device_commands.FUELSYSTEM_Dump,     up = device_commands.FUELSYSTEM_Dump, value_down = 1, value_up = -1, cockpit_device_id=devices.FUELSYSTEM, name = _('Fueldump Dump, else Off'), category = _('Fuelsystem Control Panel')},
+{down = device_commands.FUELSYSTEM_Dump,     up = device_commands.FUELSYSTEM_Dump, value_down = -1, value_up = 1, cockpit_device_id=devices.FUELSYSTEM, name = _('Fueldump Off, else Dump'), category = _('Fuelsystem Control Panel')},
 {down = device_commands.FUELSYSTEM_Dump, cockpit_device_id=devices.FUELSYSTEM, value_down = -1, name = _('Fueldump Off'), category = _('Fuelsystem Control Panel')},
 {down = device_commands.FUELSYSTEM_Dump, cockpit_device_id=devices.FUELSYSTEM, value_down = 1, name = _('Fueldump Dump'), category = _('Fuelsystem Control Panel')},
 

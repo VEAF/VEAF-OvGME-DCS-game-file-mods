@@ -1,0 +1,32 @@
+FFXPreset = 
+{
+	FXFile = [[groundExplosion_nar]],
+	ParticlesPerCluster = 1,
+	Lifetime = 13.266667,
+	SmokeColor = {0.47,0.42,0.34},
+	GlowColor = {1.000000,0.576470613,0.13333334},
+	GlowColorCold = {1.000000,0.305882365,0.113725491},
+	GlowBrightness = 300.0,
+	GlowAdditiveness = 1.5,
+	ClusterRadius = 3.500000,
+	ParticleSize = 15.000000, -- 11.700001,
+	OpacityFactor = 1.490000,
+	AngularSpeedFactor = 1.000000,
+	GlowTemperatureMin = 0.000000,
+	GlowBillboardSize = 240, -- 140
+	GlowBillboardBrightness = 1.0, -- 0.7
+	Translucency = 0.200000,
+	DetailParams = {0.500000,0.500000,1.000000,1.000000},
+	DrawBlastWave = 1,
+	BlastWaveRadius = 200.000000, -- 120.000000,
+	DrawPuff = 0,
+	PuffClusersCount = 0, -- 250
+	PuffParticlesPerCluster = 2,
+	PuffCluserRadius = 4.000000,
+	PuffParticleSize = 8.000000,
+	PuffRadius = 70.000000,
+	PuffColor = {0.400000,0.357000,0.302000},
+	LightDecay = 0.900000,
+	ShadowParticleOpacity = 0.640000,
+	ShadowParticleScale = 0.530000,
+}

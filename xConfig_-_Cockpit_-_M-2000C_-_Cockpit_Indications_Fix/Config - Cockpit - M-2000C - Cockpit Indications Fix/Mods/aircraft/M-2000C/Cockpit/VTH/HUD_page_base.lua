@@ -3,7 +3,7 @@
 -- Indications Fix by Sedenion for DCS Mirage 2000C by RAZBAM.
 --
 -- Mod target   : DCS Mirage 2000C by RAZBAM
--- Mod version  : 2.2 (2020-12-19) for DCS World 2.5.6.59398 (2020-12-17)
+-- Mod version  : 2.4 (2021-02-04) for DCS World 2.5.6.60966 (2021-02-03)
 -- -----------------------------------------------------------------------------
 local my_path = LockOn_Options.script_path.."VTH/"
 dofile(my_path.."HUD_definitions.lua")
@@ -384,13 +384,13 @@ AddHUDElement(BUT_reticule)
 local route_bearing               = create_vth_textured_box(805, 21, 834, 52)     -- ( 807, 22, 832,51)
 route_bearing.name                = "route_bearing"
 route_bearing.init_pos            = {0,118,0}                                     -- {0,110,0}
-route_bearing.controllers         = {{"hud_no_ins"}, {"vis_alleg"}, {"route_bearing", 0.28}}      -- {{"hud_no_ins"}, {"vis_alleg"}, {"route_bearing", 0.555}}
+route_bearing.controllers         = {{"hud_no_ins"}, {"vis_alleg"}, {"route_bearing", 0.555}}
 AddHUDElement(route_bearing)
 
 local AP_route_bearing            = create_vth_textured_box(845, 21, 874, 52)     -- ( 847, 22, 872,51)
 AP_route_bearing.name             = "AP_route_bearing"
 AP_route_bearing.init_pos         = {0,118,0}                                     -- {0,110,0}
-AP_route_bearing.controllers      = {{"hud_no_ins"}, {"vis_alleg"}, {"AP_route_bearing", 0.28}}   -- {{"hud_no_ins"}, {"vis_alleg"}, {"AP_route_bearing", 0.555}}
+AP_route_bearing.controllers      = {{"hud_no_ins"}, {"vis_alleg"}, {"AP_route_bearing", 0.555}}
 AddHUDElement(AP_route_bearing) 
 
 local AP_route_bearing_val          = CreateElement "ceStringPoly"
@@ -420,7 +420,7 @@ local UNI_rdr_update_ret          = create_vth_textured_box(455, 226, 504, 283) 
 UNI_rdr_update_ret.name           = "UNI_rdr_update_ret"
 UNI_rdr_update_ret.init_pos       = {0,0,0}                                       -- {0,0,0}
 UNI_rdr_update_ret.parent_element = VTH_center.name
-UNI_rdr_update_ret.controllers    = {{"hud_no_ins"}, {"hud_roll" , 1.0}, {"uni_rdr_obl_ret", 5.0}}
+UNI_rdr_update_ret.controllers    = {{"hud_no_ins"}, {"uni_rdr_obl_ret"}}
 AddHUDElement(UNI_rdr_update_ret)
 
 local UNI_rdr_update_val          = CreateElement "ceStringPoly"
@@ -573,78 +573,90 @@ AAM_Tracking_Guide.controllers    = {{"hud_no_ins"}, {"hud_aa_mode"}, {"radar_tg
 AddHUDElement(AAM_Tracking_Guide)
 
 -- MAGIC II
-local Magic_Lock              = create_vth_textured_box(18, 942, 94, 1019)        -- (19, 943, 92, 1017)
-Magic_Lock.name               = "Magic_Lock"
-Magic_Lock.init_pos           = {0, 0, 0}
-Magic_Lock.parent_element     = VTH_center.name
-Magic_Lock.controllers        = {{"vis_magic_l", 0.6}}
+local Magic_Lock                  = create_vth_textured_box(18, 942, 94, 1019)        -- (19, 943, 92, 1017)
+Magic_Lock.name                   = "Magic_Lock"
+Magic_Lock.init_pos               = {0, 0, 0}
+Magic_Lock.parent_element         = VTH_center.name
+Magic_Lock.controllers            = {{"vis_magic_l", 0.6}}
 AddHUDElement(Magic_Lock)
 
-local	Magic_Lock_OOB					= create_vth_textured_box(282, 828, 360, 905)       -- (282, 828, 358, 902)
-Magic_Lock_OOB.name				    = "Magic_Lock_OOB"
-Magic_Lock_OOB.init_pos			  = {0, 0, 0}
-Magic_Lock_OOB.parent_element	= VTH_center.name
-Magic_Lock_OOB.controllers		= {{"vis_magic_l", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
+local	Magic_Lock_OOB              = create_vth_textured_box(282, 828, 360, 905)       -- (282, 828, 358, 902)
+Magic_Lock_OOB.name               = "Magic_Lock_OOB"
+Magic_Lock_OOB.init_pos           = {0, 0, 0}
+Magic_Lock_OOB.parent_element     = VTH_center.name
+Magic_Lock_OOB.controllers        = {{"vis_magic_l", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
 AddHUDElement(Magic_Lock_OOB)
 
-local Magic_Slave             = create_vth_textured_box(44, 838, 147, 934)        -- (36, 822, 156, 928)
-Magic_Slave.name              = "Magic_Slave"
-Magic_Slave.init_pos          = {0, 0, 0}
-Magic_Slave.parent_element    = VTH_center.name
-Magic_Slave.controllers       = {{"hud_no_ins"}, {"vis_magic_r", 0.6}}
-AddHUDElement(Magic_Slave)
+local magic_triangle              = create_vth_textured_box(44, 838, 147, 934)        -- (36, 822, 156, 928)
+magic_triangle.name               = "magic_triangle"
+magic_triangle.init_pos           = {0, 0, 0}
+magic_triangle.parent_element     = VTH_center.name
+magic_triangle.controllers        = {{"hud_no_ins"}, {"vis_magic_r", 0.6}}
+AddHUDElement(magic_triangle)
 
-local	Magic_Slave_OOB					= create_vth_textured_box(172, 838, 275, 934)       -- (162, 822, 252, 928)
-Magic_Slave_OOB.name			    = "Magic_Slave_OOB"
-Magic_Slave_OOB.init_pos		  = {0, 0, 0}
-Magic_Slave_OOB.parent_element	= VTH_center.name
-Magic_Slave_OOB.controllers		= {{"hud_no_ins"}, {"vis_magic_r", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
-AddHUDElement(Magic_Slave_OOB)
+local	magic_triangle_oob          = create_vth_textured_box(172, 838, 275, 934)       -- (162, 822, 252, 928)
+magic_triangle_oob.name           = "magic_triangle_oob"
+magic_triangle_oob.init_pos       = {0, 0, 0}
+magic_triangle_oob.parent_element = VTH_center.name
+magic_triangle_oob.controllers    = {{"hud_no_ins"}, {"vis_magic_r", 0.6}, {"bound_by_circle", RFOV_radius * GetScale()}}
+AddHUDElement(magic_triangle_oob)
+
+--IFF "A" target overlay for magic triangle
+local	mag_tri_iff_status          = CreateElement "ceStringPoly"
+mag_tri_iff_status.name           = "mag_tri_iff_status"
+mag_tri_iff_status.material       = indication_font
+mag_tri_iff_status.init_pos       = {4.0, 0, 0}
+mag_tri_iff_status.alignment      = "CenterCenter"
+mag_tri_iff_status.formats        = {"%s"}
+mag_tri_iff_status.stringdefs     = font_size_default                                 -- {0.006,0.006}
+mag_tri_iff_status.parent_element = magic_triangle.name
+mag_tri_iff_status.controllers    = {{"hud_aa_mode"}, {"radar_tgt_iff_status"}}
+AddHUDElement(mag_tri_iff_status)
 
 -- MAV
-local	Magic_MAV					      = create_vth_textured_box(456, 291, 503, 330)       -- (627, 70, 670, 105)
-Magic_MAV.name				        = "Magic_MAV"
-Magic_MAV.init_pos			      = {0, 0, 0}
-Magic_MAV.parent_element	    = VTH_center.name
-Magic_MAV.controllers		      = {{"vis_magic_mav", 0.6}}
+local	Magic_MAV                   = create_vth_textured_box(456, 291, 503, 330)       -- (627, 70, 670, 105)
+Magic_MAV.name                    = "Magic_MAV"
+Magic_MAV.init_pos                = {0, 0, 0}
+Magic_MAV.parent_element          = VTH_center.name
+Magic_MAV.controllers             = {{"vis_magic_mav", 0.6}}
 AddHUDElement(Magic_MAV)
 
-local	AA_MAV_Icon_VScan				= create_vth_textured_box(410, 225, 426, 261)       -- ( 410, 236, 425, 258)
-AA_MAV_Icon_VScan.name			  = "AA_MAV_Icon_VScan"
-AA_MAV_Icon_VScan.init_pos		= {-83, 15.5, 0}                                    -- {-85, -4, 0}
-AA_MAV_Icon_VScan.controllers	= {{"aa_cam_icon_vscan"}}
+local	AA_MAV_Icon_VScan           = create_vth_textured_box(410, 225, 426, 261)       -- ( 410, 236, 425, 258)
+AA_MAV_Icon_VScan.name            = "AA_MAV_Icon_VScan"
+AA_MAV_Icon_VScan.init_pos        = {-83, 15.5, 0}                                    -- {-85, -4, 0}
+AA_MAV_Icon_VScan.controllers     = {{"aa_cam_icon_vscan"}}
 AddHUDElement(AA_MAV_Icon_VScan)
 
-local	AA_MAV_Icon_HScan				= create_vth_textured_box(403, 262, 439, 276)       -- ( 405, 261, 430, 276)
-AA_MAV_Icon_HScan.name			  = "AA_MAV_Icon_HScan"
-AA_MAV_Icon_HScan.init_pos		= {-83, 15.5, 0}                                    -- {-85, -4, 0}
-AA_MAV_Icon_HScan.controllers	= {{"aa_cam_icon_hscan"}}
+local	AA_MAV_Icon_HScan           = create_vth_textured_box(403, 262, 439, 276)       -- ( 405, 261, 430, 276)
+AA_MAV_Icon_HScan.name            = "AA_MAV_Icon_HScan"
+AA_MAV_Icon_HScan.init_pos        = {-83, 15.5, 0}                                    -- {-85, -4, 0}
+AA_MAV_Icon_HScan.controllers     = {{"aa_cam_icon_hscan"}}
 AddHUDElement(AA_MAV_Icon_HScan)
 
-local	AA_MAV_VNSUL				    = create_vth_textured_box(362, 637, 445, 720)     -- ( 360, 634, 442, 716)
-AA_MAV_VNSUL.name			        = "AA_MAV_VNSUL"
-AA_MAV_VNSUL.init_pos		      = {0.0, 0.0, 0}
-AA_MAV_VNSUL.controllers	    = {{"aam_MAG_MAV", -2.5, 2.5, 0.6}}
-AA_MAV_VNSUL.parent_element	  = VTH_center.name
+local	AA_MAV_VNSUL                = create_vth_textured_box(362, 637, 445, 720)     -- ( 360, 634, 442, 716)
+AA_MAV_VNSUL.name                 = "AA_MAV_VNSUL"
+AA_MAV_VNSUL.init_pos             = {0.0, 0.0, 0}
+AA_MAV_VNSUL.controllers          = {{"aam_MAG_MAV", -2.5, 2.5, 0.6}}
+AA_MAV_VNSUL.parent_element       = VTH_center.name
 AddHUDElement(AA_MAV_VNSUL)
 
-local	AA_MAV_VNSUR				    = create_vth_textured_box(445, 637, 531, 720)     -- ( 449, 634, 531, 716)
-AA_MAV_VNSUR.name			        = "AA_MAV_VNSUR"
-AA_MAV_VNSUR.init_pos		      = {0.0, 0.0, 0}
-AA_MAV_VNSUR.controllers	    = {{"aam_MAG_MAV", 2.5, 2.5, 0.6}}
-AA_MAV_VNSUR.parent_element	  = VTH_center.name
+local	AA_MAV_VNSUR                = create_vth_textured_box(445, 637, 531, 720)     -- ( 449, 634, 531, 716)
+AA_MAV_VNSUR.name                 = "AA_MAV_VNSUR"
+AA_MAV_VNSUR.init_pos             = {0.0, 0.0, 0}
+AA_MAV_VNSUR.controllers          = {{"aam_MAG_MAV", 2.5, 2.5, 0.6}}
+AA_MAV_VNSUR.parent_element       = VTH_center.name
 AddHUDElement(AA_MAV_VNSUR)
 
-local	AA_MAV_VNSDL				    = create_vth_textured_box(362, 720, 445, 803)     --( 360, 725, 442, 807)
-AA_MAV_VNSDL.name			        = "AA_MAV_VNSDL"
-AA_MAV_VNSDL.init_pos		      = vth_base_init_pos
-AA_MAV_VNSDL.controllers	    = {{"aam_MAG_MAV", -2.5, -2.0, 0.6}}
+local	AA_MAV_VNSDL                = create_vth_textured_box(362, 720, 445, 803)     --( 360, 725, 442, 807)
+AA_MAV_VNSDL.name                 = "AA_MAV_VNSDL"
+AA_MAV_VNSDL.init_pos             = vth_base_init_pos
+AA_MAV_VNSDL.controllers          = {{"aam_MAG_MAV", -2.5, -2.0, 0.6}}
 AddHUDElement(AA_MAV_VNSDL)
 
-local	AA_MAV_VNSDR				    = create_vth_textured_box(445, 720, 531, 803)     -- ( 449, 725, 531, 807)
-AA_MAV_VNSDR.name			        = "AA_MAV_VNSDR"
-AA_MAV_VNSDR.init_pos		      = vth_base_init_pos
-AA_MAV_VNSDR.controllers	    = {{"aam_MAG_MAV", 2.5, -2.0, 0.6}}
+local	AA_MAV_VNSDR                = create_vth_textured_box(445, 720, 531, 803)     -- ( 449, 725, 531, 807)
+AA_MAV_VNSDR.name                 = "AA_MAV_VNSDR"
+AA_MAV_VNSDR.init_pos             = vth_base_init_pos
+AA_MAV_VNSDR.controllers          = {{"aam_MAG_MAV", 2.5, -2.0, 0.6}}
 AddHUDElement(AA_MAV_VNSDR)
 
 -- Auxiliary Gunsight
@@ -666,7 +678,7 @@ Hausse_manuelle_txt.controllers   = {{"vth_aux_gunsight_decl"}}
 Hausse_manuelle_txt.parent_element = Hausse_manuelle.name
 AddHUDElement(Hausse_manuelle_txt)
 
--- HUD Warnings
+-- HUD Text Warnings
 local vth_panne_TNV               = create_vth_textured_box(0, 234, 149, 338)     -- ( 2, 235, 147, 336) -- => barres "rateau"
 vth_panne_TNV.name                = "vth_panne_TNV"
 vth_panne_TNV.init_pos            = {0, -100, 0}

@@ -3,7 +3,7 @@ Improved smoke effects.
 Effets de fumée améliorés.
 
 ---------------------------------------
--- Tested with DCS World 2.5.6.59398 --
+-- Tested with DCS World 2.5.6.60966 --
 ---------------------------------------
 
 By Taz (https://forums.eagle.ru/showthread.php?t=284590)
