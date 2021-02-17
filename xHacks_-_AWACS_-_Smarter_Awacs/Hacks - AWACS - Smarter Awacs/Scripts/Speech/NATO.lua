@@ -172,46 +172,6 @@ ChicksInTowHandler = {
 }
 
 --AWACS
-local function _output(o, level)
-	if level == nil then level = 0 end
-	if level > 20 then 
-			return ""
-	end
-	local text = ""
-	if (base.type(o) == "table") then
-			text = "\n"
-			for key,value in base.pairs(o) do
-					for i=0, level do
-							text = text .. " "
-					end
-					text = text .. ".".. key.."=".._output(value, level+1) .. "\n";
-			end
-	elseif (base.type(o) == "function") then
-			text = "[function]";
-	elseif (base.type(o) == "boolean") then
-			if o == true then 
-					text = "[true]";
-			else
-					text = "[false]";
-			end
-	else
-			if o == nil then
-					text = "[nil]";    
-			else
-					text = base.tostring(o);
-			end
-	end
-	return text
-end
-
-local function horribleLog(message)
-	local file, err = io.open("AWACSbanditBearingHandler.log", 'a+')
-	if file then
-		file:write(message)
-		file:close()
-	end
-end
-
 AWACSbanditBearingHandler = {
 	threatRangeCold = 40, -- don't report a BRAA over 40nm if target is cold
 	threatRangeFlanking = 60, -- don't report a BRAA over 60nm if target is flanking
@@ -254,9 +214,6 @@ AWACSbanditBearingHandler = {
 			elseif target.aspect == 2 then
 				threatRange = self.threatRangeHot
 			end
-
-			-- log the contact (only for debugging, will be removed - I promise)
-			horribleLog(base.string.format("BRA %s, %s, %s, %s ; self.threatRange=%s",_output(azimuthStr), _output(distanceInNm), _output(targetBlock), _output(target.aspect), _output(threatRange)))
 
 			-- only announce the contact if the range is closer to the selected threat range
 			if (distanceInNm < threatRange) then
